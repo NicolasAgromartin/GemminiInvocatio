@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34ecf80e52934241b21f854dd673c57, type: 3}
+  m_Name: Creature
+  m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
+  fiendName: Creature A
+  type: 1
+  modelPrefab: {fileID: 3460728586348566473, guid: a3dd62ad542f95247be4d0575d95c2bf, type: 3}
+  stats:
+    Health: 3
+    Attack: 5
+    Defense: 4
+    MaxMovementSpeed: 2
+    AttackRange: 1
+  intervalsBetweenAttacks: 0
