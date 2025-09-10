@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHurtState : BaseState
 {
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
     public PlayerHurtState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
         this.stateMachine = stateMachine;
@@ -34,7 +34,7 @@ public class PlayerHurtState : BaseState
     private IEnumerator RunHurtAnimation()
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length / 2);
-        OnEventOccurred?.Invoke(PlayerEvent.End);
+        OnEventOccurred?.Invoke(TransitionEvent.End);
     }
 
 

@@ -13,16 +13,18 @@ TagManager:
   - DamageableArea
   - Remains
   - FiendModel
+  - DetectionCollider
+  - Gate
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Entity
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Ground
+  - Wall
+  - Interactable
   - 
   - 
   - 

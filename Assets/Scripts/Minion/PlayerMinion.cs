@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,11 +8,7 @@ using UnityEngine.AI;
 public class PlayerMinion : Fiend
 {
     private GameObject player;
-    private NavMeshAgent agent;
-    [SerializeField] private TMP_Text currentAction;
 
-    public float attackRange;
-    private readonly float timeBetweenAttacks = 1f;
     private readonly float attackWindowTime = .5f;
     private readonly float maxRange = 20f;
 
@@ -26,14 +21,18 @@ public class PlayerMinion : Fiend
     #region Life Cykle
     new private void Awake()
     {
-        base.Awake();
+        if (data != null) base.Awake();
 
         Destroy(GetComponent<Remains>());
         Destroy(GetComponent<SphereCollider>());
 
-        attackPerformer = GetComponentInChildren<AttackPerformer>();
+        attackPerformer = GetComponentInChildren<AttackPerformer>(true);
+        attackPerformer.enabled = true;
+
         agent = GetComponent<NavMeshAgent>();
         player = FindAnyObjectByType<Player>().gameObject;
+
+        //agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
     }
     private void OnEnable()
     {
@@ -58,16 +57,13 @@ public class PlayerMinion : Fiend
     public void SetMinionData(FiendSO data)
     {
         this.data = data;
+        base.Awake();
         WeakenByResurrection();
     }
     private void WeakenByResurrection()
     {
-        //Debug.Log(Stats.Health);
-        Debug.Log(data.stats.Health);
-
-        //Stats.Defense /= 2;
-        //Stats.Attack /= 2;
-        //Stats.Health /= 2;
+        Stats.Attack /= 2;
+        Stats.Health /= 2;
     }
 
 
@@ -76,6 +72,8 @@ public class PlayerMinion : Fiend
     #region Tactics System
     private void SuscribeToTactics(GameObject minionSelected)
     {
+        // el input manager detecta todos los colliders el prefab y te lleva al root de todos
+        // que es donde esta el tag PlayerMinion y este script
 
         if (minionSelected != this.gameObject)
         {
@@ -105,6 +103,8 @@ public class PlayerMinion : Fiend
     #region Tactic Actions
     private void ReturnToPlayer()
     {
+        Debug.Log("Return");
+
         StopAllCoroutines();
         StartCoroutine(FollowTarget(player));
 
@@ -133,28 +133,29 @@ public class PlayerMinion : Fiend
     {
         while (enabled)
         {
+            agent.SetDestination(Vector3.Distance(transform.position, target.transform.position) > data.attackRange ?
+                target.transform.position : transform.position);
+
             if (target.CompareTag("Enemy"))
             {
                 // corrutina que cada cierto interavlo de tiempo
                 // si el enemigo sigue en el rango de ataque lo ataca
                 // si esta fuera del rango vuelvo a la corrutina de follow target
-                agent.SetDestination(Vector3.Distance(transform.position, target.transform.position) > attackRange ? 
-                    target.transform.position : transform.position);
 
 
                 yield return StartCoroutine(PerformAttack());
 
             }
-            else agent.SetDestination(target.transform.position);
+
             yield return null;
         }
     }
     private IEnumerator PerformAttack()
     {
-        while (Vector3.Distance(agent.destination, transform.position) <= attackRange)
+        while (Vector3.Distance(agent.destination, transform.position) <= 2)
         {
             yield return StartCoroutine(attackPerformer.PerformAttack(attackWindowTime));
-            yield return new WaitForSeconds(timeBetweenAttacks);
+            yield return new WaitForSeconds(data.timeBetweenAttacks);
         }
     }
     #endregion

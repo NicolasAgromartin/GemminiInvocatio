@@ -43,6 +43,7 @@ public static class TacticsSystem
     public static void SelectEnemy(GameObject enemySelected)
     {
         SelectedEnemy = enemySelected;
+        //Debug.Log(enemySelected);
         OnEnemySelected?.Invoke(enemySelected);
     }
     public static void UnselectEnemy()
@@ -52,7 +53,7 @@ public static class TacticsSystem
     }
     public static void SelectPosition(Vector3 posToMove)
     {
-        Debug.Log(posToMove);
+        //Debug.Log(posToMove);
         OnMoveToPositionOrder?.Invoke(posToMove);
     }
     #endregion
@@ -89,7 +90,11 @@ public static class TacticsSystem
 
     #region Particular Actions
     public static void MovePosition(Vector3 positionToMove) => OnMoveToPositionOrder?.Invoke(positionToMove);
-    public static void ChangeTarget(GameObject newTarget) => OnTargetChangeOrder?.Invoke(newTarget);
+    public static void ChangeTarget(GameObject newTarget)
+    {
+        Debug.Log(newTarget);   
+        OnTargetChangeOrder?.Invoke(newTarget);
+    }
     public static void ReturnToPlayer()
     {
         Debug.Log("Return order executed");
