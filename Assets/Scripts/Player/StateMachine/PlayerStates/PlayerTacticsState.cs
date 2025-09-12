@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerTacticsState : BaseState
 {
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
 
     public PlayerTacticsState(PlayerStateMachine stateMachine) : base(stateMachine) 
     {
@@ -14,7 +14,7 @@ public class PlayerTacticsState : BaseState
 
     private PlayerCanvas playerCanvas;
     private GameObject playerMinionSelected;
-    private GameObject enemySelected;
+    //private GameObject enemySelected;
 
 
 
@@ -37,7 +37,7 @@ public class PlayerTacticsState : BaseState
         InputManager.OnPlayerMinionSelected -= SelectPlayerMinion;
 
         playerMinionSelected = null;
-        enemySelected = null;
+        //enemySelected = null;
         playerCanvas.HideMinionTactics();
     }
     #endregion
@@ -54,7 +54,6 @@ public class PlayerTacticsState : BaseState
     private void SelectPlayerMinion(GameObject playerMinion)
     {
         playerMinionSelected = playerMinion;
-
         playerCanvas.ShowMinionTactics(playerMinion);
 
         playerCanvas.OnMoveOrder += EnablePositionSelection;
@@ -99,7 +98,7 @@ public class PlayerTacticsState : BaseState
     }
     private void SelectEnemy(GameObject enemy)
     {
-        enemySelected = enemy;
+
         playerCanvas.ChangeFocusedTarget(enemy);
         TacticsSystem.ChangeTarget(enemy);
     }
@@ -136,7 +135,7 @@ public class PlayerTacticsState : BaseState
         Camera.main.GetComponent<CameraController>().ExitTacticalMode();
         CursorManager.DisableCursor();
 
-        OnEventOccurred?.Invoke(PlayerEvent.Tactics);
+        OnEventOccurred?.Invoke(TransitionEvent.Tactics);
     }
 
 

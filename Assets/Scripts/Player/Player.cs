@@ -8,21 +8,21 @@ using UnityEngine;
 
 public class Player : Unit
 {
+    #region Events
     public event Action<GameObject> OnMinionDead;
     public event Action<List<PlayerMinion>> OnMinionsUpdated;
-
     public event Action<int> OnHealthChanged;
     public event Action<int> OnLivesChanged;
-
     public event Action OnDamageRecieved;
     public event Action OnLifeLost;
-
-
-    [SerializeField] private List<PlayerMinion> minions = new();
-
+    #endregion
 
 
 
+    #region Components
+    private Inventory inventory;
+    private List<PlayerMinion> minions = new();
+    #endregion
 
 
 
@@ -30,14 +30,7 @@ public class Player : Unit
     private void Awake()
     {
         Stats = SaveSystem.LoadPlayerUnitStats();
-    }
-    private void OnEnable()
-    {
-        NecromancySystem.OnUnitResurrected += AddMinion;
-    }
-    private void OnDisable()
-    {
-        NecromancySystem.OnUnitResurrected -= AddMinion;
+        InitiateInventory();
     }
     private void Start()
     {
@@ -69,10 +62,17 @@ public class Player : Unit
             if (lives <= 0)
             {
                 // fin de juego
+                
             }
         }
     }
+    override public void IncreaseHealth(int health)
+    {
+        base.IncreaseHealth(health);
+        OnHealthChanged?.Invoke(Stats.Health);
+    }
     #endregion
+
 
 
     #region Minions
@@ -89,6 +89,15 @@ public class Player : Unit
     }
     #endregion
 
+
+    #region Inventory
+    public void InitiateInventory()
+    {
+        inventory = new();
+        FindAnyObjectByType<InventoryCanvas>(FindObjectsInactive.Include).SetInventory(inventory);
+        GetComponent<PlayerStateMachine>().SetInventory(inventory);
+        GetComponent<Necromancy>().SetInventory(inventory);
+    }
+    public Inventory GetInventory() => this.inventory;
+    #endregion
 }
-
-

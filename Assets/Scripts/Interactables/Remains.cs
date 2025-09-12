@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -17,6 +18,7 @@ public class Remains : MonoBehaviour, IInteractable, IDisectable
 
     private void Awake()
     {
+        gameObject.layer = LayerMask.NameToLayer("Interactable");
         SetInteractionTrigger();
     }
     public void SetRemainsData(FiendSO data) => Data = data;
@@ -27,7 +29,7 @@ public class Remains : MonoBehaviour, IInteractable, IDisectable
     {
         if (interactor.CompareTag("Player"))
         {
-            interactor.GetComponentInChildren<RemainsCanvas>(true).OpenMenu(this);
+            interactor.GetComponent<PlayerStateMachine>().RemainsCanvas.OpenMenu(this);
         }
     }
     public void Disect(GameObject disecter)

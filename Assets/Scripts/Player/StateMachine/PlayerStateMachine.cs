@@ -10,23 +10,33 @@ public class PlayerStateMachine : BaseStateMachine
     [SerializeField] private CameraController cameraController;
     [SerializeField] private EnemyDetector enemyDetector;
     [SerializeField] private PlayerCanvas playerCanvas;
+    [SerializeField] private NecromancyScreen remainsCanvas;
+    [SerializeField] private Necromancy necromancy;
     [SerializeField] private Player player;
-
+    private Inventory inventory;
 
     [Header("UI")]
     [SerializeField] private TMP_Text stateIndicator;
 
+
+
+
+
     #region States
-    private PlayerIdleState idleState;
+    protected PlayerIdleState idleState;
+    protected PlayerMovementState movementState;
+    protected PlayerCombatState combatState;
+    protected PlayerHurtState hurtState;
+    protected PlayerDeadState deadState;
     private PlayerInteractState interactState;
-    private PlayerMovementState movementState;
-    private PlayerCombatState combatState;
-    private PlayerHurtState hurtState;
-    private PlayerDeadState deadState;
     private PlayerTacticsState tacticsState;
     #endregion
 
-    private readonly Dictionary<(BaseState, PlayerEvent), BaseState>  eventMap = new();
+
+
+
+
+
 
 
 
@@ -47,6 +57,8 @@ public class PlayerStateMachine : BaseStateMachine
     {
         SubscribeStateEvents();
         InputManager.OnSwarmTargetButtonPressed += SwarmEnemy;
+        InputManager.OnUsePotionButtonPressed += UsePotion;
+
         player.OnDamageRecieved += RecieveDamage;
     }
     private void OnDisable()
@@ -54,6 +66,8 @@ public class PlayerStateMachine : BaseStateMachine
         UnsubscribeStateEvents();
 
         InputManager.OnSwarmTargetButtonPressed -= SwarmEnemy;
+        InputManager.OnUsePotionButtonPressed -= UsePotion;
+
         player.OnDamageRecieved -= RecieveDamage;
     }
     private void Start()
@@ -73,38 +87,42 @@ public class PlayerStateMachine : BaseStateMachine
 
 
 
+
+
+
+
     #region State Events
     private void GenerateEventMap()
     {
         // IdleState es el estado por defecto, por lo que no tiene un fin
         // todas las salidas de este estado se determinan por un evento activo
-        eventMap.Add((idleState, PlayerEvent.Move), movementState);
-        eventMap.Add((idleState, PlayerEvent.Attack), combatState);
-        eventMap.Add((idleState, PlayerEvent.Interact), interactState);
-        eventMap.Add((idleState, PlayerEvent.RecieveDamage), hurtState);
-        eventMap.Add((idleState, PlayerEvent.Tactics), tacticsState);
+        eventMap.Add((idleState, TransitionEvent.Move), movementState);
+        eventMap.Add((idleState, TransitionEvent.Attack), combatState);
+        eventMap.Add((idleState, TransitionEvent.Interact), interactState);
+        eventMap.Add((idleState, TransitionEvent.RecieveDamage), hurtState);
+        eventMap.Add((idleState, TransitionEvent.Tactics), tacticsState);
 
         // MoveState transiciones
-        eventMap.Add((movementState, PlayerEvent.RecieveDamage), hurtState);
-        eventMap.Add((movementState, PlayerEvent.End), idleState); // deja de recibir inputs de movimiento
+        eventMap.Add((movementState, TransitionEvent.RecieveDamage), hurtState);
+        eventMap.Add((movementState, TransitionEvent.End), idleState); // deja de recibir inputs de movimiento
 
         // AttackState transiciones
-        eventMap.Add((combatState, PlayerEvent.RecieveDamage), hurtState);
-        eventMap.Add((combatState, PlayerEvent.End), idleState); // finaliza la cadena de ataques
+        eventMap.Add((combatState, TransitionEvent.RecieveDamage), hurtState);
+        eventMap.Add((combatState, TransitionEvent.End), idleState); // finaliza la cadena de ataques
 
         // InteractState transiciones
-        eventMap.Add((interactState, PlayerEvent.End), idleState); // finaliza el estado de interaccion
-        eventMap.Add((interactState, PlayerEvent.RecieveDamage), hurtState);
+        eventMap.Add((interactState, TransitionEvent.End), idleState); // finaliza el estado de interaccion
+        eventMap.Add((interactState, TransitionEvent.RecieveDamage), hurtState);
 
 
         // TacticsState transitions
-        eventMap.Add((tacticsState, PlayerEvent.Tactics), idleState); // exit tactics mode
-        eventMap.Add((tacticsState, PlayerEvent.RecieveDamage), hurtState);
+        eventMap.Add((tacticsState, TransitionEvent.Tactics), idleState); // exit tactics mode
+        eventMap.Add((tacticsState, TransitionEvent.RecieveDamage), hurtState);
 
         // HurtState transiciones
-        eventMap.Add((hurtState, PlayerEvent.Die), deadState); // si recibo daño y me muero
-        eventMap.Add((hurtState, PlayerEvent.End), idleState); // si dejo de recibir daño pero sigo vivo
-
+        eventMap.Add((hurtState, TransitionEvent.Die), deadState); // si recibo daño y me muero
+        eventMap.Add((hurtState, TransitionEvent.End), idleState); // si dejo de recibir daño pero sigo vivo
+            
         // DeadState no tiene transiciones
     }
     private void SubscribeStateEvents()
@@ -127,7 +145,7 @@ public class PlayerStateMachine : BaseStateMachine
         interactState.OnEventOccurred -= TriggerEventTransition;
         tacticsState.OnEventOccurred -= TriggerEventTransition;
     }
-    private void TriggerEventTransition(PlayerEvent playerEvent)
+    private void TriggerEventTransition(TransitionEvent playerEvent)
     {
         if(eventMap.TryGetValue((CurrentState, playerEvent), out BaseState nextState))
         {
@@ -147,22 +165,47 @@ public class PlayerStateMachine : BaseStateMachine
     public Transform CharacterModel => model;
     public Animator Animator => animator;
     public EnemyDetector EnemyDetector => enemyDetector;
+    public NecromancyScreen RemainsCanvas => remainsCanvas;
     public PlayerCanvas PlayerCanvas => playerCanvas;
+    public Necromancy Necromancy => necromancy;
+    public Inventory Inventory => inventory;
     #endregion
+
+    #region Setters
+    public void SetInventory(Inventory inventory) => this.inventory = inventory;
+    #endregion
+
+
 
 
     private void RecieveDamage()
     {
-        TriggerEventTransition(PlayerEvent.RecieveDamage);
+        TriggerEventTransition(TransitionEvent.RecieveDamage);
     }
     private void SwarmEnemy()
     {
         //Debug.Log("swarming", TacticsSystem.SelectedEnemy);
-        Debug.Log("swarming: " + (TacticsSystem.SelectedEnemy != null ? TacticsSystem.SelectedEnemy.name : "null"));
+        //Debug.Log("swarming: " + (TacticsSystem.SelectedEnemy != null ? TacticsSystem.SelectedEnemy.name : "null"));
 
         if (CurrentState == deadState || CurrentState == interactState) return;
 
         TacticsSystem.SwarmEnemy(TacticsSystem.SelectedEnemy);
+    }
+    private void UsePotion()
+    {
+        if(CurrentState !=  deadState && CurrentState != interactState)
+        {
+            List<Item> potions = inventory.GetItems(ItemType.Potion);
+            if(potions.Count > 0)
+            {
+                potions[0].Use(gameObject.GetComponent<Player>());
+                inventory.RemoveItem(ItemType.Potion, potions[0]);
+            }
+            else
+            {
+                Debug.Log("No more potions to use");
+            }
+        }
     }
 }
 

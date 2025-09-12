@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,13 +16,20 @@ public class InputManager : Singleton<InputManager>
     public static event Action OnSwitchTargetButtonPressed;
     public static event Action OnReturnAllMinonsButtonPressed;
     public static event Action OnSwarmTargetButtonPressed;
-
+    public static event Action OnUsePotionButtonPressed;
     public static event Action<GameObject> OnPlayerMinionSelected;
     public static event Action<Vector3> OnPositionSelected;
     public static event Action<GameObject> OnEnemySelected;
+    public static event Action OnPauseButtonPressed;
     #endregion
 
-    private PlayerInput playerInput;
+
+
+    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private LayerMask layersToInteract;
+
+
+
 
     #region PlayerActions
     private InputAction moveAction;
@@ -32,9 +40,10 @@ public class InputManager : Singleton<InputManager>
     private InputAction switchTargetAction;
     private InputAction returnAllMinionsAction;
     private InputAction swarmTargetAction;
+    private InputAction usePotionAction;
     private InputAction leftClickAction;
+    private InputAction pauseGameAction;
     #endregion
-
 
 
 
@@ -45,8 +54,6 @@ public class InputManager : Singleton<InputManager>
     {
         base.Awake();
 
-        playerInput = GetComponent<PlayerInput>();
-
         moveAction = playerInput.actions.FindAction("Move");
         lookAction = playerInput.actions.FindAction("Look");
         basicAttackAction = playerInput.actions.FindAction("BasicAttack");
@@ -56,28 +63,18 @@ public class InputManager : Singleton<InputManager>
         returnAllMinionsAction = playerInput.actions.FindAction("ReturnAllMinions");
         swarmTargetAction = playerInput.actions.FindAction("SwarmTarget");
         leftClickAction = playerInput.actions.FindAction("LeftClick");
+        usePotionAction = playerInput.actions.FindAction("UsePotion");
+        pauseGameAction = playerInput.actions.FindAction("PauseGame");
     }
     private void OnEnable()
     {
-        basicAttackAction.performed += BasicAttackAction;
-        interactAction.performed += InteractAction;
-        tacticalAction.performed += TacticalAction;
-        lookAction.performed += LookAction;
-        switchTargetAction.performed += SwitchTargetAction;
-        returnAllMinionsAction.performed += ReturnAllMinionsAction;
-        swarmTargetAction.performed += SwarmTargetAction;
-        leftClickAction.performed += LeftClickAction;
+        SuscribeToInputActions();
+        PauseManager.OnPauseToggled += HandlePause;
     }
     private void OnDisable()
     {
-        basicAttackAction.performed -= BasicAttackAction;
-        interactAction.performed -= InteractAction;
-        tacticalAction.performed -= TacticalAction;
-        lookAction.performed -= LookAction;
-        switchTargetAction.performed -= SwitchTargetAction;
-        returnAllMinionsAction.performed -= ReturnAllMinionsAction;
-        swarmTargetAction.performed -= SwarmTargetAction;
-        leftClickAction.performed -= LeftClickAction;
+        UnsuscribeToInputActions();
+        PauseManager.OnPauseToggled -= HandlePause;
     }
     private void Update()
     {
@@ -91,7 +88,7 @@ public class InputManager : Singleton<InputManager>
 
 
 
-
+    #region Input Actions
     private void LookAction(InputAction.CallbackContext context)
     {
         OnLookAction?.Invoke(context.ReadValue<Vector2>().normalized);
@@ -120,20 +117,25 @@ public class InputManager : Singleton<InputManager>
     {
         OnSwarmTargetButtonPressed?.Invoke();
     }
-
+    private void UsePotionAction(InputAction.CallbackContext context)
+    {
+        OnUsePotionButtonPressed?.Invoke();
+    }
     private void LeftClickAction(InputAction.CallbackContext context)
     {
-        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        if (!context.performed) return;
 
+        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), Mathf.Infinity, layersToInteract);
         foreach(RaycastHit hit in hits)
         {
             if (hit.collider.transform.root.gameObject.CompareTag("Enemy"))
             {
-                OnEnemySelected?.Invoke(hit.collider.gameObject);
+                OnEnemySelected?.Invoke(hit.collider.transform.root.gameObject);
             }
             if (hit.collider.transform.root.gameObject.CompareTag("PlayerMinion"))
             {
-                OnPlayerMinionSelected?.Invoke(hit.collider.gameObject);
+                Debug.Log(hit.collider.gameObject);
+                OnPlayerMinionSelected?.Invoke(hit.collider.transform.root.gameObject);
             }
             if (hit.collider.gameObject.CompareTag("Ground"))
             {
@@ -141,9 +143,51 @@ public class InputManager : Singleton<InputManager>
             }
         }
     }
+    private void PauseGameAction(InputAction.CallbackContext context)
+    {
+        OnPauseButtonPressed?.Invoke();
+    }
+    #endregion
+
+
+    private void SuscribeToInputActions()
+    {
+        basicAttackAction.performed += BasicAttackAction;
+        interactAction.performed += InteractAction;
+        tacticalAction.performed += TacticalAction;
+        lookAction.performed += LookAction;
+        switchTargetAction.performed += SwitchTargetAction;
+        returnAllMinionsAction.performed += ReturnAllMinionsAction;
+        swarmTargetAction.performed += SwarmTargetAction;
+        leftClickAction.performed += LeftClickAction;
+        usePotionAction.performed += UsePotionAction;
+        pauseGameAction.performed += PauseGameAction;
+    }
+    private void UnsuscribeToInputActions()
+    {
+        basicAttackAction.performed -= BasicAttackAction;
+        interactAction.performed -= InteractAction;
+        tacticalAction.performed -= TacticalAction;
+        lookAction.performed -= LookAction;
+        switchTargetAction.performed -= SwitchTargetAction;
+        returnAllMinionsAction.performed -= ReturnAllMinionsAction;
+        swarmTargetAction.performed -= SwarmTargetAction;
+        leftClickAction.performed -= LeftClickAction;
+        usePotionAction.performed -= UsePotionAction;
+        pauseGameAction.performed -= PauseGameAction;
+    }
+    private void HandlePause(bool isGamePaused)
+    {
+        if (isGamePaused)
+        {
+            UnsuscribeToInputActions();
+        }
+        else
+        {
+            SuscribeToInputActions();
+        }
+    }
 }
-// el rigid body y el collider para deteectar al enemigo esta en el hijo no en el parent lo que dificulta la
-// deteccion del enemigo con un click
 
 
 
