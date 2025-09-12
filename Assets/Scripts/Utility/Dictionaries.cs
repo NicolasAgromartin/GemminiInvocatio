@@ -3,42 +3,26 @@ using System.Collections.Generic;
 
 public static class Dictionaries
 {
-    private readonly static Random statsRange = new();
+    public static Dictionary<SummonName, (FiendType, List<ItemType>)> SummonByMaterials = new()
+    {
+        { SummonName.SummonA, (FiendType.Skeleton, new List<ItemType> { ItemType.Heart, ItemType.Skull }) },
+        { SummonName.SummonB, (FiendType.Skeleton, new List<ItemType> { ItemType.Skull }) },
+    };
 
-    public static Dictionary<FiendType, UnitStats> StatsPerFiendType = new()
-{
-    { FiendType.Skeleton, new UnitStats(
-        statsRange.Next(15, 21), // HP medio
-        statsRange.Next(6, 10),  // ataque alto (Offensive+)
-        statsRange.Next(1, 4),   // defensa baja (Defensive--)
-        statsRange.Next(3, 6),   // velocidad rápida
-        1
-    )},
+    public static Dictionary<(FiendType, List<ItemType>), SummonName> MaterialsBySummon = new()
+    {
+        { (FiendType.Skeleton, new List<ItemType> { ItemType.Heart, ItemType.Skull }), SummonName.SummonA},
+        { (FiendType.Skeleton, new List<ItemType> { ItemType.Skull }), SummonName.SummonB },
+    };
 
-    { FiendType.Zombie, new UnitStats(
-        statsRange.Next(25, 36), // HP alto
-        statsRange.Next(5, 9),   // ataque aceptable (Offensive+)
-        statsRange.Next(7, 11),  // defensa alta (Defensive++)
-        statsRange.Next(1, 3),   // velocidad lenta
-        1
-    )},
+    public static Dictionary<FiendType, List<ItemType>> LootFromCorpse = new()
+    {
+        { FiendType.Skeleton, new List<ItemType> { ItemType.Bone, ItemType.Skull } },
+        { FiendType.Zombie, new List<ItemType> { ItemType.Blood, ItemType.Skin, ItemType.Heart, ItemType.Bone, ItemType.Skull } },
+        { FiendType.Creature, new List<ItemType> { ItemType.Blood, ItemType.Skull } },
+        { FiendType.Demon, new List<ItemType> { ItemType.Blood, ItemType.Bone, ItemType.Skull } }
+    };
 
-    { FiendType.Creature, new UnitStats(
-        statsRange.Next(20, 31), // HP medio-alto
-        statsRange.Next(8, 13),  // ataque fuerte (Offensive++)
-        statsRange.Next(6, 9),   // defensa buena (Defensive+)
-        statsRange.Next(3, 5),   // velocidad balanceada
-        1
-    )},
-
-    { FiendType.Demon, new UnitStats(
-        statsRange.Next(30, 41), // HP alto
-        statsRange.Next(12, 18), // ataque muy fuerte (Offensive+++)
-        statsRange.Next(9, 14),  // defensa muy fuerte (Defensive+++)
-        statsRange.Next(4, 6),   // velocidad rápida
-        1
-    )}
-};
 
 
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerCombatState : BaseState
 {
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
 
     public PlayerCombatState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
@@ -29,7 +29,7 @@ public class PlayerCombatState : BaseState
     public override void EnterState()
     {
         isAttacking =false;
-
+        
         InputManager.OnBasicAttackPerformed += BasicAttack;
 
         BasicAttack();
@@ -42,7 +42,7 @@ public class PlayerCombatState : BaseState
     {
         if (!isAttacking)
         {
-            OnEventOccurred?.Invoke(PlayerEvent.End);
+            OnEventOccurred?.Invoke(TransitionEvent.End);
         }
     }
     #endregion
@@ -76,17 +76,14 @@ public class PlayerCombatState : BaseState
     {
         throw new NotImplementedException();
     }
-
     public override void OnCollisionExit(Collider other)
     {
         throw new NotImplementedException();
     }
-
     public override void OnTriggerEnter(Collider other)
     {
         
     }
-
     public override void OnTriggerExit(Collider other)
     {
         throw new NotImplementedException();

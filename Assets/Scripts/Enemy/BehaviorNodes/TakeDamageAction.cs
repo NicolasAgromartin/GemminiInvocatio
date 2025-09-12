@@ -29,7 +29,6 @@ public partial class TakeDamageAction : Action
     protected override void OnEnd()
     {
         Self.Value.GetComponent<Enemy>().OnDamageRecievd -= WaitForDamage;
-
     }
 
     private void WaitForDamage() => damageRecieved = true;

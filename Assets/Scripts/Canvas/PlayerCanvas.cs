@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,12 +22,21 @@ public class PlayerCanvas : MonoBehaviour
     [SerializeField] private GameObject minionUiPrefab;
 
     [Header("Header")]
-    [SerializeField] private GameObject healthBar;
+    [SerializeField] private TMP_Text currentHealth;
+    [SerializeField] private Image healthBar;
     [SerializeField] private GameObject lives;
     [SerializeField] private TMP_Text focusedTarget;
 
     [Header("Minion Tactics")]
     [SerializeField] private GameObject minionTacticsUI;
+
+    [Header("Right Side")]
+    [SerializeField] private TMP_Text potionsCounter;
+
+    [Header("Black Screen")]
+    [SerializeField] private GameObject blackPanel;
+    [SerializeField] private GameObject pauseScreen;
+
 
 
 
@@ -45,7 +55,10 @@ public class PlayerCanvas : MonoBehaviour
     private void OnEnable()
     {
         TacticsSystem.OnEnemySelected += ChangeFocusedTarget;
-        
+        TacticsSystem.OnEnemyUnselected += RemoveFocusedTarget;
+
+        PauseManager.OnPauseToggled += PauseResumeGame;
+
         player.OnMinionsUpdated += UpdateMinions;
         player.OnHealthChanged += ChangeHealth;
         player.OnLivesChanged += ChangeLives;
@@ -53,6 +66,9 @@ public class PlayerCanvas : MonoBehaviour
     private void OnDisable()
     {
         TacticsSystem.OnEnemySelected -= ChangeFocusedTarget;
+        TacticsSystem.OnEnemyUnselected -= RemoveFocusedTarget;
+
+        PauseManager.OnPauseToggled -= PauseResumeGame;
 
         player.OnMinionsUpdated -= UpdateMinions;
         player.OnHealthChanged -= ChangeHealth;
@@ -117,7 +133,32 @@ public class PlayerCanvas : MonoBehaviour
     #region Header
     private void ChangeHealth(int newHealth)
     {
-        healthBar.GetComponentInChildren<TMP_Text>().text = newHealth.ToString();
+        currentHealth.text = $"{newHealth.ToString()}% HP";
+
+        //if (newHealth > 100) healthBar.fillAmount = 1;
+        //else healthBar.fillAmount = newHealth / 100f;
+        StartCoroutine(ChangeHealthBar(newHealth));
+    }
+    private IEnumerator ChangeHealthBar(int newHealth)
+    {
+        if (newHealth > 100) yield return null;
+        else
+        {
+            float target = newHealth / 100f;
+            float speed = 0.01f;
+
+            while (!Mathf.Approximately(healthBar.fillAmount, target))
+            {
+                healthBar.fillAmount = Mathf.MoveTowards(
+                    healthBar.fillAmount,
+                    target,
+                    speed
+                );
+
+                yield return null;
+            }
+
+        }
     }
     private void ChangeLives(int newLives)
     {
@@ -134,5 +175,27 @@ public class PlayerCanvas : MonoBehaviour
             focusedTarget.text = newTarget.name;
         }
     }
+    public void RemoveFocusedTarget()
+    {
+        focusedTarget.text = string.Empty;
+    }
     #endregion
+
+
+
+    private void PauseResumeGame(bool isGamePaused)
+    {
+        if (isGamePaused)
+        {
+            blackPanel.SetActive(true);
+            pauseScreen.SetActive(true);
+        }
+        else
+        {
+            blackPanel.SetActive(false);
+            pauseScreen.SetActive(false);
+        }
+    }
+
+
 }

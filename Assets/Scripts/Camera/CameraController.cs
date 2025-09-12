@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ public class CameraController : MonoBehaviour
     [Header("Offset")]
     [SerializeField] private float zOffset = 4f;
     [SerializeField] private float yOffset = -1f;
+    private readonly float zInteractionOffset = 2f;
+    private readonly float yInteractionOffset = -1.4f;
+    private readonly float zBaseOffset = 4f;
+    private readonly float yBaseOffset = -1f;
     private Quaternion targetRotation;
 
     [Header("Rotation")]
@@ -30,7 +35,7 @@ public class CameraController : MonoBehaviour
     private readonly Vector3 tacicalViewPosition = new(-5f, 5f, -1f);
     private readonly Vector3 tacticalViewRotation = new(30f, 45f, 0f);
 
-
+    private RaycastHit[] walls;
 
 
 
@@ -41,10 +46,12 @@ public class CameraController : MonoBehaviour
     }
     private void OnEnable()
     {
+        PauseManager.OnPauseToggled += PauseCamera;
         InputManager.OnLookAction += RotateCamera;
     }
     private void OnDisable()
     {
+        PauseManager.OnPauseToggled += PauseCamera;
         InputManager.OnLookAction -= RotateCamera;
     }
     private void LateUpdate()
@@ -76,15 +83,31 @@ public class CameraController : MonoBehaviour
     public Quaternion PlanarRotation() => Quaternion.Euler(0f, yRotation, 0);
 
 
+
+
+
+    #region Tactical Mode
     public void EnterTacticalMode()
     {
         tacticalViewEnable = true;
 
         Camera.main.orthographic = true;
+        Camera.main.orthographicSize = 8;
+        Camera.main.nearClipPlane = -10;
 
-        transform.position = new Vector3(tacicalViewPosition.x + target.position.x, 
-            tacicalViewPosition.y, tacicalViewPosition.z + target.position.z);
-        transform.rotation = Quaternion.Euler(tacticalViewRotation);
+        HideWalls();
+
+        transform.position = new Vector3(
+            tacicalViewPosition.x + transform.position.x, 
+            //tacicalViewPosition.x + target.position.x,
+            tacicalViewPosition.y, 
+            //tacicalViewPosition.z + target.position.z);
+            tacicalViewPosition.z + transform.position.z);
+
+        transform.rotation = Quaternion.Euler(
+            new(tacticalViewRotation.x, 
+            transform.rotation.y + tacticalViewRotation.y, 
+            tacticalViewRotation.z) );
 
         InputManager.OnLookAction -= RotateCamera;
 
@@ -93,10 +116,68 @@ public class CameraController : MonoBehaviour
     {
         tacticalViewEnable = false;
 
+        ShowWalls();
+
         Camera.main.orthographic = false;
+        Camera.main.nearClipPlane = .01f;
 
         InputManager.OnLookAction += RotateCamera;
+    }
+    private void HideWalls()
+    {
+        walls = Physics.BoxCastAll(
+            (target.position - transform.position).normalized,
+            new Vector3(Camera.main.orthographicSize / 2, Camera.main.orthographicSize / 2, Camera.main.orthographicSize / 2),
+            target.transform.position, Quaternion.identity, Mathf.Infinity, LayerMask.GetMask("Wall"));
+
+        foreach (RaycastHit wall in walls)
+        {
+            wall.collider.gameObject.SetActive(false);
+        }
+    }
+    private void ShowWalls()
+    {
+        foreach (RaycastHit wall in walls)
+        {
+            wall.collider.gameObject.SetActive(true);
+        }
+    }
+    #endregion 
 
 
+
+
+
+    #region Interaction
+
+
+    public void ZoomToInteract()
+    {
+        zOffset = zInteractionOffset;
+        yOffset = yInteractionOffset;
+        InputManager.OnLookAction -= RotateCamera;
+    }
+    public void EndInteractionZoom()
+    {
+        zOffset = zBaseOffset;
+        yOffset = yBaseOffset;
+        InputManager.OnLookAction += RotateCamera;
+    }
+    #endregion
+
+
+
+
+    
+    private void PauseCamera(bool isGamePaused)
+    {
+        if (isGamePaused)
+        {
+            InputManager.OnLookAction -= RotateCamera;
+        }
+        else
+        {
+            InputManager.OnLookAction += RotateCamera;
+        }
     }
 }

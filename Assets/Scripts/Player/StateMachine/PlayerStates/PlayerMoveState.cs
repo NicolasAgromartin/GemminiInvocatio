@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovementState : BaseState
 {
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
 
     public PlayerMovementState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
@@ -69,7 +69,7 @@ public class PlayerMovementState : BaseState
     { 
         animator.SetFloat("Movement", new Vector3(direction.x, 0, direction.y).magnitude, .2f, Time.deltaTime);
 
-        if (direction.x == 0 && direction.y == 0) OnEventOccurred?.Invoke(PlayerEvent.End);
+        if (direction.x == 0 && direction.y == 0) OnEventOccurred?.Invoke(TransitionEvent.End);
 
         moveInput = new Vector3(direction.x, 0f, direction.y).normalized;
         moveAmount = Mathf.Clamp01(Mathf.Abs(direction.x) + Mathf.Abs(direction.y));
