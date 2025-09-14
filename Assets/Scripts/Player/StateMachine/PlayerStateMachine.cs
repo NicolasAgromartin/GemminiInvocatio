@@ -35,11 +35,6 @@ public class PlayerStateMachine : BaseStateMachine
 
 
 
-
-
-
-
-
     #region Life Cykle
     private void Awake()
     {
@@ -69,6 +64,11 @@ public class PlayerStateMachine : BaseStateMachine
         InputManager.OnUsePotionButtonPressed -= UsePotion;
 
         player.OnDamageRecieved -= RecieveDamage;
+        
+    }
+    private void OnDestroy()
+    {
+        CurrentState.ExitState();
     }
     private void Start()
     {
@@ -193,18 +193,20 @@ public class PlayerStateMachine : BaseStateMachine
     }
     private void UsePotion()
     {
-        if(CurrentState !=  deadState && CurrentState != interactState)
+        if(player.GetCurrentHealth() == 100) { Debug.Log("Max health! "); return; }
+
+        if (CurrentState == deadState || CurrentState == interactState) return;
+
+
+        List<Item> potions = inventory.GetItems(ItemType.Potion);
+        if (potions.Count > 0)
         {
-            List<Item> potions = inventory.GetItems(ItemType.Potion);
-            if(potions.Count > 0)
-            {
-                potions[0].Use(gameObject.GetComponent<Player>());
-                inventory.RemoveItem(ItemType.Potion, potions[0]);
-            }
-            else
-            {
-                Debug.Log("No more potions to use");
-            }
+            potions[0].Use(gameObject.GetComponent<Player>());
+            inventory.RemoveItem(ItemType.Potion, potions[0]);
+        }
+        else
+        {
+            Debug.Log("No more potions to use");
         }
     }
 }

@@ -1,5 +1,6 @@
 using Unity.Behavior;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 
 
@@ -41,11 +42,11 @@ public class Enemy : Fiend
     private void SetBehaviorGraphVariables()
     {
         behaviorAgent.GetVariable("PatrolSpeed", out BlackboardVariable<float> patrolSpeed);
-        behaviorAgent.GetVariable("AttackDistance", out BlackboardVariable<float> distanceThreshold);
+        behaviorAgent.GetVariable("AttackDistance", out BlackboardVariable<float> attackDistance);
         behaviorAgent.GetVariable("TimeBetweenAttacks", out BlackboardVariable<float> timeBetweenAttacks);
 
         patrolSpeed.Value = agent.speed;
-        distanceThreshold.Value = data.attackRange;
+        attackDistance.Value = data.attackRange;
         timeBetweenAttacks.Value = data.timeBetweenAttacks;
     }
 

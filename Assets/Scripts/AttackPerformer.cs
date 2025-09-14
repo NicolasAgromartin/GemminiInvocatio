@@ -8,7 +8,6 @@ public class AttackPerformer : MonoBehaviour
 
 
 
-    private GameObject impacted;
     private void OnTriggerEnter(Collider other)
     {
 

@@ -9,15 +9,11 @@ public class PlayerIdleState : BaseState
     public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
         this.stateMachine = stateMachine;
-        animator = stateMachine.Animator;
-        characterController = stateMachine.CharacterController;
-        enemyDetector = stateMachine.EnemyDetector;
     }
 
     #region Components
     private Animator animator;
     private PlayerStateMachine stateMachine;
-    private CharacterController characterController;
     private EnemyDetector enemyDetector;
     #endregion
 
@@ -25,6 +21,9 @@ public class PlayerIdleState : BaseState
     #region Life Cykle
     public override void EnterState()
     {
+        animator = stateMachine.Animator;
+        enemyDetector = stateMachine.EnemyDetector;
+
         InputManager.OnPlayerMovement += MovePlayer;
         InputManager.OnInteractAction += Interact;
         InputManager.OnBasicAttackPerformed += Attack;
@@ -51,6 +50,7 @@ public class PlayerIdleState : BaseState
 
     private void MovePlayer(Vector2 direction)
     {
+
         animator.SetFloat("Movement", new Vector3(direction.x, 0, direction.y).magnitude, .2f, Time.deltaTime);
 
         if(direction.x != 0 || direction.y != 0)

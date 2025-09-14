@@ -10,7 +10,7 @@ public class PauseManager : Singleton<PauseManager>
     private bool isGamePaused = false;
 
     private PauseScreen pauseScreen;
-
+    private Player player;
 
 
     #region Life Cykle
@@ -18,16 +18,25 @@ public class PauseManager : Singleton<PauseManager>
     {
         base.Awake();
         pauseScreen = FindAnyObjectByType<PauseScreen>(FindObjectsInactive.Include);
+        player = FindAnyObjectByType<Player>(FindObjectsInactive.Include);
     }
     private void OnEnable()
     {
         InputManager.OnPauseButtonPressed += ToggleGamePause;
         pauseScreen.OnButtonPressed_ResumeGame += ToggleGamePause;
+        
+        //player.OnLifeLost += ToggleGamePause;
     }
     private void OnDisable()
     {
         InputManager.OnPauseButtonPressed -= ToggleGamePause;
         pauseScreen.OnButtonPressed_ResumeGame -= ToggleGamePause;
+
+        //player.OnLifeLost -= ToggleGamePause;
+    }
+    private void OnDestroy()
+    {
+        Time.timeScale = 1f;
     }
     #endregion
 

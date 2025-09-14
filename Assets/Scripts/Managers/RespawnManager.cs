@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -7,13 +9,22 @@ using UnityEngine;
 
 public class RespawnManager : Singleton<RespawnManager>
 {
+    public static event Action OnPlayerRespawned;
+    
+
     [Header("Respawn Points")]
     [SerializeField] private List<GameObject> respawnPoints;
-    private Player player;
     private GameObject closestRespawnPoint;
+    
+    private Player player;
+
+
+    [SerializeField] private GameObject blackScreen;
+    [SerializeField] private GameObject deathScreen;
 
 
 
+    #region Life Cykle
     new private void Awake()
     {
         base.Awake();
@@ -21,20 +32,55 @@ public class RespawnManager : Singleton<RespawnManager>
     }
     private void OnEnable()
     {
-        player.OnLifeLost += RespawnPlayer;
+        player.OnLifeLost += OpenDeathScreen;
     }
     private void OnDisable()
     {
-        player.OnLifeLost -= RespawnPlayer;
+        player.OnLifeLost -= OpenDeathScreen;
+    }
+    #endregion
+
+
+
+    private void OpenDeathScreen()
+    {
+        blackScreen.SetActive(true);
+        deathScreen.SetActive(true);
+
+        CursorManager.EnableCursor();
+        Time.timeScale = 0f;
+
+        SetButtonsEvents();
+    }
+    
+    private void SetButtonsEvents()
+    {
+        Button tryAgainButton = deathScreen.transform.Find("ButtonContainer/TryAgainButton").gameObject.GetComponent<Button>();
+        Button mainMenuButton = deathScreen.transform.Find("ButtonContainer/MainMenuButton").gameObject.GetComponent<Button>();
+        Button exitButton = deathScreen.transform.Find("ButtonContainer/ExitButton").gameObject.GetComponent<Button>();
+
+
+        tryAgainButton.onClick.AddListener(() =>
+        {
+            RespawnPlayer();
+            tryAgainButton.onClick.RemoveAllListeners();
+        });
+
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            SceneLoader.Instance.GoToTitleScreen();
+            tryAgainButton.onClick.RemoveAllListeners();
+        });
+
+        exitButton.onClick.AddListener(() =>
+        {
+            SceneLoader.Instance.ExitGame();
+            tryAgainButton.onClick.RemoveAllListeners();
+        });
     }
 
-
-
-
-    
     private void RespawnPlayer()
     {
-        Debug.Log("Respawn");
         closestRespawnPoint = respawnPoints[0];
 
         foreach(GameObject respawnPoint in respawnPoints)
@@ -46,6 +92,14 @@ public class RespawnManager : Singleton<RespawnManager>
                 player.transform.position = respawnPoint.transform.position;
             }
         }
+
+        OnPlayerRespawned?.Invoke();
+
+        blackScreen.SetActive(false);
+        deathScreen.SetActive(false);
+
+        CursorManager.DisableCursor();
+        Time.timeScale = 1f;
     }
     
     // se suscribe al evento de muerte del jugador
@@ -57,3 +111,4 @@ public class RespawnManager : Singleton<RespawnManager>
     // calcular una distancia desde donde murio ( como evito que esa distancia no lo haga avanzar )
     // uso un raycast para tomar una posicion valida
 }
+

@@ -9,19 +9,21 @@ using UnityEngine;
 public class Player : Unit
 {
     #region Events
-    public event Action<GameObject> OnMinionDead;
     public event Action<List<PlayerMinion>> OnMinionsUpdated;
     public event Action<int> OnHealthChanged;
     public event Action<int> OnLivesChanged;
     public event Action OnDamageRecieved;
     public event Action OnLifeLost;
+    public event Action OnPlayerLost;
     #endregion
 
 
 
     #region Components
+    private Necromancy necromancy;
     private Inventory inventory;
     private List<PlayerMinion> minions = new();
+    private RespawnManager respawnManager;
     #endregion
 
 
@@ -29,6 +31,7 @@ public class Player : Unit
     #region Life Cykle
     private void Awake()
     {
+        necromancy = GetComponent<Necromancy>();
         Stats = SaveSystem.LoadPlayerUnitStats();
         InitiateInventory();
     }
@@ -37,6 +40,22 @@ public class Player : Unit
         OnHealthChanged?.Invoke(Stats.Health);
         OnLivesChanged?.Invoke(lives);
         UpdateMinionsList();
+    }
+    private void OnEnable()
+    {
+        necromancy.OnUnitSummoned += AddMinion;
+        necromancy.OnUnitResurrected += AddMinion;
+        necromancy.OnUnitDefleshed += AddMinion;
+
+        RespawnManager.OnPlayerRespawned += RestorePlayer;
+    }
+    private void OnDisable()
+    {
+        necromancy.OnUnitSummoned -= AddMinion;
+        necromancy.OnUnitResurrected -= AddMinion;
+        necromancy.OnUnitDefleshed -= AddMinion;
+
+        RespawnManager.OnPlayerRespawned -= RestorePlayer;
     }
     #endregion
 
@@ -53,17 +72,18 @@ public class Player : Unit
 
         if (Stats.Health <= 0)
         {
+            tag = "Untagged";
             lives--;
-            OnLifeLost?.Invoke();
-            OnLivesChanged?.Invoke(lives);
-            Stats.Health = 5;
-            // matar al player, respawnear en zona de respawn cercana a cada area
 
             if (lives <= 0)
             {
                 // fin de juego
-                
+                OnPlayerLost?.Invoke();
+                return;    
             }
+
+            OnLifeLost?.Invoke();
+            OnLivesChanged?.Invoke(lives);
         }
     }
     override public void IncreaseHealth(int health)
@@ -71,7 +91,16 @@ public class Player : Unit
         base.IncreaseHealth(health);
         OnHealthChanged?.Invoke(Stats.Health);
     }
+
+    private void RestorePlayer()
+    {
+        tag = "Player";
+        Stats.Health = 0;
+        IncreaseHealth(80);
+    }
     #endregion
+
+
 
 
 
@@ -81,13 +110,21 @@ public class Player : Unit
         minions = FindObjectsByType<PlayerMinion>(sortMode: FindObjectsSortMode.None).ToList();
         OnMinionsUpdated?.Invoke(minions);
     }
-    private void AddMinion(GameObject newMinion) => minions.Add(newMinion.GetComponent<PlayerMinion>());
+    private void AddMinion(GameObject newMinion)
+    {
+        minions.Add(newMinion.GetComponent<PlayerMinion>());
+        OnMinionsUpdated.Invoke(minions);
+    }
     private void RemoveMinion(GameObject deadMinion)
     {
-        OnMinionDead?.Invoke(deadMinion);
         minions.Remove(deadMinion.GetComponent<PlayerMinion>());
+        OnMinionsUpdated?.Invoke(minions);
     }
     #endregion
+
+
+
+
 
 
     #region Inventory
@@ -96,7 +133,7 @@ public class Player : Unit
         inventory = new();
         FindAnyObjectByType<InventoryCanvas>(FindObjectsInactive.Include).SetInventory(inventory);
         GetComponent<PlayerStateMachine>().SetInventory(inventory);
-        GetComponent<Necromancy>().SetInventory(inventory);
+        necromancy.SetInventory(inventory);
     }
     public Inventory GetInventory() => this.inventory;
     #endregion

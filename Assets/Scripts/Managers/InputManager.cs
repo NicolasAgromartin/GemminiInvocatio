@@ -65,6 +65,7 @@ public class InputManager : Singleton<InputManager>
         leftClickAction = playerInput.actions.FindAction("LeftClick");
         usePotionAction = playerInput.actions.FindAction("UsePotion");
         pauseGameAction = playerInput.actions.FindAction("PauseGame");
+
     }
     private void OnEnable()
     {
