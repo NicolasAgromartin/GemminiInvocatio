@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,13 +9,17 @@ using UnityEngine.AI;
 
 public class Fiend : Unit
 {
-    public event Action OnDamageRecieved;
+    #region Events
+    public event Action<GameObject, int> OnDamageRecieved;
     public event Action<GameObject> OnDeath;
+    #endregion
 
+    [Header("Fiend ScriptableObject")]
     [SerializeField] protected FiendSO data;
 
     protected NavMeshAgent agent;
-     
+    protected List<Material> materials = new();
+    protected Color materialBaseColor = Color.blanchedAlmond;
 
 
     protected virtual void Awake()
@@ -22,25 +28,63 @@ public class Fiend : Unit
         
         agent = GetComponent<NavMeshAgent>();
         SetAgentData();
-
         InstantiateModel();
     }
 
+
+
+
+    #region Model
     private void InstantiateModel()
     {
         bool hasModel = false;
 
         foreach (Transform child in transform)
-        {
+        {            
             if (child.CompareTag("FiendModel"))
             {
                 hasModel = true;
                 break;
             }
         }
-        if (!hasModel) Instantiate(data.modelPrefab, transform);
-    }
 
+        if(materials.Count > 0) hasModel = true;
+        if (!hasModel) Instantiate(data.modelPrefab, transform);
+
+        
+        GetModelMaterials();
+    }
+    protected void GetModelMaterials()
+    {
+        GameObject model = null;
+
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("FiendModel"))
+            {
+                model = child.gameObject;
+                break;
+            }
+        }
+        if(model != null)
+        {
+            List<MeshRenderer> meshes = model.GetComponentsInChildren<MeshRenderer>().ToList();
+
+            foreach (MeshRenderer mesh in meshes)
+            {
+                materials.AddRange(mesh.materials);
+            }
+        }
+        foreach(Material material in materials)
+        {
+            material.SetColor("_BaseColor", materialBaseColor);
+        }
+    }
+    #endregion
+
+
+
+    #region NavMesh Agent
     private void SetAgentData()
     {
         agent.radius = data.radius;
@@ -48,29 +92,35 @@ public class Fiend : Unit
         agent.stoppingDistance = data.stoppingDistance;
         agent.avoidancePriority = data.priority;
     }
+    #endregion
 
+
+
+    #region Damage
     public override void RecieveDamage(int damage)
     {
         base.RecieveDamage(damage);
 
-        OnDamageRecieved?.Invoke();
+        OnDamageRecieved?.Invoke(this.gameObject, Stats.Health);
 
         StartCoroutine(Damaged());
 
         if (Stats.Health <= 0)
         {
-            Debug.Log($"{this.gameObject.name} is dead");
-
             OnDeath?.Invoke(this.gameObject);
+
+            foreach (Material material in materials) material.SetColor("_BaseColor", Color.black);
         }
     }
-
     private IEnumerator Damaged()
     {
-        //material.SetColor("_BaseColor", Color.red);
+        foreach(Material material in materials) material.SetColor("_BaseColor", Color.red);
 
         yield return new WaitForSeconds(.5f);
 
-        //material.SetColor("_BaseColor", baseColor);
+        foreach (Material material in materials) material.SetColor("_BaseColor", materialBaseColor);
     }
+    #endregion
+
 }
+

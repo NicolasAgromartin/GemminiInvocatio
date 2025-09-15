@@ -83,7 +83,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.05
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &4473518135087505380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +105,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7026993952814250734}
     m_Modifications:
+    - target: {fileID: 1043670440092508359, guid: dec051c6232b1924c9cfb1dc00e8c486, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3568930470300911138, guid: dec051c6232b1924c9cfb1dc00e8c486, type: 3}
       propertyPath: m_Name
       value: AttackArea

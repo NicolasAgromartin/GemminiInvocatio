@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5394085131172145096}
   m_Layer: 3
   m_Name: Sphere (1)
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 4424873109189658841}
   m_Layer: 3
   m_Name: Sphere (2)
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 8983499485431422706}
   m_Layer: 3
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 9083774571214048365}
   m_Layer: 3
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

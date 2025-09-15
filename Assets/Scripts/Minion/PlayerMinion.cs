@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class PlayerMinion : Fiend
 {
+    private AttackPerformer attackPerformer;
     private GameObject player;
 
     private readonly float attackWindowTime = .5f;
@@ -14,7 +15,6 @@ public class PlayerMinion : Fiend
 
     private bool suscribedToTacicts;
 
-    private AttackPerformer attackPerformer;
 
 
 
@@ -32,7 +32,6 @@ public class PlayerMinion : Fiend
         agent = GetComponent<NavMeshAgent>();
         player = FindAnyObjectByType<Player>().gameObject;
 
-        //agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
     }
     private void OnEnable()
     {
@@ -62,6 +61,7 @@ public class PlayerMinion : Fiend
     }
     private void WeakenByResurrection()
     {
+        base.GetModelMaterials(); 
         Stats.Attack /= 2;
         Stats.Health /= 2;
     }
@@ -103,14 +103,11 @@ public class PlayerMinion : Fiend
     #region Tactic Actions
     private void ReturnToPlayer()
     {
-        Debug.Log("Return");
-
         StopAllCoroutines();
         StartCoroutine(FollowTarget(player));
 
         if(suscribedToTacicts) UnsuscribeToTactics();
     }
-
     private void AttackTarget(GameObject target)
     {
         StopAllCoroutines();
@@ -118,7 +115,6 @@ public class PlayerMinion : Fiend
 
         if (suscribedToTacicts) UnsuscribeToTactics();
     }
-
     private void MoveToPosition(Vector3 position)
     {
         StopAllCoroutines();
@@ -129,33 +125,99 @@ public class PlayerMinion : Fiend
 
 
 
+    //private IEnumerator FollowTarget(GameObject target)
+    //{
+    //    while (enabled && target != null)
+    //    {
+    //        agent.SetDestination(Vector3.Distance(transform.position, target.transform.position) > data.attackRange ?
+    //            target.transform.position : transform.position);
+
+    //        if (target.CompareTag("Enemy"))
+    //        {
+    //            //yield return StartCoroutine(PerformAttack());
+    //        }
+    //        else if(target.CompareTag("Player"))
+    //        {
+    //            //yield return StartCoroutine(WanderAround());
+    //        }
+
+    //        yield return null;
+    //    }
+    //}
+    //private IEnumerator PerformAttack()
+    //{
+    //    while (Vector3.Distance(agent.destination, transform.position) <= data.attackRange)
+    //    {
+    //        yield return StartCoroutine(attackPerformer.PerformAttack(attackWindowTime));
+    //        yield return new WaitForSeconds(data.timeBetweenAttacks);
+    //    }
+    //}
     private IEnumerator FollowTarget(GameObject target)
     {
-        while (enabled)
+        while (enabled && target != null)
         {
-            agent.SetDestination(Vector3.Distance(transform.position, target.transform.position) > data.attackRange ?
-                target.transform.position : transform.position);
+            float distance = Vector3.Distance(transform.position, target.transform.position);
 
-            if (target.CompareTag("Enemy"))
+            // Si está fuera de rango, me muevo hacia el objetivo
+            if (distance > data.attackRange)
             {
-                // corrutina que cada cierto interavlo de tiempo
-                // si el enemigo sigue en el rango de ataque lo ataca
-                // si esta fuera del rango vuelvo a la corrutina de follow target
+                agent.SetDestination(target.transform.position);
+            }
+            else
+            {
+                agent.SetDestination(transform.position); // paro al llegar al rango
+            }
 
-
-                yield return StartCoroutine(PerformAttack());
-
+            // Si es enemigo y está en rango → atacar
+            if (target.CompareTag("Enemy") && distance <= data.attackRange)
+            {
+                yield return StartCoroutine(PerformAttack(target));
+            }
+            // Si es jugador y está en rango → comportamiento alternativo
+            else if (target.CompareTag("Player") && distance <= data.attackRange)
+            {
+                //yield return StartCoroutine(WanderAround());
             }
 
             yield return null;
         }
     }
-    private IEnumerator PerformAttack()
+    private IEnumerator PerformAttack(GameObject target)
     {
-        while (Vector3.Distance(agent.destination, transform.position) <= 2)
+        while (target != null && Vector3.Distance(transform.position, target.transform.position) <= data.attackRange)
         {
+            // Rotar hacia el objetivo
+            Vector3 direction = (target.transform.position - transform.position).normalized;
+            direction.y = 0; // evitar inclinarse hacia arriba/abajo
+            if (direction != Vector3.zero)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+            }
+
+            // Ejecutar ataque
             yield return StartCoroutine(attackPerformer.PerformAttack(attackWindowTime));
             yield return new WaitForSeconds(data.timeBetweenAttacks);
+        }
+    }
+
+    #endregion
+
+
+
+
+
+
+
+
+    #region Damage
+    public override void RecieveDamage(int damage)
+    {
+        base.RecieveDamage(damage);
+
+        if(Stats.Health <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
     #endregion
@@ -165,17 +227,15 @@ public class PlayerMinion : Fiend
 
 
 
-
     #region Wander Around
-    ////private IEnumerator WanderAround()
-    ////{
-    ////    while (CheckPlayerDistance())
-    ////    {
-    ////        yield return new WaitForSeconds(timeBetweenWander);
-    ////        agent.SetDestination(GenerateRandomPosition(player.transform.position));
-    ////    }
-    ////}
-
+    private IEnumerator WanderAround()
+    {
+        while (CheckPlayerDistance())
+        {
+            yield return new WaitForSeconds(1f);
+            agent.SetDestination(GenerateRandomPosition(player.transform.position));
+        }
+    }
     private Vector3 GenerateRandomPosition(Vector3 origin)
     {
         return new Vector3(

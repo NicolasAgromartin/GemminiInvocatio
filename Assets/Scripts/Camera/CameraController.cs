@@ -36,10 +36,14 @@ public class CameraController : MonoBehaviour
     private readonly Vector3 tacticalViewRotation = new(30f, 45f, 0f);
 
     private RaycastHit[] walls;
-
+    private Player player;
 
 
     #region Life Cykle
+    private void Awake()
+    {
+        player = FindAnyObjectByType<Player>();
+    }
     private void Start()
     {
         CursorManager.DisableCursor();
@@ -48,11 +52,14 @@ public class CameraController : MonoBehaviour
     {
         PauseManager.OnPauseToggled += PauseCamera;
         InputManager.OnLookAction += RotateCamera;
+
+
     }
     private void OnDisable()
     {
         PauseManager.OnPauseToggled += PauseCamera;
         InputManager.OnLookAction -= RotateCamera;
+
     }
     private void LateUpdate()
     {
@@ -168,7 +175,7 @@ public class CameraController : MonoBehaviour
 
 
 
-    
+
     private void PauseCamera(bool isGamePaused)
     {
         if (isGamePaused)

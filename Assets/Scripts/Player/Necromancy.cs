@@ -8,8 +8,8 @@ public class Necromancy : MonoBehaviour
     #region Events
     public event Action<GameObject> OnUnitResurrected;
     //public event Action<GameObject> OnUnitDisected;
-    //public event Action<GameObject> OnUnitSummoned;
-    //public event Action<GameObject> OnUnitDefleshed;
+    public event Action<GameObject> OnUnitSummoned;
+    public event Action<GameObject> OnUnitDefleshed;
     #endregion
 
 
@@ -89,6 +89,7 @@ public class Necromancy : MonoBehaviour
         minion.GetComponent<PlayerMinion>().SetMinionData(skeletonData);
 
         Destroy(remains.gameObject);
+        OnUnitDefleshed?.Invoke(minion);
     }
 
 
@@ -152,6 +153,8 @@ public class Necromancy : MonoBehaviour
         foreach(ItemType item in itemsToRemove) inventory.RemoveItemByType(item);
 
         Destroy(remains.transform.gameObject);
+
+        OnUnitSummoned?.Invoke(minion);
     }
     #endregion
 
@@ -176,46 +179,6 @@ public class Necromancy : MonoBehaviour
     #endregion
 
 
-
-    /*
-
-
-    public void SummonInvocation(SummonName summon, Transform corpse)
-    {
-        // eliminar los recursos utilizados en la invocacion
-        GameObject minion = Instantiate(playerMinion);
-
-        if(summon == SummonName.SummonA)
-        {
-            Instantiate(invocationAModel, minion.transform);
-            minion.GetComponent<PlayerMinion>().SetMinionData(invocationA);
-        }
-        if (summon == SummonName.SummonB)
-        {
-            Instantiate(invocationBModel, minion.transform);
-            minion.GetComponent<PlayerMinion>().SetMinionData(invocationB);
-        }
-
-        minion.transform.position = corpse.position;
-
-        
-
-        Destroy(corpse.gameObject);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    */
 }
 
 

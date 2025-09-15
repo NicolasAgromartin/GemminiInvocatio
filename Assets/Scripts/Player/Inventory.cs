@@ -25,7 +25,7 @@ public class Inventory
 
     public void AddItem(Item item)
     {
-        Debug.Log($"Aded {item.Type} to the list");
+        //Debug.Log($"Aded {item.Type} to the list");
         items[item.Type].Add(item);
         OnItemListChanged?.Invoke(item.Type);
     }

@@ -16,10 +16,10 @@ MonoBehaviour:
   fiendName: Demon A
   type: 3
   stats:
-    Health: 1
+    Health: 200
     Attack: 6
     MaxMovementSpeed: 4
-    AttackRange: 1
+    AttackRange: 2
   baseOffset: 0
   speed: 6
   angularSpeed: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
   radius: 0.6
   height: 2
   timeBetweenAttacks: 0.6
-  attackRange: 2
+  attackRange: 1

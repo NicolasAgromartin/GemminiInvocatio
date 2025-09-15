@@ -53,7 +53,7 @@ public class InventoryCanvas : MonoBehaviour
     {
         itemsIndicator[itemType].transform.Find("ItemCount").GetComponent<TMP_Text>().text = inventory.GetItems(itemType).Count.ToString();
 
-        Debug.Log($"there's {inventory.GetItems(itemType).Count.ToString()} items of the type {itemType}");
+        //Debug.Log($"there's {inventory.GetItems(itemType).Count.ToString()} items of the type {itemType}");
 
         IncreasePotionsCounter(inventory.GetItems(ItemType.Potion).Count);
     }
