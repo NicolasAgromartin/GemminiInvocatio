@@ -13,13 +13,8 @@ TagManager:
   - DamageableArea
   - Remains
   - FiendModel
-<<<<<<< Updated upstream
-  - Canvas
-  - Button
-=======
   - DetectionCollider
   - Gate
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -27,15 +22,9 @@ TagManager:
   - Entity
   - Water
   - UI
-<<<<<<< Updated upstream
-  - Button
-  - 
-  - 
-=======
   - Ground
   - Wall
   - Interactable
->>>>>>> Stashed changes
   - 
   - 
   - 
