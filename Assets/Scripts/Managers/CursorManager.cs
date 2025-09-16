@@ -14,4 +14,5 @@ public static class CursorManager
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+
 }

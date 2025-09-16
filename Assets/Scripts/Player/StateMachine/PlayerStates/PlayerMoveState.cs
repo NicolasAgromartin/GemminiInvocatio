@@ -1,25 +1,24 @@
 using System;
 using UnityEngine;
 
+
+
 public class PlayerMovementState : BaseState
 {
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
 
     public PlayerMovementState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
-        characterController = stateMachine.CharacterController;
-        cameraController = stateMachine.CameraController;
-        characterModel = stateMachine.CharacterModel;
-        animator = stateMachine.Animator;
-        enemyDetector = stateMachine.EnemyDetector;
+        this.stateMachine = stateMachine;
     }
 
     #region Components
-    private readonly CharacterController characterController;
-    private readonly CameraController cameraController;
-    private readonly Transform characterModel;
-    private readonly Animator animator;
-    private readonly EnemyDetector enemyDetector;
+    private PlayerStateMachine stateMachine;
+    private CharacterController characterController;
+    private CameraController cameraController;
+    private Transform characterModel;
+    private EnemyDetector enemyDetector;
+    private Animator animator;
     #endregion
 
 
@@ -44,6 +43,12 @@ public class PlayerMovementState : BaseState
     #region Life Cykle
     public override void EnterState()
     {
+        characterController = stateMachine.CharacterController;
+        cameraController = stateMachine.CameraController;
+        characterModel = stateMachine.CharacterModel;
+        animator = stateMachine.Animator;
+        enemyDetector = stateMachine.EnemyDetector;
+
         InputManager.OnPlayerMovement += MovePlayer;
         InputManager.OnSwitchTargetButtonPressed += enemyDetector.ChangeFocusedTarget;
         InputManager.OnReturnAllMinonsButtonPressed += TacticsSystem.ReturnAllMinions;
@@ -66,21 +71,21 @@ public class PlayerMovementState : BaseState
 
 
     private void MovePlayer(Vector2 direction)
-    { 
+    {
         animator.SetFloat("Movement", new Vector3(direction.x, 0, direction.y).magnitude, .2f, Time.deltaTime);
 
-        if (direction.x == 0 && direction.y == 0) OnEventOccurred?.Invoke(PlayerEvent.End);
+        if (direction.x == 0 && direction.y == 0) OnEventOccurred?.Invoke(TransitionEvent.End);
 
         moveInput = new Vector3(direction.x, 0f, direction.y).normalized;
         moveAmount = Mathf.Clamp01(Mathf.Abs(direction.x) + Mathf.Abs(direction.y));
         moveDirection = cameraController.PlanarRotation() * moveInput;
 
         playerVelocity = moveDirection * moveSpeed;
+
     }
     private void ApplyMovement()
     {
         characterController.Move(Time.deltaTime * playerVelocity);
-
     }
     private void ApplyGravity()
     {

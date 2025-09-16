@@ -8,9 +8,7 @@ public class Singleton<Type> : MonoBehaviour where Type : MonoBehaviour
     {
         if (Instance == null)
         {
-            gameObject.transform.SetParent(null);
             Instance = this as Type;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

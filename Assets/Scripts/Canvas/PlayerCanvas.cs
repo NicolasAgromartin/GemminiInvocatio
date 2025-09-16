@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,16 +22,24 @@ public class PlayerCanvas : MonoBehaviour
     [SerializeField] private GameObject minionUiPrefab;
 
     [Header("Header")]
-    [SerializeField] private GameObject healthBar;
+    [SerializeField] private TMP_Text currentHealth;
+    [SerializeField] private Image healthBar;
     [SerializeField] private GameObject lives;
     [SerializeField] private TMP_Text focusedTarget;
 
     [Header("Minion Tactics")]
     [SerializeField] private GameObject minionTacticsUI;
 
+    [Header("Right Side")]
+    [SerializeField] private TMP_Text potionsCounter;
+
+    [Header("Black Screen")]
+    [SerializeField] private GameObject blackPanel;
+    [SerializeField] private GameObject pauseScreen;
 
 
-    private List<GameObject> activeMinionsList = new();
+
+    private Dictionary<PlayerMinion, GameObject> playerMinionBoxes = new();
     private Player player;
 
 
@@ -45,7 +54,10 @@ public class PlayerCanvas : MonoBehaviour
     private void OnEnable()
     {
         TacticsSystem.OnEnemySelected += ChangeFocusedTarget;
-        
+        TacticsSystem.OnEnemyUnselected += RemoveFocusedTarget;
+
+        PauseManager.OnPauseToggled += PauseResumeGame;
+
         player.OnMinionsUpdated += UpdateMinions;
         player.OnHealthChanged += ChangeHealth;
         player.OnLivesChanged += ChangeLives;
@@ -53,6 +65,9 @@ public class PlayerCanvas : MonoBehaviour
     private void OnDisable()
     {
         TacticsSystem.OnEnemySelected -= ChangeFocusedTarget;
+        TacticsSystem.OnEnemyUnselected -= RemoveFocusedTarget;
+
+        PauseManager.OnPauseToggled -= PauseResumeGame;
 
         player.OnMinionsUpdated -= UpdateMinions;
         player.OnHealthChanged -= ChangeHealth;
@@ -62,18 +77,51 @@ public class PlayerCanvas : MonoBehaviour
 
 
 
+
+
+
     #region Minions UI
     private void UpdateMinions(List<PlayerMinion> minions)
     {
+
         foreach(PlayerMinion minion in minions)
         {
-            if (activeMinionsList.Contains(minion.gameObject)) continue;
+            if(minion == null) continue;    
+            if (playerMinionBoxes.ContainsKey(minion)) continue;
 
             GameObject newMinionUI = Instantiate(minionUiPrefab, minionsDisplay.transform);
-            newMinionUI.GetComponentInChildren<TMP_Text>().text = minion.gameObject.name;
+            newMinionUI.GetComponentInChildren<TMP_Text>().text = minion.name;
+            newMinionUI.transform.Find("Stats/AttackValue").GetComponent<TMP_Text>().text = minion.Stats.Attack.ToString();
 
-            activeMinionsList.Add(minion.gameObject);
+            playerMinionBoxes.Add(minion, newMinionUI);
+            SuscribeToMinionEvents(minion);
         }
+
+    }
+    private void SuscribeToMinionEvents(PlayerMinion minion)
+    {
+        minion.OnDamageRecieved += UpdateMinionHealth;
+        minion.OnDeath += RemoveMinionFromList;
+    }
+    private void UnsuscribeToMinionEvents(PlayerMinion minion)
+    {
+        minion.OnDamageRecieved -= UpdateMinionHealth;
+        minion.OnDeath -= RemoveMinionFromList;
+    }
+
+    private void UpdateMinionHealth(GameObject minion, int newHealth)
+    {
+        StartCoroutine(ChangeHealthBar(playerMinionBoxes[minion.GetComponent<PlayerMinion>()].transform.Find("Health/HealthBar").GetComponent<Image>(), newHealth));
+    }
+    private void RemoveMinionFromList(GameObject minion)
+    {
+        PlayerMinion deadMinion = minion.GetComponent<PlayerMinion>();
+
+        UnsuscribeToMinionEvents(deadMinion);
+
+        playerMinionBoxes.TryGetValue(deadMinion, out GameObject minionBox);
+        playerMinionBoxes.Remove(deadMinion);
+        minionBox.SetActive(false);
     }
     #endregion
 
@@ -84,8 +132,6 @@ public class PlayerCanvas : MonoBehaviour
     #region Minion Tactics
     public void ShowMinionTactics(GameObject selectedMinion)
     {
-        GameObject minionToShow = activeMinionsList.Find(minion => selectedMinion == minion);
-
         minionTacticsUI.SetActive(true);
         minionTacticsUI.GetComponentInChildren<TMP_Text>().text = selectedMinion.name;
 
@@ -117,7 +163,9 @@ public class PlayerCanvas : MonoBehaviour
     #region Header
     private void ChangeHealth(int newHealth)
     {
-        healthBar.GetComponentInChildren<TMP_Text>().text = newHealth.ToString();
+        //Debug.Log(newHealth);
+        currentHealth.text = $"{newHealth}% HP";
+        StartCoroutine(ChangeHealthBar(healthBar, newHealth));
     }
     private void ChangeLives(int newLives)
     {
@@ -134,5 +182,49 @@ public class PlayerCanvas : MonoBehaviour
             focusedTarget.text = newTarget.name;
         }
     }
+    public void RemoveFocusedTarget()
+    {
+        focusedTarget.text = string.Empty;
+    }
     #endregion
+
+
+
+    private void PauseResumeGame(bool isGamePaused)
+    {
+        if (isGamePaused)
+        {
+            blackPanel.SetActive(true);
+            pauseScreen.SetActive(true);
+        }
+        else
+        {
+            blackPanel.SetActive(false);
+            pauseScreen.SetActive(false);
+        }
+    }
+
+
+    private IEnumerator ChangeHealthBar(Image healthBar, int newHealth)
+    {
+        if (newHealth > 100) yield return null;
+        else
+        {
+            float target = newHealth / 100f;
+            float speed = 0.01f;
+
+            while (!Mathf.Approximately(healthBar.fillAmount, target))
+            {
+                healthBar.fillAmount = Mathf.MoveTowards(
+                    healthBar.fillAmount,
+                    target,
+                    speed
+                );
+
+                yield return null;
+            }
+
+        }
+    }
+
 }

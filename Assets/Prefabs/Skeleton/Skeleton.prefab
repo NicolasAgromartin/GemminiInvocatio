@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7833574816666940258}
   - component: {fileID: 6029480608375863883}
   - component: {fileID: 3289429726715116509}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fc26e7a76dabd6c43b7da80f22ec927e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,8 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7509149169255795741}
-  - component: {fileID: 514450129603200396}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Skeleton
   m_TagString: FiendModel
   m_Icon: {fileID: 0}
@@ -147,33 +146,6 @@ Transform:
   - {fileID: 8911166556989642831}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &514450129603200396
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3602913183519302010}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &4451025299994806588
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,9 +158,9 @@ GameObject:
   - component: {fileID: 4580079676345149079}
   - component: {fileID: 6654530059567108188}
   - component: {fileID: 4166989867468843975}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,7 +213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fc26e7a76dabd6c43b7da80f22ec927e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -295,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8911166556989642831}
   - component: {fileID: 5919376101216518211}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DamageableArea
   m_TagString: DamageableArea
   m_Icon: {fileID: 0}
@@ -350,9 +322,9 @@ GameObject:
   - component: {fileID: 8383609277383988392}
   - component: {fileID: 8345612275593563433}
   - component: {fileID: 9155076687864322016}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: FiendModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,7 +377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fc26e7a76dabd6c43b7da80f22ec927e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

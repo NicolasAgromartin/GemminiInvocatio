@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class PlayerIdleState : BaseState
 {
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
 
     public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
         this.stateMachine = stateMachine;
-        animator = stateMachine.Animator;
-        characterController = stateMachine.CharacterController;
-        enemyDetector = stateMachine.EnemyDetector;
     }
 
     #region Components
     private Animator animator;
     private PlayerStateMachine stateMachine;
-    private CharacterController characterController;
     private EnemyDetector enemyDetector;
     #endregion
 
@@ -25,6 +21,9 @@ public class PlayerIdleState : BaseState
     #region Life Cykle
     public override void EnterState()
     {
+        animator = stateMachine.Animator;
+        enemyDetector = stateMachine.EnemyDetector;
+
         InputManager.OnPlayerMovement += MovePlayer;
         InputManager.OnInteractAction += Interact;
         InputManager.OnBasicAttackPerformed += Attack;
@@ -51,30 +50,35 @@ public class PlayerIdleState : BaseState
 
     private void MovePlayer(Vector2 direction)
     {
+
         animator.SetFloat("Movement", new Vector3(direction.x, 0, direction.y).magnitude, .2f, Time.deltaTime);
 
         if(direction.x != 0 || direction.y != 0)
         {
-            OnEventOccurred?.Invoke(PlayerEvent.Move);
-        }
+            OnEventOccurred?.Invoke(TransitionEvent.Move);
+        }   
     }
     private void Interact()
     {
-        Collider[] colliders = Physics.OverlapSphere(stateMachine.transform.position, 1f);
+        Collider[] colliders = Physics.OverlapSphere(stateMachine.transform.position, 1f, LayerMask.GetMask("Interactable"));
 
-        if (colliders.Length > 0)
+        // unicamente cuando es una interaccion de necromancia cambio de estado, si no unicamente tomo el objeto
+        //Debug.Log(colliders.Length);
+
+        foreach (Collider collider in colliders)
         {
-            foreach (Collider collider in colliders)
+            if (collider.transform.root.gameObject.GetComponent<IInteractable>() != null)
             {
-                if (collider.gameObject.GetComponent<IInteractable>() != null)
+                if(collider.transform.root.gameObject.CompareTag("Remains")) OnEventOccurred?.Invoke(TransitionEvent.Interact);
+                else
                 {
-                    OnEventOccurred?.Invoke(PlayerEvent.Interact);
+                    collider.transform.root.gameObject.GetComponent<Pickable>().Interact(stateMachine.gameObject);
                 }
             }
         }
     }
-    private void Attack() => OnEventOccurred?.Invoke(PlayerEvent.Attack);
-    private void EnterTacticalMode() => OnEventOccurred?.Invoke(PlayerEvent.Tactics);
+    private void Attack() => OnEventOccurred?.Invoke(TransitionEvent.Attack);
+    private void EnterTacticalMode() => OnEventOccurred?.Invoke(TransitionEvent.Tactics);
 
 
 
