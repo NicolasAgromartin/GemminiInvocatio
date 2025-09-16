@@ -5,6 +5,6 @@ public class GoToHome : MonoBehaviour
 {
     public void HomeScene()
     {
-        SceneManager.LoadSceneAsync("MenuMain");
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 }
