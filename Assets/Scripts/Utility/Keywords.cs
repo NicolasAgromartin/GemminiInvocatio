@@ -1,16 +1,16 @@
 using Unity.Behavior;
 
 
-[BlackboardEnum]
-public enum EnemyStates
-{
-    Idle,
-    Patrol,
-    Chase,
-    Attack,
-    Hurt,
-    Dead,
-}
+//[BlackboardEnum]
+//public enum EnemyStates
+//{
+//    Idle,
+//    Patrol,
+//    Chase,
+//    Attack,
+//    Hurt,
+//    Dead,
+//}
 public enum TransitionEvent
 {
     Move,

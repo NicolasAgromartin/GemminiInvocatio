@@ -43,11 +43,14 @@ public class PlayerMinion : Fiend
     }
     private void OnDisable()
     {
+        UnsuscribeToTactics();
+
         TacticsSystem.OnQuickReturn -= ReturnToPlayer;
         TacticsSystem.OnSwarmOrder -= AttackTarget;
 
         TacticsSystem.OnPlayerMinionSelected -= SuscribeToTactics;
         TacticsSystem.OnMinionUnselected -= UnsuscribeToTactics;
+
     }
     #endregion
 

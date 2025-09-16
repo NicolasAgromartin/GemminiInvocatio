@@ -1934,6 +1934,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299539610}
   m_CullTransparentMesh: 1
+--- !u!1 &313926612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313926613}
+  - component: {fileID: 313926614}
+  m_Layer: 2
+  m_Name: InvisibleWall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &313926613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313926612}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.26030675, z: -0, w: 0.965526}
+  m_LocalPosition: {x: -17.32, y: 0, z: 6.443358}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 396666247}
+  m_LocalEulerAnglesHint: {x: 0, y: 30.177, z: 0}
+--- !u!65 &313926614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313926612}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.6602478, y: 20, z: 32.2589}
+  m_Center: {x: -8.169856, y: 0, z: 2.8403494}
 --- !u!1 &328958507
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,6 +2435,38 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4360722736258104911}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &396666246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 396666247}
+  m_Layer: 6
+  m_Name: InvisibleWalls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &396666247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396666246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 313926613}
+  m_Father: {fileID: 1602608212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &400060781
 GameObject:
@@ -6203,9 +6288,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1077895089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af2ceb2affe86f246b9f7322886eda68, type: 3}
+  m_Script: {fileID: 11500000, guid: c2924b61faa364d49bd2347e8d574b1b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RemainsCanvas
+  m_EditorClassIdentifier: Assembly-CSharp::NecromancyScreen
   invocationPanel: {fileID: 9036648238759321282}
   inventoryPanel: {fileID: 2440474882235808920}
   summonBoxPrefab: {fileID: 9001031523507917490, guid: d8ed15ac925600c4d8a41849d25b8f0c, type: 3}
@@ -6445,8 +6530,12 @@ PrefabInstance:
       objectReference: {fileID: 1591227788}
     - target: {fileID: 3557482119423650370, guid: 9cfdf90447c330c4fafc551410ab3ff1, type: 3}
       propertyPath: m_VersionIndex
-      value: 5187
+      value: 5190
       objectReference: {fileID: 0}
+    - target: {fileID: 4185304825170428049, guid: 9cfdf90447c330c4fafc551410ab3ff1, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1591227788}
     - target: {fileID: 7218739234671909396, guid: 9cfdf90447c330c4fafc551410ab3ff1, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -9270,7 +9359,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 396666247}
   m_Father: {fileID: 858582862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1622255546
@@ -11676,7 +11766,7 @@ PrefabInstance:
       objectReference: {fileID: 1641360859}
     - target: {fileID: 3557482119423650370, guid: 9cfdf90447c330c4fafc551410ab3ff1, type: 3}
       propertyPath: m_VersionIndex
-      value: 5187
+      value: 5190
       objectReference: {fileID: 0}
     - target: {fileID: 4185304825170428049, guid: 9cfdf90447c330c4fafc551410ab3ff1, type: 3}
       propertyPath: m_Mesh
@@ -13251,7 +13341,7 @@ Transform:
   m_GameObject: {fileID: 8017406635519490378}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.34, y: 0, z: 25.15}
+  m_LocalPosition: {x: -5.8, y: 0, z: -8.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16574,7 +16664,7 @@ GameObject:
   - component: {fileID: 5509758652841761273}
   - component: {fileID: 1831638177}
   m_Layer: 5
-  m_Name: RitualPanel
+  m_Name: InvocationPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
