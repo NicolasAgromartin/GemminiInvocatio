@@ -6,11 +6,10 @@ using Unity.Properties;
 using System.Collections;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "AttackTarget", story: "[Self] performs an attack on the [SelectedTarget] using [AttackPerformer]", category: "Action", id: "a72e704d81de12a868260b620363d947")]
+[NodeDescription(name: "AttackTarget", story: "[Self] performs an attack using [AttackPerformer]", category: "Action", id: "a72e704d81de12a868260b620363d947")]
 public partial class AttackTargetAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<GameObject> SelectedTarget;
     [SerializeReference] public BlackboardVariable<AttackPerformer> AttackPerformer;
 
 

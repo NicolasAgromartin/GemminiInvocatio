@@ -7,13 +7,13 @@ public class PlayerDeadState : BaseState
     {
     }
 
-    public override event Action<PlayerEvent> OnEventOccurred;
+    public override event Action<TransitionEvent> OnEventOccurred;
 
 
 
     public override void EnterState() { }
 
-    public override void ExitState() { OnEventOccurred?.Invoke(PlayerEvent.End); }
+    public override void ExitState() { OnEventOccurred?.Invoke(TransitionEvent.End); }
 
     public override void UpdateState() { }
 

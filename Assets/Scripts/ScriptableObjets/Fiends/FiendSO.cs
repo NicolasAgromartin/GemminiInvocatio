@@ -3,14 +3,27 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FiendSO", menuName = "Scriptable Objects/Fiend")]
 public class FiendSO : ScriptableObject
 {
-    public string fiendName;
-    public FiendType type;
-
+    [Header("Model")]
     public GameObject modelPrefab;
 
-    public UnitStats stats;
+    [Header("Basic Data")]
+    public string fiendName;
+    public FiendType type;
+    public Stats stats;
 
-    public float intervalsBetweenAttacks;
+    [Header("Agent Movement")]
+    public float baseOffset;
+    public float speed;
+    public float angularSpeed;
+    public float acceleration;
+    public float stoppingDistance; // attack distance?
+    public int priority;
 
+    [Header("Agent Size")]
+    public float radius;
+    public float height;
 
+    [Header("Combat")]
+    public float timeBetweenAttacks;
+    public float attackRange;
 }

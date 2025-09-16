@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-    public abstract event Action<PlayerEvent> OnEventOccurred;
+    public abstract event Action<TransitionEvent> OnEventOccurred;
 
     public BaseState(BaseStateMachine stateMachine) { }
 

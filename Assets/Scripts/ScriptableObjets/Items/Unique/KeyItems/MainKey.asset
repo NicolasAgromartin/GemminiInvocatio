@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b2303ab5a5fe54e9466a8800fb6768, type: 3}
+  m_Name: MainKey
+  m_EditorClassIdentifier: Assembly-CSharp::KeyItem_SO
+  itemName: Ancient Key
+  description: A key that a opens a door
+  model: {fileID: 4028159876185892718, guid: a37692be0ebb37b40a0b83ce99a2659e, type: 3}
+  icon: {fileID: 0}
+  type: 8
+  Id: key_01

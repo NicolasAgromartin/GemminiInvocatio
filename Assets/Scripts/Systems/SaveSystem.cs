@@ -1,7 +1,6 @@
-
-
-
 using System;
+
+
 
 public static class SaveSystem
 {
@@ -18,15 +17,15 @@ public static class SaveSystem
 
 
     // load desde los archivos del juego los stats del jugador
-    public static UnitStats LoadPlayerUnitStats()
+    public static Stats LoadPlayerUnitStats()
     {
-        UnitStats stats = new(
-            health:5, 
-            attack:4, 
-            defense:8, 
+        Stats stats = new(
+            health:100, 
+            attack:15, 
             maxMovementSpeed:2, 
             attackRange:1);
         return stats;
     }
 
 }
+

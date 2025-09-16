@@ -12,13 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34ecf80e52934241b21f854dd673c57, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
+  modelPrefab: {fileID: 4779144255993240127, guid: d4a07fdbf32ab8d448eff95dac863f6b, type: 3}
   fiendName: Human Zombie
   type: 2
-  modelPrefab: {fileID: 4779144255993240127, guid: d4a07fdbf32ab8d448eff95dac863f6b, type: 3}
   stats:
-    Health: 4
-    Attack: 2
-    Defense: 5
+    Health: 120
+    Attack: 10
     MaxMovementSpeed: 1
     AttackRange: 1
-  intervalsBetweenAttacks: 0
+  baseOffset: 0
+  speed: 2
+  angularSpeed: 0
+  acceleration: 0
+  stoppingDistance: 0
+  priority: 1
+  radius: 0.6
+  height: 2
+  timeBetweenAttacks: 1
+  attackRange: 3

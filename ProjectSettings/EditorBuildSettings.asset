@@ -5,18 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Vicky/SceneOpen/MenuMain.unity
-    guid: 6b33aaf25e4593b4c9a48729d49c28b3
+    path: Assets/Scenes/MainMenu.unity
+    guid: f5138855f51078c459deb285993412f9
   - enabled: 1
-    path: Assets/Vicky/SceneOpen/Sceneopengame.unity
-    guid: 48a7142885c228b49ae06d15b874c57e
-  - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/Game.unity
     guid: 64fbc3c7fa8b16e4696537ba52766aea
+  - enabled: 1
+    path: Assets/Scenes/Sceneopengame.unity
+    guid: 48a7142885c228b49ae06d15b874c57e
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

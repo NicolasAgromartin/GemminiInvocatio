@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd51085591a5f6d489a9d78d69d3a2aa, type: 3}
+  m_Name: WelcomeLetter
+  m_EditorClassIdentifier: Assembly-CSharp::Letter_SO
+  itemName: Letter
+  description: A letter recieved a couple of years ago
+  model: {fileID: 6210822097135390099, guid: 771abcb03fd387040827de3db081c58d, type: 3}
+  icon: {fileID: 0}
+  type: 7
+  Id: letter_01
+  message: lorem ipsum dolor sit amet

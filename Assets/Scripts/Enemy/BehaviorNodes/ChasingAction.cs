@@ -17,9 +17,10 @@ public partial class ChasingAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> SelectedTarget;
 
     private NavMeshAgent navMeshAgent;
+    private GameObject attackArea;
+    private Enemy enemy;
     private bool isChasing;
     private readonly float attackRange = 1f;
-    private Enemy enemy;
 
 
 
@@ -28,6 +29,8 @@ public partial class ChasingAction : Action
         isChasing = true;
         navMeshAgent = Self.Value.GetComponent<NavMeshAgent>();
         enemy = Self.Value.GetComponent<Enemy>();
+        attackArea = Self.Value.GetComponentInChildren<AttackPerformer>().gameObject;
+
 
         enemy.StartCoroutine(FollowTarget(SelectedTarget.Value));
 
@@ -46,7 +49,7 @@ public partial class ChasingAction : Action
             if (target.CompareTag("Player") || target.CompareTag("PlayerMinion"))
             {
                 navMeshAgent.SetDestination(
-                    Vector3.Distance(Self.Value.transform.position, target.transform.position) > attackRange ?
+                    Vector3.Distance(attackArea.transform.position, target.transform.position) > attackRange ?
                     target.transform.position : Self.Value.transform.position);
 
                 if (Vector3.Distance(target.transform.position, Self.Value.transform.position) <= attackRange + navMeshAgent.radius)
