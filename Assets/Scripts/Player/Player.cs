@@ -136,5 +136,9 @@ public class Player : Unit
         necromancy.SetInventory(inventory);
     }
     public Inventory GetInventory() => this.inventory;
+    public Item UseKey()
+    {
+        return inventory.GetKey();
+    }
     #endregion
 }

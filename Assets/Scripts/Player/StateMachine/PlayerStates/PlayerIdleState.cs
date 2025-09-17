@@ -72,7 +72,7 @@ public class PlayerIdleState : BaseState
                 if(collider.transform.root.gameObject.CompareTag("Remains")) OnEventOccurred?.Invoke(TransitionEvent.Interact);
                 else
                 {
-                    collider.transform.root.gameObject.GetComponent<Pickable>().Interact(stateMachine.gameObject);
+                    collider.transform.root.gameObject.GetComponent<IInteractable>().Interact(stateMachine.gameObject);
                 }
             }
         }

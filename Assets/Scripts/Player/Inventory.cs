@@ -48,4 +48,17 @@ public class Inventory
     }
     public List<Item> GetItems(ItemType type) => items[type];
     public Dictionary<ItemType, List<Item>> GetAllItems() => items;
+    public Item GetKey()
+    {
+        if (items[ItemType.KeyItem].Count  > 0)
+        {
+            Item keyToReturn = items[ItemType.KeyItem][0];
+            RemoveItem(ItemType.KeyItem, keyToReturn);
+            return keyToReturn;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
