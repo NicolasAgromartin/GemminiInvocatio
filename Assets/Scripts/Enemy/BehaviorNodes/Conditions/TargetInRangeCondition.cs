@@ -14,7 +14,7 @@ public partial class TargetInRangeCondition : Condition
     public override bool IsTrue()
     {
         //Debug.Log(Distance.Value);
-        Debug.Log(Vector3.Distance(Target.Value.transform.position, Self.Value.transform.position));
+        //Debug.Log(Vector3.Distance(Target.Value.transform.position, Self.Value.transform.position));
 
         return Vector3.Distance(Target.Value.transform.position, Self.Value.transform.position) <= Distance.Value;
     }

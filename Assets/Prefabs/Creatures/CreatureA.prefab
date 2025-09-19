@@ -380,7 +380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8374447736633245694}
   - component: {fileID: 4184125054528798503}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: DamageableArea
   m_TagString: DamageableArea
   m_Icon: {fileID: 0}

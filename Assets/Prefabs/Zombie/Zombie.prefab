@@ -156,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8621531001975886196}
   - component: {fileID: 9061157818768024608}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: HurtBox
   m_TagString: DamageableArea
   m_Icon: {fileID: 0}

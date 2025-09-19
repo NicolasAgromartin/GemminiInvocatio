@@ -203,6 +203,9 @@ public class Necromancy : MonoBehaviour
     public void Summon(SummonName summon, Remains remains)
     {
         GameObject minion = remains.gameObject;
+        minion.tag = "PlayerMinion";
+        minion.name = "PlayerMinion - " + $"{remains.Data.name}";
+
         RemoveModel(remains.transform); // eliminarlo antes de instanciar el nuevo modelo
         PlayerMinion newMinion = minion.AddComponent<PlayerMinion>();
 
