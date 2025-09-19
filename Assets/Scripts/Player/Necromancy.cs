@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Necromancy : MonoBehaviour
 {
@@ -29,6 +31,9 @@ public class Necromancy : MonoBehaviour
     [SerializeField] private RitualMaterial_SO skull;
     [SerializeField] private RitualMaterial_SO bone;
     [SerializeField] private RitualMaterial_SO heart;
+    [SerializeField] private RitualMaterial_SO skin;
+    [SerializeField] private RitualMaterial_SO ashes;
+
 
     [Header("Components")]
     [SerializeField] private Inventory inventory;
@@ -51,8 +56,67 @@ public class Necromancy : MonoBehaviour
             { ItemType.Blood, blood },
             { ItemType.Bone, bone },
             { ItemType.Skull, skull },
+            { ItemType.Skin, skin },
+            { ItemType.Ashes, ashes },
+
         };
     }
+    private void Start()
+    {
+        LoadInventory();
+    }
+
+
+
+
+
+
+
+
+
+    private void LoadInventory()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            inventory.AddItem(new(heart));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            inventory.AddItem(new(blood));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            inventory.AddItem(new(bone));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            inventory.AddItem(new(skull));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            inventory.AddItem(new(skin));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            inventory.AddItem(new(ashes));
+        }
+    }
+    private void RemoveModel(Transform remains)
+    {
+        GameObject model = null;
+
+        foreach(Transform child in remains)
+        {
+            if (child.gameObject.CompareTag("FiendModel"))
+            {
+                model = child.gameObject;
+                break;
+            }
+        }
+
+        if(model != null) Destroy(model);
+    }
+
 
 
 
@@ -68,10 +132,13 @@ public class Necromancy : MonoBehaviour
 
 
 
+
+
+
     public void Resurrect(Remains remains)
     {
         GameObject minion = remains.gameObject;
-
+        
         minion.tag = "PlayerMinion";
         minion.name = "PlayerMinion - " + $"{remains.Data.name}";
 
@@ -82,13 +149,17 @@ public class Necromancy : MonoBehaviour
     }
     public void UseSkeleton(Remains remains)
     {
-        GameObject minion = Instantiate(playerMinion);
+        GameObject minion = remains.gameObject;
+        RemoveModel(remains.transform); // eliminarlo antes de instanciar el nuevo modelo
+
+        minion.tag = "PlayerMinion";
+        minion.name = "PlayerMinion - " + $"{remains.Data.name}";
 
         Instantiate(skeletonPrefab, minion.transform);
-        minion.transform.position = remains.gameObject.transform.position;
-        minion.GetComponent<PlayerMinion>().SetMinionData(skeletonData);
 
-        Destroy(remains.gameObject);
+        PlayerMinion skeleton = minion.AddComponent<PlayerMinion>();
+        skeleton.SetMinionData(skeletonData);
+
         OnUnitDefleshed?.Invoke(minion);
     }
 
@@ -131,29 +202,25 @@ public class Necromancy : MonoBehaviour
     }
     public void Summon(SummonName summon, Remains remains)
     {
-        // eliminar los recursos utilizados en la invocacion
-        GameObject minion = Instantiate(playerMinion);
+        GameObject minion = remains.gameObject;
+        RemoveModel(remains.transform); // eliminarlo antes de instanciar el nuevo modelo
+        PlayerMinion newMinion = minion.AddComponent<PlayerMinion>();
 
         if (summon == SummonName.SummonA)
         {
             Instantiate(invocationAModel, minion.transform);
-            minion.GetComponent<PlayerMinion>().SetMinionData(invocationA);
+            newMinion.SetMinionData(invocationA);
         }
         if (summon == SummonName.SummonB)
         {
             Instantiate(invocationBModel, minion.transform);
-            minion.GetComponent<PlayerMinion>().SetMinionData(invocationB);
-        }
+            newMinion.SetMinionData(invocationB);
+        }        
 
-        minion.transform.position = remains.transform.position;
-
+        // elimino los recursos de la lsita del inventario
         List<ItemType> itemsToRemove = Dictionaries.SummonByMaterials[summon].Item2; 
-        // tipos de items que tengo que eliminar de la lista
-        
         foreach(ItemType item in itemsToRemove) inventory.RemoveItemByType(item);
-
-        Destroy(remains.transform.gameObject);
-
+                
         OnUnitSummoned?.Invoke(minion);
     }
     #endregion

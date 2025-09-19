@@ -75,6 +75,7 @@ public class NecromancyScreen : MonoBehaviour
     }
     public void Disect()
     {
+        Debug.Log(remains.name);
         necromancy.Disect(remains.gameObject);
         CloseMenu();
     }

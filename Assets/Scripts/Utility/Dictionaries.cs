@@ -5,7 +5,7 @@ public static class Dictionaries
 {
     public static Dictionary<SummonName, (FiendType, List<ItemType>)> SummonByMaterials = new()
     {
-        { SummonName.SummonA, (FiendType.Skeleton, new List<ItemType> { ItemType.Heart, ItemType.Skull }) },
+        { SummonName.SummonA, (FiendType.Zombie, new List<ItemType> { ItemType.Heart, ItemType.Skull }) },
         { SummonName.SummonB, (FiendType.Skeleton, new List<ItemType> { ItemType.Skull }) },
     };
 
