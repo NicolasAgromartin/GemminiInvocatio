@@ -20365,10 +20365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2924b61faa364d49bd2347e8d574b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NecromancyScreen
-  invocationPanel: {fileID: 9036648238759321282}
-  inventoryPanel: {fileID: 2440474882235808920}
-  summonBoxPrefab: {fileID: 9001031523507917490, guid: d8ed15ac925600c4d8a41849d25b8f0c, type: 3}
-  necromancy: {fileID: 8017406635519490385}
 --- !u!1 &1088347552
 GameObject:
   m_ObjectHideFlags: 0
