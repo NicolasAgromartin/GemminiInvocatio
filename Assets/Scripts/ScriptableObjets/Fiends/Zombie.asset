@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34ecf80e52934241b21f854dd673c57, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
-  modelPrefab: {fileID: 4779144255993240127, guid: d4a07fdbf32ab8d448eff95dac863f6b, type: 3}
+  modelPrefab: {fileID: 553018205278522766, guid: 1b38ad07eb189cb458824dcaac43d77d, type: 3}
   fiendName: Human Zombie
   type: 2
   stats:
