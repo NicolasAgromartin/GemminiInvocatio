@@ -98,9 +98,9 @@ public class CameraController : MonoBehaviour
     {
         tacticalViewEnable = true;
 
-        Camera.main.orthographic = true;
-        Camera.main.orthographicSize = 8;
-        Camera.main.nearClipPlane = -10;
+        //Camera.main.orthographic = true;
+        //Camera.main.orthographicSize = 8;
+        //Camera.main.nearClipPlane = -10;
 
         HideWalls();
 
@@ -111,10 +111,10 @@ public class CameraController : MonoBehaviour
             //tacicalViewPosition.z + target.position.z);
             tacicalViewPosition.z + transform.position.z);
 
-        transform.rotation = Quaternion.Euler(
-            new(tacticalViewRotation.x, 
-            transform.rotation.y + tacticalViewRotation.y, 
-            tacticalViewRotation.z) );
+        //transform.rotation = Quaternion.Euler(
+        //    new(tacticalViewRotation.x, 
+        //    transform.rotation.y + tacticalViewRotation.y, 
+        //    tacticalViewRotation.z) );
 
         InputManager.OnLookAction -= RotateCamera;
 
@@ -125,8 +125,8 @@ public class CameraController : MonoBehaviour
 
         ShowWalls();
 
-        Camera.main.orthographic = false;
-        Camera.main.nearClipPlane = .01f;
+        //Camera.main.orthographic = false;
+        //Camera.main.nearClipPlane = .01f;
 
         InputManager.OnLookAction += RotateCamera;
     }
