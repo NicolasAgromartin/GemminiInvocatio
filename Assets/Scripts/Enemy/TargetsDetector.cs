@@ -25,9 +25,10 @@ public class TargetsDetector : MonoBehaviour
 
         if (root.CompareTag("Player") || root.CompareTag("PlayerMinion"))
         {
-            if(!targetsList.Contains(root))
+            if (!targetsList.Contains(root))
             {
                 targetsList.Add(root);
+                SuscribeToTarget(root);
                 OnTargetsUpdated?.Invoke(SelectTarget());
             }
         }
@@ -40,6 +41,7 @@ public class TargetsDetector : MonoBehaviour
 
         if (targetsList.Contains(root)) 
         {
+            UnsuscribeToTarget(root);
             targetsList.Remove(root);
             OnTargetsUpdated?.Invoke(SelectTarget());
         }
@@ -47,9 +49,28 @@ public class TargetsDetector : MonoBehaviour
 
 
 
+    private void SuscribeToTarget(GameObject target)
+    {
+        PlayerMinion playerMinion = target.GetComponent<PlayerMinion>();
+        if (playerMinion != null)
+        {
+            playerMinion.OnDeath += RemoveMissingTarget;
+        }
+    }
+    private void UnsuscribeToTarget(GameObject target)
+    {
+        PlayerMinion playerMinion = target.GetComponent<PlayerMinion>();
+        if (playerMinion != null)
+        {
+            playerMinion.OnDeath -= RemoveMissingTarget;
+        }
+    }
 
-
-
+    private void RemoveMissingTarget(GameObject target)
+    {
+        targetsList.Remove(target);
+        OnTargetsUpdated?.Invoke(SelectTarget());
+    }
 
 
 
