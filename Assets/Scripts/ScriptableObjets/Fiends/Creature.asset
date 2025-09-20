@@ -24,7 +24,7 @@ MonoBehaviour:
   speed: 5
   angularSpeed: 0
   acceleration: 0
-  stoppingDistance: 1
+  stoppingDistance: 2
   priority: 50
   radius: 0.95
   height: 1.2

@@ -27760,6 +27760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerMinion
       objectReference: {fileID: 0}
+    - target: {fileID: 4473518135087505380, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: b0b1fdf8520a4fb4db62b6066996709d, type: 2}
     - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.8460655
@@ -27803,7 +27807,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 811293138665137921, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1350244440}
   m_SourcePrefab: {fileID: 100100000, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
 --- !u!1 &1065755745
 GameObject:
@@ -33592,6 +33599,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347560663}
   m_CullTransparentMesh: 1
+--- !u!1 &1350244435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 811293138665137921, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
+  m_PrefabInstance: {fileID: 1065381566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1350244440
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350244435}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1355578022
 GameObject:
   m_ObjectHideFlags: 0

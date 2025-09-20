@@ -19,12 +19,12 @@ MonoBehaviour:
     Health: 1
     Attack: 20
     MaxMovementSpeed: 2
-    AttackRange: 1
+    AttackRange: 2
   baseOffset: 0
   speed: 3
   angularSpeed: 0
   acceleration: 0
-  stoppingDistance: 0
+  stoppingDistance: 2
   priority: 10
   radius: 0.85
   height: 2

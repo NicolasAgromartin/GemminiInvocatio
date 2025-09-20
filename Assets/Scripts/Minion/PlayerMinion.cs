@@ -12,9 +12,9 @@ public class PlayerMinion : Fiend
 
     private readonly float attackWindowTime = .5f;
     private readonly float maxRange = 20f;
+    private readonly float timeReaction = 1f;
 
     private bool suscribedToTacicts;
-
 
 
 
@@ -50,7 +50,6 @@ public class PlayerMinion : Fiend
 
         TacticsSystem.OnPlayerMinionSelected -= SuscribeToTactics;
         TacticsSystem.OnMinionUnselected -= UnsuscribeToTactics;
-
     }
     #endregion
 
@@ -64,7 +63,7 @@ public class PlayerMinion : Fiend
     }
     private void WeakenByResurrection()
     {
-        base.GetModelMaterials(); 
+        base.GetModelMaterials();
         Stats.Attack /= 2;
         Stats.Health /= 2;
     }
@@ -109,7 +108,7 @@ public class PlayerMinion : Fiend
         StopAllCoroutines();
         StartCoroutine(FollowTarget(player));
 
-        if(suscribedToTacicts) UnsuscribeToTactics();
+        if (suscribedToTacicts) UnsuscribeToTactics();
     }
     private void AttackTarget(GameObject target)
     {
@@ -128,82 +127,79 @@ public class PlayerMinion : Fiend
 
 
 
-    //private IEnumerator FollowTarget(GameObject target)
-    //{
-    //    while (enabled && target != null)
-    //    {
-    //        agent.SetDestination(Vector3.Distance(transform.position, target.transform.position) > data.attackRange ?
-    //            target.transform.position : transform.position);
-
-    //        if (target.CompareTag("Enemy"))
-    //        {
-    //            //yield return StartCoroutine(PerformAttack());
-    //        }
-    //        else if(target.CompareTag("Player"))
-    //        {
-    //            //yield return StartCoroutine(WanderAround());
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
-    //private IEnumerator PerformAttack()
-    //{
-    //    while (Vector3.Distance(agent.destination, transform.position) <= data.attackRange)
-    //    {
-    //        yield return StartCoroutine(attackPerformer.PerformAttack(attackWindowTime));
-    //        yield return new WaitForSeconds(data.timeBetweenAttacks);
-    //    }
-    //}
     private IEnumerator FollowTarget(GameObject target)
     {
-        while (enabled && target != null)
+        StartCoroutine(KeepLookingAt(target));
+
+        while (target != null)
         {
-            float distance = Vector3.Distance(transform.position, target.transform.position);
-
-            // Si está fuera de rango, me muevo hacia el objetivo
-            if (distance > data.attackRange)
-            {
-                agent.SetDestination(target.transform.position);
-            }
-            else
-            {
-                agent.SetDestination(transform.position); // paro al llegar al rango
-            }
-
-            // Si es enemigo y está en rango → atacar
-            if (target.CompareTag("Enemy") && distance <= data.attackRange)
-            {
-                yield return StartCoroutine(PerformAttack(target));
-            }
-            // Si es jugador y está en rango → comportamiento alternativo
-            else if (target.CompareTag("Player") && distance <= data.attackRange)
-            {
-                //yield return StartCoroutine(WanderAround());
-            }
-
+            yield return StartCoroutine(Chase(target));
             yield return null;
         }
     }
-    private IEnumerator PerformAttack(GameObject target)
+
+
+    private IEnumerator KeepLookingAt(GameObject target)
     {
-        while (target != null && Vector3.Distance(transform.position, target.transform.position) <= data.attackRange)
+        Vector3 lookDirection;
+
+        while (enabled)
         {
-            // Rotar hacia el objetivo
-            Vector3 direction = (target.transform.position - transform.position).normalized;
-            direction.y = 0; // evitar inclinarse hacia arriba/abajo
-            if (direction != Vector3.zero)
+            lookDirection = (target.transform.position - transform.position).normalized;
+            lookDirection.y = 0f;
+
+            if (lookDirection != Vector3.zero)
             {
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+                transform.rotation = Quaternion.LookRotation(lookDirection);
+                yield return null;
             }
 
-            // Ejecutar ataque
+            yield return new WaitForSeconds(timeReaction);
+        }
+    }
+
+    private IEnumerator Chase(GameObject target)
+    {
+        agent.SetDestination(target.transform.position);
+
+        yield return new WaitForSeconds(timeReaction);
+
+        if (target.CompareTag("Player"))
+        {
+            yield return StartCoroutine(PerformAttack(target));
+        }
+    }
+
+    private IEnumerator PerformAttack(GameObject target)
+    {
+        Debug.Log($"{gameObject.name} is attacking {target.name}");
+
+        while (target != null && Vector3.Distance(transform.position, target.transform.position) <= data.attackRange)
+        {
             yield return StartCoroutine(attackPerformer.PerformAttack(attackWindowTime));
             yield return new WaitForSeconds(data.timeBetweenAttacks);
         }
     }
+    //private IEnumerator PerformAttack(GameObject target)
+    //{
+    //    Debug.Log($"{gameObject.name} is attacking {target.name}");
 
+    //    while (target != null && Vector3.Distance(transform.position, target.transform.position) <= data.attackRange)
+    //    {
+    //        // Rotar hacia el objetivo
+    //        Vector3 direction = (target.transform.position - transform.position).normalized;
+    //        direction.y = 0; // evitar inclinarse hacia arriba/abajo
+    //        if (direction != Vector3.zero)
+    //        {
+    //            Quaternion lookRotation = Quaternion.LookRotation(direction);
+    //            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+    //        }
+
+    //        // Ejecutar ataque
+    //        yield return StartCoroutine(attackPerformer.PerformAttack(attackWindowTime));
+    //        yield return new WaitForSeconds(data.timeBetweenAttacks);
+    //    }
+    //}
     #endregion
 
 

@@ -7,7 +7,7 @@ public class AttackPerformer : MonoBehaviour
     [SerializeField] private SphereCollider attackCollider;
 
     [SerializeField] private LayerMask damageableLayer;
-
+    
 
     private void OnTriggerEnter(Collider other)
     {
