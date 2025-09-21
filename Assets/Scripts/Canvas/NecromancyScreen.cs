@@ -55,6 +55,7 @@ public class NecromancyScreen : MonoBehaviour
     }
     public void OpenRitualOptions() 
     {
+        if (invocationPanel.activeSelf) return;
         invocationPanel.SetActive(true);
 
         List<SummonName> possibleSummons = necromancy.GetPossibleSummons(remains);

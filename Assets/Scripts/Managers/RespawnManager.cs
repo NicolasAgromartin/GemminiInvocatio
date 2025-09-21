@@ -83,15 +83,19 @@ public class RespawnManager : Singleton<RespawnManager>
     {
         closestRespawnPoint = respawnPoints[0];
 
-        foreach(GameObject respawnPoint in respawnPoints)
+        foreach (GameObject respawnPoint in respawnPoints)
         {
-            if(Vector3.Distance(respawnPoint.transform.position, player.transform.position) <=
-                Vector3.Distance(closestRespawnPoint.transform.position, player.transform.position))
+            float distCurrent = Vector3.Distance(respawnPoint.transform.position, player.transform.position);
+            float distClosest = Vector3.Distance(closestRespawnPoint.transform.position, player.transform.position);
+
+            if (distCurrent < distClosest)
             {
                 closestRespawnPoint = respawnPoint;
-                player.transform.position = respawnPoint.transform.position;
             }
         }
+
+        // recién acá lo movés
+        player.transform.position = closestRespawnPoint.transform.position;
 
         OnPlayerRespawned?.Invoke();
 
@@ -101,7 +105,7 @@ public class RespawnManager : Singleton<RespawnManager>
         CursorManager.DisableCursor();
         Time.timeScale = 1f;
     }
-    
+
     // se suscribe al evento de muerte del jugador
     // calcula donde murio el jugador y lo reinstancia en  el punto
     // de respawn mas cercano

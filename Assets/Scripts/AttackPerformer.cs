@@ -15,7 +15,7 @@ public class AttackPerformer : MonoBehaviour
 
         if (transform.root.CompareTag("Player") || transform.root.CompareTag("PlayerMinion"))
         {
-            Debug.Log("Player is attacking");
+            Debug.Log($"{transform.root.gameObject.name} is attacking");
             // comparo con damageableArea de enemy unicamente
             if (other.transform.root.CompareTag("Enemy"))
             {
