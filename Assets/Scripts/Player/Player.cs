@@ -77,6 +77,7 @@ public class Player : Unit
 
             if (lives <= 0)
             {
+                Debug.Log("Player died");
                 // fin de juego
                 OnPlayerLost?.Invoke();
                 return;    
