@@ -50,7 +50,6 @@ public class PlayerIdleState : BaseState
 
     private void MovePlayer(Vector2 direction)
     {
-
         animator.SetFloat("Movement", new Vector3(direction.x, 0, direction.y).magnitude, .2f, Time.deltaTime);
 
         if(direction.x != 0 || direction.y != 0)
@@ -62,17 +61,32 @@ public class PlayerIdleState : BaseState
     {
         Collider[] colliders = Physics.OverlapSphere(stateMachine.transform.position, 1f, LayerMask.GetMask("Interactable"));
 
+
+        Debug.Log(colliders.Length);
         // unicamente cuando es una interaccion de necromancia cambio de estado, si no unicamente tomo el objeto
         //Debug.Log(colliders.Length);
 
         foreach (Collider collider in colliders)
         {
-            if (collider.transform.root.gameObject.GetComponent<IInteractable>() != null)
+            GameObject obj = collider.transform.root.gameObject;
+            Debug.Log(collider.gameObject.name);
+
+            if (obj.GetComponent<IInteractable>() != null)
             {
-                if(collider.transform.root.gameObject.CompareTag("Remains")) OnEventOccurred?.Invoke(TransitionEvent.Interact);
-                else
+
+                if(obj.CompareTag("Remains")) OnEventOccurred?.Invoke(TransitionEvent.Interact);
+                else 
                 {
-                    collider.transform.root.gameObject.GetComponent<IInteractable>().Interact(stateMachine.gameObject);
+                    obj.GetComponent<IInteractable>().Interact(stateMachine.gameObject);
+                }
+            }
+
+            if(collider.gameObject.GetComponent<IInteractable>() != null)
+            {
+                if (collider.gameObject.CompareTag("Gate"))
+                {
+                    Debug.Log("Gate detected");
+                    collider.gameObject.GetComponent<IInteractable>().Interact(stateMachine.gameObject);
                 }
             }
         }

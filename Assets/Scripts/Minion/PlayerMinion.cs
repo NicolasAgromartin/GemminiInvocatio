@@ -127,6 +127,7 @@ public class PlayerMinion : Fiend
 
 
 
+
     private IEnumerator FollowTarget(GameObject target)
     {
         StartCoroutine(KeepLookingAt(target));
@@ -143,7 +144,7 @@ public class PlayerMinion : Fiend
     {
         Vector3 lookDirection;
 
-        while (enabled)
+        while (target != null)
         {
             lookDirection = (target.transform.position - transform.position).normalized;
             lookDirection.y = 0f;

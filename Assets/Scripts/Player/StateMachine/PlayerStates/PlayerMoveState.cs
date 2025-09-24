@@ -58,7 +58,6 @@ public class PlayerMovementState : BaseState
         InputManager.OnPlayerMovement -= MovePlayer;
         InputManager.OnSwitchTargetButtonPressed -= enemyDetector.ChangeFocusedTarget;
         InputManager.OnReturnAllMinonsButtonPressed -= TacticsSystem.ReturnAllMinions;
-
     }
     public override void UpdateState() 
     {
@@ -81,7 +80,6 @@ public class PlayerMovementState : BaseState
         moveDirection = cameraController.PlanarRotation() * moveInput;
 
         playerVelocity = moveDirection * moveSpeed;
-
     }
     private void ApplyMovement()
     {
@@ -115,9 +113,6 @@ public class PlayerMovementState : BaseState
     public override void OnCollisionEnter(Collider other) { }
     public override void OnCollisionExit(Collider other) { }
     public override void OnTriggerEnter(Collider other) { }
-    public override void OnTriggerExit(Collider other)
-    {
-        throw new NotImplementedException();
-    }
+    public override void OnTriggerExit(Collider other) { }
     #endregion
 }

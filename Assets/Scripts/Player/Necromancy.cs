@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+
+
+
+
 
 public class Necromancy : MonoBehaviour
 {
@@ -58,7 +60,6 @@ public class Necromancy : MonoBehaviour
             { ItemType.Skull, skull },
             { ItemType.Skin, skin },
             { ItemType.Ashes, ashes },
-
         };
     }
     private void Start()
@@ -100,6 +101,7 @@ public class Necromancy : MonoBehaviour
         {
             inventory.AddItem(new(ashes));
         }
+
     }
     private void RemoveModel(Transform remains)
     {
