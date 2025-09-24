@@ -26,7 +26,7 @@ public class Player : Unit
     private RespawnManager respawnManager;
     #endregion
 
-    
+
 
     #region Life Cykle
     private void Awake()

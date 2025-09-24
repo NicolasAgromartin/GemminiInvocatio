@@ -63,7 +63,7 @@ public class PlayerStateMachine : BaseStateMachine
         InputManager.OnSwarmTargetButtonPressed -= SwarmEnemy;
         InputManager.OnUsePotionButtonPressed -= UsePotion;
 
-        player.OnDamageRecieved -= RecieveDamage; 
+        player.OnDamageRecieved -= RecieveDamage;
         
     }
     private void OnDestroy()
