@@ -28,7 +28,7 @@ public class Fiend : Unit
         
         agent = GetComponent<NavMeshAgent>();
         SetAgentData();
-        InstantiateModel();
+        //InstantiateModel();
     }
 
 
@@ -37,23 +37,21 @@ public class Fiend : Unit
     #region Model
     private void InstantiateModel()
     {
-        bool hasModel = false;
-
-        foreach (Transform child in transform)
-        {            
-            if (child.CompareTag("FiendModel"))
-            {
-                hasModel = true;
-                break;
-            }
+        if (data == null || data.modelPrefab == null)
+        {
+            Debug.LogError($"[{name}] No hay modelPrefab asignado en el FiendSO");
+            return;
         }
 
-        if(materials.Count > 0) hasModel = true;
-        if (!hasModel) Instantiate(data.modelPrefab, transform);
+        bool hasModel = transform.Cast<Transform>().Any(child => child.CompareTag("FiendModel"));
+        if (materials.Count > 0) hasModel = true;
 
-        
+        if (!hasModel)
+            Instantiate(data.modelPrefab, transform);
+
         GetModelMaterials();
     }
+
     protected void GetModelMaterials()
     {
         GameObject model = null;

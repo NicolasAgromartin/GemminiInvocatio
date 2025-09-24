@@ -74,7 +74,6 @@ MonoBehaviour:
   m_Graph: {fileID: 8451972486030219964, guid: a0dc71163ed5fc442a667a7ee219055d, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 3681185140099776909
-  - rid: 3681185253306401358
   - rid: 3681185253306401592
   - rid: 3681185258135093573
   - rid: 3681185258704208342
@@ -93,14 +92,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 3218843843378361495}
-    - rid: 3681185253306401358
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 133783523623489947
-          m_Value1: 17883796074758029521
-        Name: Animator
-        m_Value: {fileID: 0}
     - rid: 3681185253306401592
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -184,74 +175,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!1 &6065349422827561475
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1492129748248063272}
-  - component: {fileID: 296372543514232376}
-  - component: {fileID: 3256601564668140157}
-  m_Layer: 2
-  m_Name: TargetsDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1492129748248063272
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6065349422827561475}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5630329729092313639}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &296372543514232376
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6065349422827561475}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3256601564668140157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6065349422827561475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6b1c9ce5158d974386e403136847f6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TargetsDetector
-  targetsList: []
-  selectedTarget: {fileID: 0}
 --- !u!1001 &3553799970315978884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -337,3 +260,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6832233856992338648, guid: dec051c6232b1924c9cfb1dc00e8c486, type: 3}
   m_PrefabInstance: {fileID: 3553799970315978884}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4228516376570642960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5630329729092313639}
+    m_Modifications:
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963144896220209171, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+      propertyPath: m_Name
+      value: TargetsDetector
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+--- !u!4 &1492129748248063272 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3322435122660388664, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+  m_PrefabInstance: {fileID: 4228516376570642960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3256601564668140157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1702203307741468781, guid: 7bd7809a9ffc8824788df5a72425a744, type: 3}
+  m_PrefabInstance: {fileID: 4228516376570642960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b1c9ce5158d974386e403136847f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetsDetector
