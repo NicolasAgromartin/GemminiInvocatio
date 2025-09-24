@@ -40,12 +40,9 @@ public partial class DetectTargetsAction : Action
     {
         SelectedTarget.Value = newTarget;
 
-        if (SelectedTarget.Value == null)
-        {
-            return;
-        }
+        if (SelectedTarget.Value == null) return;
 
-        if(newTarget != SelectedTarget.Value) SelectedTarget.Value = newTarget;
+        if (newTarget != SelectedTarget.Value) SelectedTarget.Value = newTarget;
 
         //Debug.Log($"{TargetSelected.Value} <---___--> {SelectedTarget.Value}");
     }
