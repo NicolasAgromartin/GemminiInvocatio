@@ -28,7 +28,7 @@ public class Fiend : Unit
         
         agent = GetComponent<NavMeshAgent>();
         SetAgentData();
-        //InstantiateModel();
+        InstantiateModel();
     }
 
 
