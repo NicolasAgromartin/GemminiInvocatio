@@ -1,5 +1,4 @@
 using System;
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class PlayerIdleState : BaseState
@@ -15,6 +14,7 @@ public class PlayerIdleState : BaseState
     private Animator animator;
     private PlayerStateMachine stateMachine;
     private EnemyDetector enemyDetector;
+    private AudioSource stepsClip;
     #endregion
 
 
@@ -23,6 +23,7 @@ public class PlayerIdleState : BaseState
     {
         animator = stateMachine.Animator;
         enemyDetector = stateMachine.EnemyDetector;
+        stepsClip = stateMachine.StepsClip;
 
         InputManager.OnPlayerMovement += MovePlayer;
         InputManager.OnInteractAction += Interact;
@@ -30,6 +31,8 @@ public class PlayerIdleState : BaseState
         InputManager.OnTacticalButtonPressed += EnterTacticalMode;
         InputManager.OnSwitchTargetButtonPressed += enemyDetector.ChangeFocusedTarget;
         InputManager.OnReturnAllMinonsButtonPressed += TacticsSystem.ReturnAllMinions;
+
+        stepsClip.Stop();
     }
     public override void ExitState()
     {

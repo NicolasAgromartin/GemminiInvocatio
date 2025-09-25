@@ -29,4 +29,4 @@ MonoBehaviour:
   radius: 0.6
   height: 2
   timeBetweenAttacks: 0.6
-  attackRange: 1
+  attackRange: 2

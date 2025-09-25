@@ -19,7 +19,7 @@ MonoBehaviour:
     Health: 1
     Attack: 10
     MaxMovementSpeed: 1
-    AttackRange: 1
+    AttackRange: 2
   baseOffset: 0
   speed: 2
   angularSpeed: 0

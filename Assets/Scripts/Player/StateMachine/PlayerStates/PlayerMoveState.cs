@@ -16,8 +16,9 @@ public class PlayerMovementState : BaseState
     private PlayerStateMachine stateMachine;
     private CharacterController characterController;
     private CameraController cameraController;
-    private Transform characterModel;
     private EnemyDetector enemyDetector;
+    private AudioSource stepsClip;
+    private Transform characterModel;
     private Animator animator;
     #endregion
 
@@ -48,6 +49,7 @@ public class PlayerMovementState : BaseState
         characterModel = stateMachine.CharacterModel;
         animator = stateMachine.Animator;
         enemyDetector = stateMachine.EnemyDetector;
+        stepsClip = stateMachine.StepsClip;
 
         InputManager.OnPlayerMovement += MovePlayer;
         InputManager.OnSwitchTargetButtonPressed += enemyDetector.ChangeFocusedTarget;
@@ -64,6 +66,18 @@ public class PlayerMovementState : BaseState
         ApplyGravity();
         ApplyRotation();
         ApplyMovement();
+        
+        if (moveAmount > 0) // si el jugador se está moviendo
+        {
+            if (!stepsClip.isPlaying) // solo arranca si no está ya sonando
+                stepsClip.Play();
+        }
+        else // si no hay movimiento
+        {
+            if (stepsClip.isPlaying)
+                stepsClip.Stop();
+        }
+
     }
     #endregion
 
