@@ -26,18 +26,18 @@ public class DoorAction : MonoBehaviour
 
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxDistance, useLayers))
         {
-            Debug.Log("Raycast choca con: " + hit.collider.name);
+            
            
             if (hit.collider.TryGetComponent<Door>(out Door door))
             {
                 if (door.isOpen)
                 {
-                    Debug.Log("puerta cerrada ");
+                    
                     door.Close();
                 }
                 else
                 {
-                    Debug.Log("puerta abierta ");
+                    
                     door.Open(transform.position);
                 }
             }
