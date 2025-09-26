@@ -59294,6 +59294,7 @@ MonoBehaviour:
   playerCanvas: {fileID: 1725033667}
   remainsCanvas: {fileID: 1199787092}
   necromancy: {fileID: 1892638303}
+  stepsClip: {fileID: 0}
   player: {fileID: 1892638305}
   stateIndicator: {fileID: 27421151}
 --- !u!143 &1892638307
