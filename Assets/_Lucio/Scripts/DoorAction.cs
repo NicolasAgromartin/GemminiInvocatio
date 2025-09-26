@@ -51,7 +51,7 @@ public class DoorAction : MonoBehaviour
     }
 }
 
-    /* private void Update()
+   /* private void Update()
      {
          if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxDistance, useLayers) && (hit.collider.TryGetComponent<Door>(out Door door)))
          {
@@ -73,5 +73,6 @@ public class DoorAction : MonoBehaviour
              useText.gameObject.SetActive(false);
          }
      }
-    */
+}
 
+*/

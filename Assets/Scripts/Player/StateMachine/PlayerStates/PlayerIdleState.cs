@@ -63,8 +63,8 @@ public class PlayerIdleState : BaseState
 
 
         Debug.Log(colliders.Length);
-        // unicamente cuando es una interaccion de necromancia cambio de estado, si no unicamente tomo el objeto
-        //Debug.Log(colliders.Length);
+       
+        Debug.Log(colliders.Length);
 
         foreach (Collider collider in colliders)
         {
