@@ -26,18 +26,18 @@ public class DoorAction : MonoBehaviour
 
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxDistance, useLayers))
         {
-            Debug.Log("Raycast choca con: " + hit.collider.name);
+            
            
             if (hit.collider.TryGetComponent<Door>(out Door door))
             {
                 if (door.isOpen)
                 {
-                    Debug.Log("puerta cerrada ");
+                    
                     door.Close();
                 }
                 else
                 {
-                    Debug.Log("puerta abierta ");
+                    
                     door.Open(transform.position);
                 }
             }
@@ -51,7 +51,7 @@ public class DoorAction : MonoBehaviour
     }
 }
 
-   /* private void Update()
+    /* private void Update()
      {
          if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxDistance, useLayers) && (hit.collider.TryGetComponent<Door>(out Door door)))
          {
@@ -73,6 +73,5 @@ public class DoorAction : MonoBehaviour
              useText.gameObject.SetActive(false);
          }
      }
-}
+    */
 
-*/

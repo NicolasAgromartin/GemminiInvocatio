@@ -13,6 +13,7 @@ public class AttackPerformer : MonoBehaviour
     {
         if (((1 << other.gameObject.layer) & damageableLayer.value) == 0) return; // si el other esta dentro de la layer damageable
 
+
         if (transform.root.CompareTag("Player") || transform.root.CompareTag("PlayerMinion"))
         {
             Debug.Log($"{transform.root.gameObject.name} is attacking");

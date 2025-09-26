@@ -12,7 +12,9 @@ public class PlayerStateMachine : BaseStateMachine
     [SerializeField] private PlayerCanvas playerCanvas;
     [SerializeField] private NecromancyScreen remainsCanvas;
     [SerializeField] private Necromancy necromancy;
+    [SerializeField] private AudioSource stepsClip;
     [SerializeField] private Player player;
+
     private Inventory inventory;
 
     [Header("UI")]
@@ -169,6 +171,7 @@ public class PlayerStateMachine : BaseStateMachine
     public PlayerCanvas PlayerCanvas => playerCanvas;
     public Necromancy Necromancy => necromancy;
     public Inventory Inventory => inventory;
+    public AudioSource StepsClip => stepsClip;
     #endregion
 
     #region Setters

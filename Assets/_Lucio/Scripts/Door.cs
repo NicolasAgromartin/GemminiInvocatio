@@ -28,7 +28,7 @@ public class Door : MonoBehaviour
 
     public void Open(Vector3 UserPosition)
     {
-        Debug.Log("llamando a open");
+       
         if (!isOpen)
         {
 
@@ -50,16 +50,16 @@ public class Door : MonoBehaviour
 
     {
         Quaternion startRotation = transform.rotation;
-        Vector3 euler = startRotation.eulerAngles;
+        
 
         Quaternion endRotation;
         if (FowardAmount >= forwardDirection)
         {
-            endRotation = Quaternion.Euler(new Vector3(euler.x, euler.y - rotationAmount, euler.z));
+            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y + rotationAmount, 0));
         }
         else
         {
-            endRotation = Quaternion.Euler(new Vector3(euler.x, euler.y + rotationAmount, euler.z));
+            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y - rotationAmount, 0));
         }
 
         isOpen = true;
@@ -74,7 +74,7 @@ public class Door : MonoBehaviour
 
     public void Close()
     {
-        Debug.Log("llamando a close");
+        
         if (isOpen)
         {
             if (coroutine != null) 
