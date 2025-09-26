@@ -56,6 +56,7 @@ public class Pickable : MonoBehaviour, IInteractable
     #region Interact
     public void Interact(GameObject interactor)
     {
+        Debug.Log($"Interacted {interactor.name}");
         interactor.GetComponent<Player>().GetInventory().AddItem(item); 
         Destroy(this.gameObject);
     }
