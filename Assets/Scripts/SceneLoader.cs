@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,9 @@ public class SceneLoader : Singleton<SceneLoader>
     private readonly int gameOverScene = 3;
 
 
+    private Enemy finalBoss;
+
+
     new private void Awake()
     {
         base.Awake();
@@ -24,11 +28,13 @@ public class SceneLoader : Singleton<SceneLoader>
         DontDestroyOnLoad(gameObject);
 
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
+        
 
         /* Game test  */
         CheckLoadedScene(currentSceneIndex);
     }
+
+
 
     private Player player;
     private void CheckLoadedScene(int loadedScene)
@@ -41,6 +47,17 @@ public class SceneLoader : Singleton<SceneLoader>
         {
             player = FindAnyObjectByType<Player>();
             player.OnPlayerLost += GoToDefeatScreen;
+            
+            Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+            foreach(Enemy enemy in enemies)
+            {
+                if(enemy.isFinalBoos)
+                {
+                    finalBoss = enemy;
+                    SuscribeToFinalBoss();
+                    break;
+                }
+            }
         }
         if(loadedScene == gameOverScene)
         {
@@ -85,6 +102,19 @@ public class SceneLoader : Singleton<SceneLoader>
     private void GoToDefeatScreen()
     {
         player.OnPlayerLost -= GoToDefeatScreen;
+        SceneManager.LoadScene(3);
+    }
+    private void SuscribeToFinalBoss()
+    {
+        finalBoss.OnFinalBossDefeated += GoToGameOverScreen;
+    }
+    private void UnsuscribeToFinalBoss()
+    {
+        finalBoss.OnFinalBossDefeated -= GoToGameOverScreen;
+    }
+    private void GoToGameOverScreen()
+    {
+        UnsuscribeToFinalBoss();
         SceneManager.LoadScene(3);
     }
     #endregion

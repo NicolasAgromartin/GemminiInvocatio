@@ -1,6 +1,6 @@
 using Unity.Behavior;
 using Unity.VisualScripting;
-using UnityEngine.EventSystems;
+
 
 
 
@@ -8,11 +8,12 @@ public class Enemy : Fiend
 {
     public delegate void EnemyEvent();
     public event EnemyEvent OnDamageRecievd;
+    public event EnemyEvent OnFinalBossDefeated;
 
 
     private BehaviorGraphAgent behaviorAgent;
 
-
+    public bool isFinalBoos = false;
 
 
 
@@ -54,7 +55,14 @@ public class Enemy : Fiend
     {
         base.RecieveDamage(damage);
         OnDamageRecievd?.Invoke();
-        if (Stats.Health <= 0) MakeRemains();
+        if (Stats.Health <= 0)
+        {
+            if (!isFinalBoos) MakeRemains();
+            else
+            {
+                OnFinalBossDefeated?.Invoke();
+            }
+        }
     }
 
 

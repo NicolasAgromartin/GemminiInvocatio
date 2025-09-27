@@ -69,7 +69,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackPerformer
   attackCollider: {fileID: 1043670440092508359}
-  damageWindowTime: 1
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!33 &4492295761918071844
 MeshFilter:
   m_ObjectHideFlags: 0

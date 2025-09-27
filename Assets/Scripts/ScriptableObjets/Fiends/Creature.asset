@@ -16,8 +16,8 @@ MonoBehaviour:
   fiendName: Creature A
   type: 1
   stats:
-    Health: 3
-    Attack: 5
+    Health: 150
+    Attack: 30
     MaxMovementSpeed: 2
     AttackRange: 1
   baseOffset: 0

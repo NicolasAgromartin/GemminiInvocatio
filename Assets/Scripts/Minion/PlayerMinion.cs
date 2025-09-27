@@ -165,7 +165,7 @@ public class PlayerMinion : Fiend
 
         yield return new WaitForSeconds(timeReaction);
 
-        if (target.CompareTag("Enemy"))
+        if (target != null && target.CompareTag("Enemy"))
         {
             yield return StartCoroutine(PerformAttack(target));
         }

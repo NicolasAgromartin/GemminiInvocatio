@@ -16,7 +16,7 @@ MonoBehaviour:
   fiendName: Human Zombie
   type: 2
   stats:
-    Health: 1
+    Health: 120
     Attack: 10
     MaxMovementSpeed: 1
     AttackRange: 2
