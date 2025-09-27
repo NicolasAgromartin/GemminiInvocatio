@@ -89,8 +89,9 @@ public class PlayerIdleState : BaseState
                 if (collider.gameObject.CompareTag("Gate"))
                 {
                     Debug.Log("Gate detected");
-                    collider.gameObject.GetComponent<IInteractable>().Interact(stateMachine.gameObject);
                 }
+
+                collider.gameObject.GetComponent<IInteractable>().Interact(stateMachine.gameObject);
             }
         }
     }
