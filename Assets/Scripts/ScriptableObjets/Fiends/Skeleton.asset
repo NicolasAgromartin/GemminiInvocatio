@@ -18,7 +18,7 @@ MonoBehaviour:
   stats:
     Health: 60
     Attack: 20
-    MaxMovementSpeed: 2
+    MaxMovementSpeed: 4
     AttackRange: 2
   baseOffset: 0
   speed: 3

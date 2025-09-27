@@ -1,5 +1,7 @@
 using Unity.Behavior;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -10,11 +12,15 @@ public class Enemy : Fiend
     public event EnemyEvent OnDamageRecievd;
     public event EnemyEvent OnFinalBossDefeated;
 
-
+    private int maxHealth;
     private BehaviorGraphAgent behaviorAgent;
 
     public bool isFinalBoos = false;
 
+
+    [Header("UI")]
+    [SerializeField] private Canvas enemyCanvas;
+    [SerializeField] private Image healthBar;
 
 
 
@@ -23,12 +29,17 @@ public class Enemy : Fiend
     {
         base.Awake();
         behaviorAgent = GetComponent<BehaviorGraphAgent>();
+        maxHealth = Stats.Health;
+        name = data.name;
     }
     private void Start()
     {
         SetBehaviorGraphVariables();
     }
-
+    private void LateUpdate()
+    {
+        enemyCanvas.transform.LookAt(transform.position + Camera.main.transform.forward);
+    }
 
 
 
@@ -55,6 +66,10 @@ public class Enemy : Fiend
     {
         base.RecieveDamage(damage);
         OnDamageRecievd?.Invoke();
+
+        healthBar.fillAmount = (float)Stats.Health / maxHealth;
+
+
         if (Stats.Health <= 0)
         {
             if (!isFinalBoos) MakeRemains();
@@ -71,6 +86,7 @@ public class Enemy : Fiend
 
     private void MakeRemains()
     {
+        enemyCanvas.gameObject.SetActive(false);
         tag = "Remains";
         name += " - Remains";
         Destroy(GetComponent<BehaviorGraphAgent>());

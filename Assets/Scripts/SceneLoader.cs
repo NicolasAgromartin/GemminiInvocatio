@@ -1,22 +1,20 @@
 using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-
 public class SceneLoader : Singleton<SceneLoader>
 {
-    private event Action<int> OnSceneLoaded;
+    public event Action<int> OnSceneLoaded;
     private int currentSceneIndex;
 
 
-    private readonly int titleScreenScene = 0;
-    private readonly int mainGameScene = 1;
-    private readonly int gameOverScene = 3;
 
+    private readonly int storySlideScene = 0;
+    private readonly int titleScreenScene = 1;
+    private readonly int mainGameScene = 2;
+    private readonly int gameOverScene = 3;
 
     private Enemy finalBoss;
 
@@ -28,7 +26,6 @@ public class SceneLoader : Singleton<SceneLoader>
         DontDestroyOnLoad(gameObject);
 
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
 
         /* Game test  */
         CheckLoadedScene(currentSceneIndex);
@@ -39,31 +36,38 @@ public class SceneLoader : Singleton<SceneLoader>
     private Player player;
     private void CheckLoadedScene(int loadedScene)
     {
-        if (currentSceneIndex == 0)
+        if (currentSceneIndex == titleScreenScene)
         {
             ManageTitleScreen();
         }
-        if(loadedScene == mainGameScene)
+        if (loadedScene == mainGameScene)
         {
-            player = FindAnyObjectByType<Player>();
-            player.OnPlayerLost += GoToDefeatScreen;
-            
-            Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-            foreach(Enemy enemy in enemies)
-            {
-                if(enemy.isFinalBoos)
-                {
-                    finalBoss = enemy;
-                    SuscribeToFinalBoss();
-                    break;
-                }
-            }
+            HandleGameScene();
         }
         if(loadedScene == gameOverScene)
         {
             ManageGameOverScreen();
         }
     }
+
+    #region GameScene
+    private void HandleGameScene()
+    {
+        player = FindAnyObjectByType<Player>();
+        player.OnPlayerLost += GoToDefeatScreen;
+
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy.isFinalBoos)
+            {
+                finalBoss = enemy;
+                SuscribeToFinalBoss();
+                break;
+            }
+        }
+    }
+    #endregion
 
 
     #region TitleScreen
@@ -75,8 +79,8 @@ public class SceneLoader : Singleton<SceneLoader>
 
         playButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene(1);
-            OnSceneLoaded?.Invoke(1);
+            SceneManager.LoadScene(mainGameScene);
+            OnSceneLoaded?.Invoke(mainGameScene);
             playButton.onClick.RemoveAllListeners();
         });
 
@@ -102,7 +106,7 @@ public class SceneLoader : Singleton<SceneLoader>
     private void GoToDefeatScreen()
     {
         player.OnPlayerLost -= GoToDefeatScreen;
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(gameOverScene);
     }
     private void SuscribeToFinalBoss()
     {
@@ -115,7 +119,7 @@ public class SceneLoader : Singleton<SceneLoader>
     private void GoToGameOverScreen()
     {
         UnsuscribeToFinalBoss();
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(gameOverScene);
     }
     #endregion
 
@@ -129,11 +133,11 @@ public class SceneLoader : Singleton<SceneLoader>
         Button exitButton = gameOverScreen.transform.Find("ButtonsContainer/Exit_Button").GetComponent<Button>();
 
         CursorManager.EnableCursor();
-
+        
         titleScreenButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene(titleScreenScene);
-            OnSceneLoaded?.Invoke(0);
+            OnSceneLoaded?.Invoke(titleScreenScene);
             titleScreenButton.onClick.RemoveAllListeners();
         });
 

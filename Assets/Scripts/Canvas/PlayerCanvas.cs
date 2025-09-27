@@ -91,7 +91,7 @@ public class PlayerCanvas : MonoBehaviour
 
             GameObject newMinionUI = Instantiate(minionUiPrefab, minionsDisplay.transform);
             newMinionUI.GetComponentInChildren<TMP_Text>().text = minion.name;
-            newMinionUI.transform.Find("Stats/AttackValue").GetComponent<TMP_Text>().text = minion.Stats.Attack.ToString();
+            newMinionUI.transform.Find("Stats/AttackValue").GetComponent<TMP_Text>().text = "Atk : " + minion.Stats.Attack.ToString();
 
             playerMinionBoxes.Add(minion, newMinionUI);
             SuscribeToMinionEvents(minion);
