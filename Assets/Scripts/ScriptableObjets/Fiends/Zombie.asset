@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34ecf80e52934241b21f854dd673c57, type: 3}
+  m_Name: Zombie
+  m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
+  modelPrefab: {fileID: 4277166724811656031, guid: e8e664c80746ef1469e5e925b9593843, type: 3}
+  fiendName: Human Zombie
+  type: 2
+  stats:
+    Health: 120
+    Attack: 10
+    MaxMovementSpeed: 4
+    AttackRange: 2
+  baseOffset: 0
+  speed: 2
+  angularSpeed: 0
+  acceleration: 0
+  stoppingDistance: 2
+  priority: 1
+  radius: 0.6
+  height: 2
+  timeBetweenAttacks: 1
+  attackRange: 2
