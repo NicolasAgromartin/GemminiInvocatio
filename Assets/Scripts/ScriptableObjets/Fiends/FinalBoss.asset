@@ -16,7 +16,7 @@ MonoBehaviour:
   fiendName: Final Boss
   type: 3
   stats:
-    Health: 180
+    Health: 200
     Attack: 45
     MaxMovementSpeed: 3
     AttackRange: 2
