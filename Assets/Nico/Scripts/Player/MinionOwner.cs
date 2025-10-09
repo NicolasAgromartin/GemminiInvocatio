@@ -49,21 +49,30 @@ public class MinionOwner:MonoBehaviour
     #region Minions Managment
     public void UpdateMinionsList()
     {
-        minions.AddRange(FindObjectsByType<PlayerMinion>(FindObjectsSortMode.None));
+        PlayerMinion[] detectedMinions = FindObjectsByType<PlayerMinion>(FindObjectsSortMode.None);
+
+        foreach(PlayerMinion minion in detectedMinions)
+        {
+            minions.Add(minion);
+            minion.OnDeath += RemoveMinion;
+        }
 
         OnMinionsUpdated?.Invoke(minions);
     }
     private void AddMinion(PlayerMinion newMinion)
     {
         minions.Add(newMinion);
+        newMinion.OnDeath += RemoveMinion;
         OnMinionsUpdated.Invoke(minions);
     }
-    private void RemoveMinion(PlayerMinion deadMinion)
+    private void RemoveMinion(Unit deadMinion)
     {
-        minions.Remove(deadMinion);
+        deadMinion.OnDeath -= RemoveMinion;
+        minions.Remove(deadMinion.GetComponent<PlayerMinion>());
         OnMinionsUpdated?.Invoke(minions);
     }
     #endregion 
+
 
 
 
@@ -105,17 +114,14 @@ public class MinionOwner:MonoBehaviour
     #region Single Orders
     public void ReturnToPlayer()
     {
-        //Debug.Log($"{MinionSelected.name} moves bak ");
         MinionSelected.ReturnToPlayer();
     }
     public void ChangeTarget(Enemy target)
     {
-        //Debug.Log($"{MinionSelected.name} attacks {target}");
         MinionSelected.AttackTarget(target.gameObject);
     }
     public void MoveToPosition(Vector3 posToMove)
     {
-        //Debug.Log($"{MinionSelected.name} moves to the position {posToMove}");
         MinionSelected.MoveToPosition(posToMove);
     }
     #endregion

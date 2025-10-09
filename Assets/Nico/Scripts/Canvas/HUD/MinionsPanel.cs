@@ -42,7 +42,7 @@ public class MinionsPanel : MonoBehaviour
     private void UpdateMinionHealth(Unit minion, int newHealth)
     {
         //StartCoroutine(ChangeHealthBar(playerMinionBoxes[minion.GetComponent<PlayerMinion>()].transform.Find("Health/HealthBar").GetComponent<Image>(), newHealth));
-        Debug.Log($"{minion.name} reduce life to {newHealth}");
+        //Debug.Log($"{minion.name} reduce life to {newHealth}");
     }
     private void RemoveMinionFromList(Unit minion)
     {
