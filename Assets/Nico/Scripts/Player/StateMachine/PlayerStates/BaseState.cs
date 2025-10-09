@@ -9,7 +9,7 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-    public virtual event Action<TransitionEvent> OnEventOccurred;
+    public abstract event Action<TransitionEvent> OnEventOccurred;
 
     protected PlayerStateMachine stateMachine;
     protected PlayerContext playerContext;
@@ -74,16 +74,11 @@ public abstract class BaseState
 
         foreach (Collider collider in colliders)
         {
-            //GameObject detected = collider.transform.root.gameObject;
             detected = collider.gameObject;
-
 
             if (detected.GetComponent<IInteractable>() == null) return;
 
             detected.GetComponent<IInteractable>().Interact(transform.gameObject);
-
-
-
         }
     }
     

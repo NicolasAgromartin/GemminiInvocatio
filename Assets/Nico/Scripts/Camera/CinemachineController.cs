@@ -49,9 +49,9 @@ public class CinemachineController : MonoBehaviour
     }
     private void OnDisable()
     {
-        PlayerStateMachine.OnStateChange -= HandlePlayerStateChange;
+        //PlayerStateMachine.OnStateChange -= HandlePlayerStateChange;
 
-        //EnemyDetector.OnTargetChanged -= HandleEnemyDetection;
+        EnemyDetector.OnTargetChanged -= HandleEnemyDetection;
         //Weapon.OnEnemyHitted -= ShakeCamera;
     }
     private void Update()
