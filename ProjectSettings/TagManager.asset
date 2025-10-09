@@ -15,6 +15,7 @@ TagManager:
   - FiendModel
   - DetectionCollider
   - Gate
+  - DamageDealer
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Ground
   - Wall
   - Interactable
-  - 
-  - 
+  - Damageable
+  - Usable
   - 
   - 
   - 
