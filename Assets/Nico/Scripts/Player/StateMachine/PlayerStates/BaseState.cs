@@ -25,6 +25,8 @@ public abstract class BaseState
     protected AttackPerformer attackPerformer;
     protected CharacterController characterController;
 
+    protected CinemachineController cinemachineController;
+
     protected GameObject detected;
 
 
@@ -42,6 +44,7 @@ public abstract class BaseState
         enemyDetector = playerContext.EnemyDetector;
         attackPerformer = playerContext.AttackPerformer;
         characterController = playerContext.CharacterController;
+        cinemachineController =playerContext.CinemachineController;
         stats = playerContext.Stats;
     }
 
@@ -69,8 +72,9 @@ public abstract class BaseState
     
     protected void Interact()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position + new Vector3(0f, 1f, .5f), new Vector3(1f, 2.5f, 1f), 
-            Quaternion.identity, LayerMask.GetMask("Interactable"));
+        Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward * 1.5f + Vector3.up * 1f, 
+            new Vector3(1f, 2.5f, 1f), transform.rotation, LayerMask.GetMask("Interactable"));
+
 
         foreach (Collider collider in colliders)
         {

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class CinemachineController : MonoBehaviour
 {
-    public static Quaternion PlanarRotation {  get; private set; }
+    public Quaternion PlanarRotation { get; private set; }
 
     [Header("Cameras")]
     [SerializeField] private CinemachineCamera mainCamera;
@@ -49,9 +49,9 @@ public class CinemachineController : MonoBehaviour
     }
     private void OnDisable()
     {
-        //PlayerStateMachine.OnStateChange -= HandlePlayerStateChange;
+        PlayerStateMachine.OnStateChange -= HandlePlayerStateChange;
 
-        EnemyDetector.OnTargetChanged -= HandleEnemyDetection;
+        //EnemyDetector.OnTargetChanged -= HandleEnemyDetection;
         //Weapon.OnEnemyHitted -= ShakeCamera;
     }
     private void Update()

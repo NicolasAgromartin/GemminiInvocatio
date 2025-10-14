@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+
+
+
 public class AttackPerformer : MonoBehaviour
 {
     
@@ -25,8 +28,8 @@ public class AttackPerformer : MonoBehaviour
     private void Awake()
     {
         attackCollider = GetComponent<SphereCollider>();
-        parent = transform.root.gameObject;
-
+        parent = transform.parent.gameObject;
+        //Debug.Log(parent);
         //Damage = parent.GetComponent<Unit>().Stats.Attack;
         Damage = 10;
     }
@@ -35,21 +38,23 @@ public class AttackPerformer : MonoBehaviour
 
 
 
-    // reproducir sfx (woosh y si impacta, de impacto)
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
+
+
         if (((1 << other.gameObject.layer) & damageableLayer.value) == 0) return; // si el other esta dentro de la layer damageable
 
-        impacted = other.transform.root.gameObject;
+        impacted = other.transform.parent.gameObject;
 
-        //Debug.Log(impacted.name);
+        Debug.Log($"{parent} attacked {impacted}");
 
         if (parent.CompareTag("Player") || parent.CompareTag("PlayerMinion"))
         {
-            if (impacted.CompareTag("Enemy"))
+            if (impacted.transform.parent.CompareTag("Enemy"))
             {
                 Debug.Log("Attacked an enemy");
-                impacted.GetComponent<Unit>().RecieveDamage(Damage);
+                impacted.transform.parent.GetComponent<Unit>().RecieveDamage(Damage);
             }
         }
         else
@@ -68,15 +73,17 @@ public class AttackPerformer : MonoBehaviour
     // las primeras dos se ejecutan desde animation events del player
     public void EnableAttackArea()
     {
+        Debug.Log("Atttacked");
         attackCollider.enabled = true;
     }
     public void DisableAttackArea()
     {
         attackCollider.enabled = false;
-        OnComboEnabled?.Invoke();
+        if (parent.CompareTag("Player")) OnComboEnabled?.Invoke();
     }
     public void EndAttack()
     {
+        Debug.Log("End attack");
         OnAttackEnded?.Invoke();
     }
 

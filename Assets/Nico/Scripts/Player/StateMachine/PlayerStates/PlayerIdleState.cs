@@ -35,7 +35,7 @@ public class PlayerIdleState : BaseState
     }
     public override void OnTriggerEnter(Collider other)
     {
-        GameObject parent = other.transform.root.gameObject;
+        GameObject parent = other.transform.parent.gameObject;
 
         if (other.CompareTag("DamageDealer"))
         {
@@ -82,7 +82,7 @@ public class PlayerIdleState : BaseState
     {
         base.Interact();
 
-        if (detected.CompareTag("Remains"))
+        if (detected != null && detected.CompareTag("Remains"))
         {
             OnEventOccurred?.Invoke(TransitionEvent.Interact);
         }

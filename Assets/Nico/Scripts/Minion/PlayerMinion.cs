@@ -44,7 +44,7 @@ public class PlayerMinion : Fiend
     }
     private void WeakenByResurrection()
     {
-        base.GetModelMaterials();
+        //base.GetModelMaterials();
         Stats.Attack /= 2;
         Stats.MaxHealth /= 2;
     }

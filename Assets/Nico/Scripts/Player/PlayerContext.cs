@@ -12,6 +12,7 @@ public class PlayerContext
     public EnemyDetector EnemyDetector {  get; private set; }
     public AttackPerformer AttackPerformer { get; private set; }
     public CharacterController CharacterController { get; private set; }
+    public CinemachineController CinemachineController { get; private set; }
 
     public float MovementSpeed { get; private set; } = 6f;
     public float RotationSpeed { get; private set; } = 4f;
@@ -20,8 +21,8 @@ public class PlayerContext
 
 
 
-    public PlayerContext(CharacterController characterController, Animator animator, Transform transform, Inventory inventory,
-        Necromancy necromancy, EnemyDetector enemyDetector, MinionOwner minionOwner, AttackPerformer attackPerformer, Stats stats)
+    public PlayerContext(CharacterController characterController, Animator animator, Transform transform, Inventory inventory, Necromancy necromancy,
+        EnemyDetector enemyDetector, MinionOwner minionOwner, AttackPerformer attackPerformer, Stats stats, CinemachineController cinemachineController)
     {
         Animator = animator;
         Inventory = inventory;
@@ -32,6 +33,7 @@ public class PlayerContext
         MinionOwner = minionOwner;
         AttackPerformer = attackPerformer;
         Stats = stats;
+        CinemachineController = cinemachineController;
     }
 
 

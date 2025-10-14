@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 972831637947119730}
   - component: {fileID: 4492295761918071844}
   - component: {fileID: 4006932145756196839}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AttackArea
-  m_TagString: AllyImpact
+  m_TagString: DamageDealer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -68,7 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd48c6fc37121b44aeac2c99bd31a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackPerformer
-  attackCollider: {fileID: 1043670440092508359}
   damageableLayer:
     serializedVersion: 2
     m_Bits: 512

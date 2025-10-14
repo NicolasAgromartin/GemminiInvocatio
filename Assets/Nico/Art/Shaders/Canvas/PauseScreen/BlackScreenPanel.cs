@@ -7,7 +7,6 @@ public class BlackScreenPanel : MonoBehaviour
     private Image backgroundImage;
 
 
-
     private void Awake()
     {
         backgroundImage = GetComponent<Image>();

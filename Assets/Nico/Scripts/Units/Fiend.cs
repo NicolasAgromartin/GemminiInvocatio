@@ -9,107 +9,63 @@ using UnityEngine.AI;
 
 public class Fiend : Unit
 {
-    [Header("Fiend ScriptableObject")]
     [SerializeField] protected FiendSO data;
 
+    [SerializeField] protected float patrolSpeed;
+    [SerializeField] protected float chaseSpeed;
+
+
+    protected Animator animator;
     protected NavMeshAgent agent;
-    protected List<Material> materials = new();
-    protected Color materialBaseColor = Color.blanchedAlmond;
+
+
 
 
     protected virtual void Awake()
     {
         Stats = new(data.stats);
-        
+
+        //animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        SetAgentData();
-        InstantiateModel();
+        animator = GetComponentInChildren<Animator>();
     }
 
 
 
 
-    #region Model
-    private void InstantiateModel()
+
+
+
+
+    #region Movement
+    protected IEnumerator MoveToTarget(GameObject target)
     {
-        if (data == null || data.modelPrefab == null)
+        StartCoroutine(KeepLookingAt(target));
+
+        while (target != null)
         {
-            Debug.LogError($"[{name}] No hay modelPrefab asignado en el FiendSO");
-            return;
+            agent.SetDestination(target.transform.position);
+            yield return new WaitForSeconds(1f);
         }
-
-        bool hasModel = transform.Cast<Transform>().Any(child => child.CompareTag("FiendModel"));
-        if (materials.Count > 0) hasModel = true;
-
-        if (!hasModel)
-            Instantiate(data.modelPrefab, transform);
-
-        GetModelMaterials();
     }
-
-    protected void GetModelMaterials()
+    private IEnumerator KeepLookingAt(GameObject target)
     {
-        GameObject model = null;
+        Vector3 lookDirection;
 
-        foreach (Transform child in transform)
+        while (target != null)
         {
-            if (child.CompareTag("FiendModel"))
+            lookDirection = (target.transform.position - transform.position).normalized;
+            lookDirection.y = 0f;
+
+            if (lookDirection != Vector3.zero)
             {
-                model = child.gameObject;
-                break;
+                transform.rotation = Quaternion.LookRotation(lookDirection);
+                yield return null;
             }
-        }
-        if(model != null)
-        {
-            List<MeshRenderer> meshes = model.GetComponentsInChildren<MeshRenderer>().ToList();
 
-            foreach (MeshRenderer mesh in meshes)
-            {
-                materials.AddRange(mesh.materials);
-            }
-        }
-        foreach(Material material in materials)
-        {
-            material.SetColor("_BaseColor", materialBaseColor);
+            yield return new WaitForSeconds(1f);
         }
     }
     #endregion
-
-
-
-    #region NavMesh Agent
-    private void SetAgentData()
-    {
-        agent.radius = data.radius;
-        agent.speed = data.speed;
-        agent.stoppingDistance = data.stoppingDistance;
-        agent.avoidancePriority = data.priority;
-    }
-    #endregion
-
-
-
-    #region Damage
-    public override void RecieveDamage(int damage)
-    {
-        base.RecieveDamage(damage);
-
-        StartCoroutine(Damaged());
-
-        if (Stats.CurrentHealth <= 0)
-        {
-            foreach (Material material in materials) material.SetColor("_BaseColor", Color.black);
-        }
-    }
-    private IEnumerator Damaged()
-    {
-        foreach(Material material in materials) material.SetColor("_BaseColor", Color.red);
-
-        yield return new WaitForSeconds(.5f);
-
-        foreach (Material material in materials) material.SetColor("_BaseColor", materialBaseColor);
-    }
-    #endregion
-
 }
 

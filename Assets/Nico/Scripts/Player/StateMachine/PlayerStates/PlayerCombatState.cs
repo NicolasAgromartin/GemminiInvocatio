@@ -1,5 +1,5 @@
 using System;
-
+using UnityEngine;
 
 
 
@@ -50,6 +50,7 @@ public class PlayerCombatState : BaseState
 
     private void EndAttack()
     {
+        Debug.Log("Attack ended");
         OnEventOccurred?.Invoke(TransitionEvent.End);
     }
 

@@ -1,9 +1,44 @@
 fileFormatVersion: 2
-guid: 883402b2d60edcc47a913de6deeb5e15
+guid: c4533f7d7b8c76b4b865b754738a3e2a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: acces_tex
+    second: {fileID: 2100000, guid: c5f0b326f8ad1ff4b80a166362cba999, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bootbag_tex
+    second: {fileID: 2100000, guid: 290017d9cf877c84d9cc3b47bfd86493, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes_tex
+    second: {fileID: 2100000, guid: ef0995446ef871547bdf29a6a9dd2e73, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face_tex
+    second: {fileID: 2100000, guid: 5aa3ae6d88657024cb0854b0fc6fc7a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: farbic_tex
+    second: {fileID: 2100000, guid: a2ef43b571e2fa2439b6734c86b74f19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leather_tex2
+    second: {fileID: 2100000, guid: 554861504be25c44b8a5d9c0e588bc6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leather_tex3
+    second: {fileID: 2100000, guid: 896c57795b5f89344880e07bd1fa31ab, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -79,7 +114,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []

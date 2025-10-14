@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using Unity.Behavior;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class Enemy : Fiend
 
     private int maxHealth;
     private BehaviorGraphAgent behaviorAgent;
+    private Outline outline;
+    
 
     public bool isFinalBoos = false;
 
@@ -31,17 +34,28 @@ public class Enemy : Fiend
         behaviorAgent = GetComponent<BehaviorGraphAgent>();
         maxHealth = Stats.CurrentHealth;
         name = data.name;
+
+        outline = GetComponent<Outline>();
+        //outline = GetComponentInChildren<Outline>();
     }
     private void Start()
     {
-        SetBehaviorGraphVariables();
+        //SetBehaviorGraphVariables();
     }
     private void LateUpdate()
     {
-        enemyCanvas.transform.LookAt(transform.position + Camera.main.transform.forward);
+        //enemyCanvas.transform.LookAt(transform.position + Camera.main.transform.forward);
     }
 
 
+    public void MarkEnemy()
+    {
+        outline.enabled = true;
+    }
+    public void DismarkEnemy()
+    {
+        outline.enabled = false;
+    }
 
 
 
@@ -53,6 +67,7 @@ public class Enemy : Fiend
 
     private void SetBehaviorGraphVariables()
     {
+        behaviorAgent.GetVariable("ChaseSpeed", out BlackboardVariable<float> chaseSpeed);
         behaviorAgent.GetVariable("PatrolSpeed", out BlackboardVariable<float> patrolSpeed);
         behaviorAgent.GetVariable("AttackDistance", out BlackboardVariable<float> attackDistance);
         behaviorAgent.GetVariable("TimeBetweenAttacks", out BlackboardVariable<float> timeBetweenAttacks);
@@ -60,6 +75,11 @@ public class Enemy : Fiend
         patrolSpeed.Value = agent.speed;
         attackDistance.Value = data.attackRange;
         timeBetweenAttacks.Value = data.timeBetweenAttacks;
+        chaseSpeed.Value = data.chaseSpeed;
+
+        //Debug.Log($"Animator is----> {this.animator == null}");
+
+        //animator.Value = this.animator;
     }
 
     public override void RecieveDamage(int damage)
@@ -86,13 +106,15 @@ public class Enemy : Fiend
 
     private void MakeRemains()
     {
-        enemyCanvas.gameObject.SetActive(false);
         tag = "Remains";
         name += " - Remains";
+        enemyCanvas.gameObject.SetActive(false);
         Destroy(GetComponent<BehaviorGraphAgent>());
         Destroy(GetComponentInChildren<TargetsDetector>().gameObject);
+
         Remains remains = this.AddComponent<Remains>();
         remains.SetRemainsData(data);
+        
         Destroy(this);
     }
 }

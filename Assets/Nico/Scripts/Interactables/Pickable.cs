@@ -11,14 +11,11 @@ public class Pickable : MonoBehaviour, IInteractable
     [SerializeField] private TMP_Text itemName;
 
     private Item item;
-    private Camera mainCamera;
 
 
 
     private void Awake()
     {
-        mainCamera = Camera.main;
-
         Instantiate(data.model, transform);
         name = data.itemName;
         itemName.text = name;
@@ -56,7 +53,6 @@ public class Pickable : MonoBehaviour, IInteractable
     #region Interact
     public void Interact(GameObject interactor)
     {
-        //Debug.Log($"Interacted {interactor.name}");
         interactor.GetComponent<Player>().GetInventory().AddItem(item); 
         Destroy(this.gameObject);
     }

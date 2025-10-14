@@ -15,6 +15,7 @@ public class PlayerDeadState : BaseState
 
     public override void EnterState() 
     {
+        Debug.Log("Player is dead");
         Time.timeScale = 1f;
         animator.SetBool("Death", true);
         RespawnManager.OnPlayerRespawned += HandleRespawn;
@@ -35,7 +36,7 @@ public class PlayerDeadState : BaseState
     private void HandleRespawn()
     {
         animator.SetBool("Death", false);
-        animator.Play("Movement", 0, 0f);
+        animator.Play("Locomotion", 0, 0f);
 
         OnEventOccurred?.Invoke(TransitionEvent.Respawn);
     }

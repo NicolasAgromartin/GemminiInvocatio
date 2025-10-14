@@ -16,7 +16,6 @@ public partial class DetectTargetsAction : Action
 
 
 
-
     protected override Status OnStart()
     {
         TargetsDetector.Value.OnTargetsUpdated += ChangeSelectedTarget;

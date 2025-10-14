@@ -9,21 +9,24 @@ public class FiendSO : ScriptableObject
     [Header("Basic Data")]
     public string fiendName;
     public FiendType type;
+
+    [Header("Unit Stats")]
     public Stats stats;
 
-    [Header("Agent Movement")]
-    public float baseOffset;
-    public float speed;
-    public float angularSpeed;
-    public float acceleration;
-    public float stoppingDistance; // attack distance?
-    public int priority;
+    //[Header("Agent Movement")]
+    //public float baseOffset;
+    //public float speed;
+    //public float angularSpeed;
+    //public float acceleration;
+    //public float stoppingDistance; // attack distance?
+    //public int priority;
 
-    [Header("Agent Size")]
-    public float radius;
-    public float height;
+    //[Header("Agent Size")]
+    //public float radius;
+    //public float height;
 
-    [Header("Combat")]
     public float timeBetweenAttacks;
     public float attackRange;
+    public float patrolSpeed;
+    public float chaseSpeed;
 }

@@ -57,7 +57,7 @@ public class PlayerMovementState : BaseState
 
         moveDirection = new Vector3(inputDirection.x, 0f, inputDirection.y).normalized;
         
-        playerVelocity = CinemachineController.PlanarRotation * moveDirection * moveSpeed;
+        playerVelocity = cinemachineController.PlanarRotation * moveDirection * moveSpeed;
 
 
         if (Mathf.Clamp01(Mathf.Abs(inputDirection.x) + Mathf.Abs(inputDirection.y)) > 0)

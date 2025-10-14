@@ -36,7 +36,10 @@ public class EnemyDetector : MonoBehaviour
     #region Collision Trigger
     private void OnTriggerEnter(Collider other)
     {
-        detected = other.transform.root.gameObject;
+        if (other.transform.root == this.transform || other.transform.parent == null) return;
+
+        detected = other.transform.parent.gameObject;
+            
 
         if (!detected.CompareTag("Enemy") || enemiesNearby.Contains(detected)) return; 
 
@@ -54,7 +57,7 @@ public class EnemyDetector : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        detected = other.transform.root.gameObject;
+        detected = other.transform.parent.gameObject;
 
         if (!detected.CompareTag("Enemy") || !enemiesNearby.Contains(detected)) return;
 
@@ -81,9 +84,19 @@ public class EnemyDetector : MonoBehaviour
 
 
 
+    private void DismarkEnemies()
+    {
+        foreach(GameObject enemy in enemiesNearby)
+        {
+            if (enemy == null && enemy == SelectedTarget) continue;
 
+            enemy.GetComponent<Enemy>().DismarkEnemy();
+        }
+    }
     private void ChangeFocusedTarget()
     {
+        DismarkEnemies();
+
         if (enemiesNearby.Count == 0)
         {
             OnTargetChanged?.Invoke(null);
@@ -105,6 +118,8 @@ public class EnemyDetector : MonoBehaviour
 
         SelectedTarget = enemiesNearby[lastIndexedTarget];
         OnTargetChanged?.Invoke(SelectedTarget);
+
+        SelectedTarget.GetComponent<Enemy>().MarkEnemy();
     }
     private void RemoveFromList(Unit enemy)
     {

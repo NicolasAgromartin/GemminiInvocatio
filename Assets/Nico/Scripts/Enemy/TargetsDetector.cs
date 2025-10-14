@@ -9,8 +9,8 @@ public class TargetsDetector : MonoBehaviour
 {
     public event Action<GameObject> OnTargetsUpdated;
 
+    public GameObject SelectedTarget { get; private set; }
     [SerializeField] private List<GameObject> targetsList = new();
-    [SerializeField] private GameObject selectedTarget;
     private GameObject root;
 
 
@@ -104,13 +104,13 @@ public class TargetsDetector : MonoBehaviour
         if (targetsList.Count > 0)
         {
             //targetIndicator.text = targetsList.First().name;
-            selectedTarget = targetsList.First();
-            return selectedTarget;
+            SelectedTarget = targetsList.First();
+            return SelectedTarget;
         }
         else
         {
             //targetIndicator.text = "no target";
-            selectedTarget = null;
+            SelectedTarget = null;
             return null; 
         }
     }

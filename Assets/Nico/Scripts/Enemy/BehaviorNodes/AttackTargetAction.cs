@@ -6,11 +6,12 @@ using Unity.Properties;
 using System.Collections;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "AttackTarget", story: "[Self] performs an attack using [AttackPerformer]", category: "Action", id: "a72e704d81de12a868260b620363d947")]
+[NodeDescription(name: "AttackTarget", story: "[Self] performs an attack", category: "Action", id: "a72e704d81de12a868260b620363d947")]
 public partial class AttackTargetAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<AttackPerformer> AttackPerformer;
+    [SerializeReference] public BlackboardVariable<Animator> Animator;
 
 
     private readonly float damageWindowTime = 1f;
@@ -18,10 +19,11 @@ public partial class AttackTargetAction : Action
 
     protected override Status OnStart()
     {
+        Animator.Value.SetFloat("Movement", 0f);
+        
         attackFinished = false;
-        //AttackPerformer.Value.gameObject.SetActive(true);
-        AttackPerformer.Value.StartCoroutine(Attack());
-        return Status.Running;
+        //AttackPerformer.Value.StartCoroutine(Attack());
+        return Status.Success;
     }
 
     protected override Status OnUpdate() => attackFinished? Status.Success : Status.Running;
@@ -29,8 +31,8 @@ public partial class AttackTargetAction : Action
 
     private IEnumerator Attack()
     {
+        Animator.Value.SetTrigger("Attack");
         yield return AttackPerformer.Value.PerformAttack(damageWindowTime);
-        //AttackPerformer.Value.gameObject.SetActive(false);
         attackFinished = true;
     }
 
