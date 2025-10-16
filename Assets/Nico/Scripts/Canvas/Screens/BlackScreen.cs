@@ -12,7 +12,7 @@ public class BlackScreen : MonoBehaviour
     private Color currecntColor;
     private Image blackScreen;
 
-
+    // fin de la animacion de muerte --> activo blackScreen defeat fade --> cuando termina el fade activo los botones
 
     private void Awake()
     {
@@ -20,15 +20,18 @@ public class BlackScreen : MonoBehaviour
     }
     private void OnEnable()
     {
-        AnimationEvents.OnDeathAnimationEnd += ShowBlackScreen;
+        //AnimationEvents.OnDeathAnimationEnd += ShowBlackScreen;
         Player.OnPlayerRestored += HideBlackScreen;
+
+
+        ShowBlackScreen();
 
         // desde el scene loader cuando haya una transicion de escenas 
         // tambien tiene que haber un fade a negro? 
     }
     private void OnDisable()
     {
-        AnimationEvents.OnDeathAnimationEnd -= ShowBlackScreen;
+        //AnimationEvents.OnDeathAnimationEnd -= ShowBlackScreen;
         Player.OnPlayerRestored -= HideBlackScreen;
 
     }
@@ -36,6 +39,7 @@ public class BlackScreen : MonoBehaviour
 
     private void ShowBlackScreen()
     {
+        //Debug.Log($"{player.gameObject} asdsxsds");
         StartCoroutine(FadeIn());
     }
     private void HideBlackScreen()

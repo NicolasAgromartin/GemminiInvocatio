@@ -22,7 +22,7 @@ public abstract class BaseState
     protected Necromancy necromancy;
     protected MinionOwner minionOwner;
     protected EnemyDetector enemyDetector;
-    protected AttackPerformer attackPerformer;
+    protected AnimationEvents animationEvents;
     protected CharacterController characterController;
 
     protected CinemachineController cinemachineController;
@@ -42,7 +42,7 @@ public abstract class BaseState
         necromancy = playerContext.Necromancy;
         minionOwner = playerContext.MinionOwner;
         enemyDetector = playerContext.EnemyDetector;
-        attackPerformer = playerContext.AttackPerformer;
+        animationEvents = playerContext.AnimationEvents;
         characterController = playerContext.CharacterController;
         cinemachineController =playerContext.CinemachineController;
         stats = playerContext.Stats;
@@ -72,6 +72,8 @@ public abstract class BaseState
     
     protected void Interact()
     {
+        detected = null;
+
         Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward * 1.5f + Vector3.up * 1f, 
             new Vector3(1f, 2.5f, 1f), transform.rotation, LayerMask.GetMask("Interactable"));
 

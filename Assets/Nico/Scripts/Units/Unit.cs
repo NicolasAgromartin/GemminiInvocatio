@@ -7,16 +7,48 @@ public abstract class Unit : MonoBehaviour
     public event Action<Unit, int> OnDamageRecieved;
     public event Action<Unit, int> OnHealthIncreased;
 
+
     public Stats Stats { get; protected set; }
 
 
-    public virtual void RecieveDamage(int damage)
+
+
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("DamageDealer")) return;
+
+        Weapon weapon = other.GetComponent<Weapon>();
+
+        switch (weapon.IsEnemy)
+        {
+            case true:
+                if (gameObject.CompareTag("Player") || gameObject.CompareTag("PlayerMinion"))
+                    RecieveDamage(other.GetComponent<Weapon>().Damage);
+                break;
+
+            case false:
+                if (gameObject.CompareTag("Enemy"))
+                    RecieveDamage(other.GetComponent<Weapon>().Damage);
+                break;
+        }
+    }
+
+
+
+
+
+
+    protected virtual void RecieveDamage(int damage)
     {
         Stats.CurrentHealth -= damage;
 
         if(Stats.CurrentHealth < 0) Stats.CurrentHealth = 0;
 
         OnDamageRecieved?.Invoke(this, Stats.CurrentHealth);
+
+
+        //Debug.Log($"{this.gameObject.name} recieved {damage} -- {Stats.CurrentHealth}");
 
         if(Stats.CurrentHealth <= 0)
         {
@@ -33,4 +65,7 @@ public abstract class Unit : MonoBehaviour
 
         OnHealthIncreased?.Invoke(this, Stats.CurrentHealth);
     }
+
+
+
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using NUnit.Framework.Constraints;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
@@ -20,10 +19,9 @@ public partial class ChasingAction : Action
     [SerializeReference] public BlackboardVariable<Animator> Animator;
 
     private NavMeshAgent navMeshAgent;
-    private GameObject attackArea;
     private Enemy enemy;
     private bool isChasing;
-    private readonly float attackRange = 1f;
+    private readonly float attackRange = 1.9f;
 
 
 
@@ -32,14 +30,12 @@ public partial class ChasingAction : Action
         isChasing = true;
         navMeshAgent = Self.Value.GetComponent<NavMeshAgent>();
         enemy = Self.Value.GetComponent<Enemy>();
-        attackArea = Self.Value.GetComponentInChildren<AttackPerformer>().gameObject;
 
         navMeshAgent.speed = ChaseSpeed.Value;
 
-        //Animator.Value.SetFloat("Movement", 4f, .2f, Time.deltaTime);
         Animator.Value.SetFloat("Movement", ChaseSpeed.Value);
 
-        enemy.StartCoroutine(FollowTarget(SelectedTarget.Value));
+        if(enemy != null) enemy.StartCoroutine(FollowTarget(SelectedTarget.Value));
 
         return Status.Running;
     }
@@ -64,7 +60,7 @@ public partial class ChasingAction : Action
 
     private IEnumerator FollowTarget(GameObject target)
     {
-        while (isChasing && SelectedTarget.Value != null)
+        while (isChasing && target != null)
         {
             if (target.CompareTag("Player") || target.CompareTag("PlayerMinion"))
             {
@@ -95,7 +91,7 @@ public partial class ChasingAction : Action
             yield return null;
         }
 
-        if (SelectedTarget.Value == null) isChasing = false;
+        if (target == null) isChasing = false;
     }
 
     private IEnumerator KeepLookingAt(GameObject target)
@@ -116,27 +112,6 @@ public partial class ChasingAction : Action
             yield return new WaitForSeconds(1f);
         }
     }
-
-    //private IEnumerator FollowTarget(GameObject target)
-    //{
-    //    while (isChasing && SelectedTarget.Value != null)
-    //    {
-    //        if (target.CompareTag("Player") || target.CompareTag("PlayerMinion"))
-    //        {
-    //            navMeshAgent.SetDestination(
-    //                Vector3.Distance(attackArea.transform.position, target.transform.position) > attackRange ?
-    //                target.transform.position : Self.Value.transform.position);
-
-    //            if (Vector3.Distance(target.transform.position, Self.Value.transform.position) <= attackRange + navMeshAgent.radius)
-    //            {
-    //                isChasing = false;
-    //            }
-    //        }
-    //        yield return null;
-    //    }
-
-    //    if (SelectedTarget.Value == null) isChasing = false;
-    //}
 }
 
 

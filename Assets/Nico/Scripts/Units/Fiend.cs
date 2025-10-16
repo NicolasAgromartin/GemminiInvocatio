@@ -1,9 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+
+
+
+
 
 
 
@@ -17,7 +18,7 @@ public class Fiend : Unit
 
     protected Animator animator;
     protected NavMeshAgent agent;
-
+    protected AnimationEvents animationEvents;
 
 
 
@@ -25,9 +26,9 @@ public class Fiend : Unit
     {
         Stats = new(data.stats);
 
-        //animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        animationEvents = GetComponentInChildren<AnimationEvents>();
     }
 
 

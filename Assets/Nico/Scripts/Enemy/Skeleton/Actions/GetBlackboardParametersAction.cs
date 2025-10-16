@@ -8,7 +8,6 @@ using Unity.Properties;
 [NodeDescription(name: "GetBlackboardParameters", story: "Get parameters from [Self]", category: "Action", id: "c05076b63508edf9cfa3055071cb7b59")]
 public partial class GetBlackboardParametersAction : Action
 {
-    [SerializeReference] public BlackboardVariable<AttackPerformer> AttackPerformer;
     [SerializeReference] public BlackboardVariable<TargetsDetector> TargetsDetector;
     [SerializeReference] public BlackboardVariable<Animator> Animator;
     [SerializeReference] public BlackboardVariable<GameObject> Self;
@@ -17,7 +16,6 @@ public partial class GetBlackboardParametersAction : Action
     protected override Status OnStart()
     {
         TargetsDetector.Value = Self.Value.GetComponentInChildren<TargetsDetector>();
-        AttackPerformer.Value = Self.Value.GetComponentInChildren<AttackPerformer>();
         Animator.Value = Self.Value.GetComponentInChildren<Animator>();
 
         return Status.Success;

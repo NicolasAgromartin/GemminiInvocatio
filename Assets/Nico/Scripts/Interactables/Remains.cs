@@ -22,6 +22,9 @@ public class Remains : MonoBehaviour, IInteractable
     }
 
 
+
+
+
     private void SetInteractionTrigger()
     {
         interactionTrigger = gameObject.AddComponent<SphereCollider>();
@@ -32,9 +35,7 @@ public class Remains : MonoBehaviour, IInteractable
     public void SetRemainsData(FiendSO data)
     {
         Data = data;
-        //Debug.Log(data.name + " " + data.fiendName);
     }
-
     public void Interact(GameObject interactor)
     {
         if (interactor.CompareTag("Player"))

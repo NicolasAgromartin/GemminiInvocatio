@@ -122,6 +122,7 @@ public class MinionOwner:MonoBehaviour
     }
     public void MoveToPosition(Vector3 posToMove)
     {
+        Debug.Log("Order recieved");
         MinionSelected.MoveToPosition(posToMove);
     }
     #endregion

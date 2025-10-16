@@ -9,7 +9,7 @@ public class TargetsDetector : MonoBehaviour
 {
     public event Action<GameObject> OnTargetsUpdated;
 
-    public GameObject SelectedTarget { get; private set; }
+    public GameObject SelectedTarget;
     [SerializeField] private List<GameObject> targetsList = new();
     private GameObject root;
 
@@ -23,6 +23,7 @@ public class TargetsDetector : MonoBehaviour
         if (other.gameObject.CompareTag("DetectionCollider")) return;
         
         root = other.transform.root.gameObject;
+
 
         if (root.CompareTag("Player") || root.CompareTag("PlayerMinion"))
         {
@@ -50,30 +51,6 @@ public class TargetsDetector : MonoBehaviour
 
 
 
-    //private void SuscribeToTarget(GameObject target)
-    //{
-    //    PlayerMinion playerMinion = target.GetComponent<PlayerMinion>();
-    //    Player player = target.GetComponent<Player>();
-
-    //    if (playerMinion != null)
-    //    {
-    //        playerMinion.OnDeath += RemoveMissingTarget;
-    //    }
-    //}
-    //private void UnsuscribeToTarget(GameObject target)
-    //{
-    //    PlayerMinion playerMinion = target.GetComponent<PlayerMinion>();
-    //    Player player = target.GetComponent<Player>();
-
-    //    if (playerMinion != null)
-    //    {
-    //        playerMinion.OnDeath -= RemoveMissingTarget;
-    //    }
-    //    if(player != null)
-    //    {
-    //        player.OnDeath -= RemoveMissingTarget;
-    //    }
-    //}
     private void SuscribeToTarget(GameObject target)
     {
         Unit unit = target.GetComponent<Unit>();
@@ -100,6 +77,10 @@ public class TargetsDetector : MonoBehaviour
     /* proximamente aca va la logica para seleccionar al enemigo */
     private GameObject SelectTarget()
     {
+        foreach(GameObject target in targetsList)
+        {
+            if (target == null) targetsList.Remove(target);
+        }
 
         if (targetsList.Count > 0)
         {

@@ -13,13 +13,13 @@ public class PlayerHurtState : BaseState
     public override void EnterState()
     {
         Debug.Log("Recieved damage");
-        attackPerformer.OnHurtEnded += HandleEndAnimation;
+        animationEvents.OnHurtAnimationEnd += HandleEndAnimation;
         animator.SetTrigger("DamageRecieved");
         //transform.GetComponent<Player>().StartCoroutine(RunHurtAnimation());
     }
     public override void ExitState() 
     {
-        attackPerformer.OnHurtEnded -= HandleEndAnimation;
+        animationEvents.OnHurtAnimationEnd -= HandleEndAnimation;
     }
     public override void UpdateState() { }
 

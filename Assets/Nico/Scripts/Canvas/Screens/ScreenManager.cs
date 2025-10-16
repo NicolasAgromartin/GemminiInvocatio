@@ -83,7 +83,7 @@ public class ScreenManager : MonoBehaviour
                 tacticalScreen.gameObject.SetActive(false);
                 break;
             case PlayerDeadState:
-                blackScreen.gameObject.SetActive(true);
+                //blackScreen.gameObject.SetActive(true);
                 defeatScreen.gameObject.SetActive(true);
 
                 tacticalScreen.gameObject.SetActive(false);

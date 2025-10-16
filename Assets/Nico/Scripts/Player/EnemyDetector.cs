@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -10,7 +11,7 @@ public class EnemyDetector : MonoBehaviour
     public static event Action<GameObject> OnTargetChanged;
     public static bool EnemyInRange { get; private set; } = false;
     public GameObject SelectedTarget { get; private set; } = null;
-    private readonly List<GameObject> enemiesNearby = new();
+    [SerializeField] private List<GameObject> enemiesNearby = new();
     private readonly float detectionRadius = 10f;
     private int lastIndexedTarget = 0;
     private GameObject detected;
@@ -28,6 +29,9 @@ public class EnemyDetector : MonoBehaviour
     private void OnDisable()
     {
         InputManager.OnSwitchTargetButtonPressed -= ChangeFocusedTarget;
+
+        SelectedTarget = null;
+        enemiesNearby.Clear();
     }
     #endregion
 
@@ -57,7 +61,10 @@ public class EnemyDetector : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        detected = other.transform.parent.gameObject;
+        if (other.transform.root == this.transform || other.transform.parent == null) return;
+        if (other == null) return;
+
+        detected = other.transform.parent.gameObject;   
 
         if (!detected.CompareTag("Enemy") || !enemiesNearby.Contains(detected)) return;
 

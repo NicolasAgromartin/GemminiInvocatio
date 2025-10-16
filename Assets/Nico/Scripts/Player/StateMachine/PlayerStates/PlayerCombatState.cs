@@ -16,13 +16,14 @@ public class PlayerCombatState : BaseState
     public override void EnterState()
     {
         PerformAttack();
-        attackPerformer.OnAttackEnded += EndAttack;
-        attackPerformer.OnComboEnabled += EnableInput;
+        animationEvents.OnAttackAnimationEnd += EndAttack;
+        animationEvents.OnComboEnabled += EnableInput;
+        
     }
     public override void ExitState()
     {
-        attackPerformer.OnAttackEnded -= EndAttack;
-        attackPerformer.OnComboEnabled -= EnableInput;
+        animationEvents.OnAttackAnimationEnd -= EndAttack;
+        animationEvents.OnComboEnabled -= EnableInput;
         InputManager.OnBasicAttackPerformed -= PerformAttack;
     }
     public override void UpdateState() 
@@ -50,7 +51,7 @@ public class PlayerCombatState : BaseState
 
     private void EndAttack()
     {
-        Debug.Log("Attack ended");
+        //Debug.Log("Attack ended");
         OnEventOccurred?.Invoke(TransitionEvent.End);
     }
 

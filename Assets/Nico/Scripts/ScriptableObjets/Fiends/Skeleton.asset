@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34ecf80e52934241b21f854dd673c57, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
-  modelPrefab: {fileID: 8443778609932421616, guid: 063fd7ec086fa6d47b6af43f01bc7cca, type: 3}
+  modelPrefab: {fileID: 5749857716793003049, guid: 063fd7ec086fa6d47b6af43f01bc7cca, type: 3}
   fiendName: Basic Skeleton
   type: 0
   stats:
-    MaxHealth: 1
+    MaxHealth: 120
     CurrentHealth: 0
     Attack: 20
     MovementSpeed: 0
   timeBetweenAttacks: 2
   attackRange: 2
-  patrolSpeed: 2
-  chaseSpeed: 4
+  patrolSpeed: 0.5
+  chaseSpeed: 1

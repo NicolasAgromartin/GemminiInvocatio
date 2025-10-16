@@ -28,7 +28,7 @@ public class Player : Unit
     private Necromancy necromancy;
     private MinionOwner minionOwner;
     private EnemyDetector enemyDetector;
-    private AttackPerformer attackPerformer;
+    private AnimationEvents animationEvents;
     private CharacterController characterController;
 
     private CinemachineController cinmachineController;
@@ -48,12 +48,12 @@ public class Player : Unit
         animator = GetComponentInChildren<Animator>();
         enemyDetector = GetComponentInChildren<EnemyDetector>();
         characterController = GetComponent<CharacterController>();
-        attackPerformer = GetComponentInChildren<AttackPerformer>();
+        animationEvents = GetComponentInChildren<AnimationEvents>();
         cinmachineController = FindAnyObjectByType<CinemachineController>();
         InitiateInventory();
 
 
-        PlayerContext = new(characterController, animator, transform, inventory, necromancy, enemyDetector, minionOwner, attackPerformer, Stats, cinmachineController);
+        PlayerContext = new(characterController, animator, transform, inventory, necromancy, enemyDetector, minionOwner, animationEvents, Stats, cinmachineController);
         StateMachine = new(PlayerContext);
     }
     private void OnEnable()
@@ -61,14 +61,18 @@ public class Player : Unit
         StateMachine.OnEnable();
 
         RespawnManager.OnPlayerRespawned += RestorePlayer;
-        BlackScreen.OnBlackScreenVisible += CheckLives;
+        //BlackScreen.OnBlackScreenVisible += CheckLives;
+
+        animationEvents.OnDeathAnimationEnd += CheckLives;
     }
     private void OnDisable()
     {
         StateMachine.OnDisable();
 
         RespawnManager.OnPlayerRespawned -= RestorePlayer;
-        BlackScreen.OnBlackScreenVisible -= CheckLives;
+        //BlackScreen.OnBlackScreenVisible -= CheckLives;
+
+        animationEvents.OnDeathAnimationEnd -= CheckLives;
     }
     private void Start()
     {
@@ -78,8 +82,9 @@ public class Player : Unit
     {
         StateMachine.Update();
     }
-    private void OnTriggerEnter(Collider other)
+    new private void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         StateMachine.OnTriggerEnter(other);
     }
     #endregion
@@ -90,16 +95,6 @@ public class Player : Unit
 
 
     #region Health & Life
-    override public void RecieveDamage(int damage)
-    {
-        if (Stats.CurrentHealth - damage <= 0)
-        {
-            tag = "Untagged";
-            Lives--;
-        }
-
-        base.RecieveDamage(damage);
-    }
     private void RestorePlayer()
     {
         IncreaseHealth(Stats.MaxHealth);
@@ -109,6 +104,14 @@ public class Player : Unit
     }
     private void CheckLives()
     {
+        Debug.Log("Player died");
+
+        if (Stats.CurrentHealth <= 0)
+        {
+            tag = "Untagged";
+            Lives--;
+        }
+
         if (Lives <= 0)
         {
             OnPlayerLost?.Invoke();
@@ -116,7 +119,7 @@ public class Player : Unit
     }
     private IEnumerator SimulateRestoreTime()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(3f);
         OnPlayerRestored?.Invoke();
     }
     #endregion
@@ -143,16 +146,16 @@ public class Player : Unit
 
 
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
 
-        //Gizmos.DrawWireSphere(transform.position + new Vector3(0f,1f,.8f), 1f);
+    //    //Gizmos.DrawWireSphere(transform.position + new Vector3(0f,1f,.8f), 1f);
 
-        //Gizmos.DrawWireCube(transform.position + transform.forward * 1.5f + Vector3.up * 1f, new Vector3(1f, 2.5f, 1f));
-    }
+    //    //Gizmos.DrawWireCube(transform.position + transform.forward * 1.5f + Vector3.up * 1f, new Vector3(1f, 2.5f, 1f));
+    //}
 
 
-    //Collider[] colliders = Physics.OverlapBox(, transform.rotation, LayerMask.GetMask("Interactable"));
+    ////Collider[] colliders = Physics.OverlapBox(, transform.rotation, LayerMask.GetMask("Interactable"));
 
 }

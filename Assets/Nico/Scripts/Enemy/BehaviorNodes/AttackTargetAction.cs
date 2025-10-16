@@ -10,11 +10,10 @@ using System.Collections;
 public partial class AttackTargetAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<AttackPerformer> AttackPerformer;
     [SerializeReference] public BlackboardVariable<Animator> Animator;
 
 
-    private readonly float damageWindowTime = 1f;
+    //private readonly float damageWindowTime = 1f;
     private bool attackFinished;
 
     protected override Status OnStart()
@@ -22,7 +21,6 @@ public partial class AttackTargetAction : Action
         Animator.Value.SetFloat("Movement", 0f);
         
         attackFinished = false;
-        //AttackPerformer.Value.StartCoroutine(Attack());
         return Status.Success;
     }
 
@@ -32,7 +30,7 @@ public partial class AttackTargetAction : Action
     private IEnumerator Attack()
     {
         Animator.Value.SetTrigger("Attack");
-        yield return AttackPerformer.Value.PerformAttack(damageWindowTime);
+        yield return null;
         attackFinished = true;
     }
 

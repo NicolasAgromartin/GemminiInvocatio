@@ -9,28 +9,42 @@ using Unity.Properties;
 public partial class TakeDamageAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
+    [SerializeReference] public BlackboardVariable<float> CurrentHealth;
+    [SerializeReference] public BlackboardVariable<EnemyStates> CurrentState;
 
+
+    private Enemy enemy;
 
     private bool damageRecieved;
+
     protected override Status OnStart()
     {
+        if(CurrentState.Value == EnemyStates.Dead) return Status.Success;
+
         damageRecieved = false;
 
-        Self.Value.GetComponent<Enemy>().OnDamageRecievd += WaitForDamage;
+        enemy = Self.Value.GetComponent<Enemy>();
+        if(enemy != null) enemy.OnDamageRecieved += RecieveDamage;
+
 
         return Status.Running;
     }
-
     protected override Status OnUpdate()
     {
-        return damageRecieved ? Status.Success : Status.Running ;
+        return damageRecieved ? Status.Success : Status.Running;
     }
-
     protected override void OnEnd()
     {
-        Self.Value.GetComponent<Enemy>().OnDamageRecievd -= WaitForDamage;
+        if (enemy != null) enemy.OnDamageRecieved -= RecieveDamage;
     }
 
-    private void WaitForDamage() => damageRecieved = true;
+
+
+
+    private void RecieveDamage(Unit unit, int currentHealth)
+    {
+        CurrentHealth.Value = currentHealth;
+        damageRecieved = true;
+    }
 }
 

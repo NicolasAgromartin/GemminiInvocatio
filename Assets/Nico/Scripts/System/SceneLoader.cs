@@ -146,11 +146,11 @@ public class SceneLoader : Singleton<SceneLoader>
     }
     private void SuscribeToFinalBoss()
     {
-        finalBoss.OnFinalBossDefeated += GoToGameOverScreen;
+        //finalBoss.OnFinalBossDefeated += GoToGameOverScreen;
     }
     private void UnsuscribeToFinalBoss()
     {
-        finalBoss.OnFinalBossDefeated -= GoToGameOverScreen;
+        //finalBoss.OnFinalBossDefeated -= GoToGameOverScreen;
     }
     private void GoToGameOverScreen()
     {
