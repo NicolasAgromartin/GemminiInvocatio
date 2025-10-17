@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fe90a11d3cb85a749a974ca88227a797
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 145808
+  packageName: Terrain Sample Asset Pack
+  packageVersion: 2.0.1
+  assetPath: Assets/Vicky/Assetsvicky/TerrainDemoScene_HDRP/Prefabs/Skybox/Models/GrassDry_B.asset
+  uploadId: 511657
