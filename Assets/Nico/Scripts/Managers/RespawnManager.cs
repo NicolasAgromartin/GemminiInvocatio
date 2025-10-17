@@ -24,7 +24,6 @@ public class RespawnManager : Singleton<RespawnManager>
             respawnPoints.Add(point.gameObject);
         }
         player = FindAnyObjectByType<Player>(); 
-
     }
 
 
