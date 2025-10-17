@@ -76,13 +76,15 @@ public class PlayerMinion : Fiend
     {
         animator.SetBool("IsDead", true);
         tag = "Untagged";
-
+        Destroy(GetComponent<CapsuleCollider>());
+        Destroy(GetComponent<Rigidbody>());
         Debug.Log($"{minion} is dead");
+        // cuando se termina la animacion se ejecuta DestroyGameObject();
+        Destroy(gameObject);
     }
     private void DestroyGameObject()
     {
         Debug.Log("Destroy GameObject");
-        Destroy(gameObject);
     }
 
 
@@ -196,33 +198,4 @@ public class PlayerMinion : Fiend
             yield return new WaitForSeconds(3f);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-    //#region Wander Around
-    //private IEnumerator WanderAround()
-    //{
-    //    while (CheckPlayerDistance())
-    //    {
-    //        yield return new WaitForSeconds(1f);
-    //        agent.SetDestination(GenerateRandomPosition(player.transform.position));
-    //    }
-    //}
-    //private Vector3 GenerateRandomPosition(Vector3 origin)
-    //{
-    //    return new Vector3(
-    //        Random.Range(origin.x - maxRange/2, origin.x + maxRange/2),
-    //        origin.y,
-    //        Random.Range(origin.z - maxRange/2, origin.z + maxRange/2));
-    //}
-    //private bool CheckPlayerDistance() => Vector3.Distance(transform.position, player.transform.position) <= maxRange;
-    //#endregion
 }

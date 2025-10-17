@@ -62,7 +62,6 @@ public class TargetsDetector : MonoBehaviour
         Unit unit = target.GetComponent<Unit>();
 
         if (unit != null) unit.OnDeath -= RemoveMissingTarget;
-
     }
     private void RemoveMissingTarget(Unit target)
     {

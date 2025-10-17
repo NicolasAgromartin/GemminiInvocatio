@@ -61,7 +61,6 @@ public class Player : Unit
         StateMachine.OnEnable();
 
         RespawnManager.OnPlayerRespawned += RestorePlayer;
-        //BlackScreen.OnBlackScreenVisible += CheckLives;
 
         animationEvents.OnDeathAnimationEnd += CheckLives;
     }
@@ -70,7 +69,6 @@ public class Player : Unit
         StateMachine.OnDisable();
 
         RespawnManager.OnPlayerRespawned -= RestorePlayer;
-        //BlackScreen.OnBlackScreenVisible -= CheckLives;
 
         animationEvents.OnDeathAnimationEnd -= CheckLives;
     }

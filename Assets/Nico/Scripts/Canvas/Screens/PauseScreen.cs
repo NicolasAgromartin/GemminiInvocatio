@@ -34,7 +34,7 @@ public class PauseScreen : MonoBehaviour
     {
         OnButtonPressed_ResumeGame?.Invoke();
 
-        //pauseScreen.SetActive(false);
+        pauseScreen.SetActive(false);
         inventoryPanel.SetActive(false);
         optionsPanel.SetActive(false);
     }

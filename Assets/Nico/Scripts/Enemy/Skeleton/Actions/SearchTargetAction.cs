@@ -31,6 +31,11 @@ public partial class SearchTargetAction : Action
 
     private void UpdateTarget(GameObject target)
     {
+        //Debug.Log($"New target {target != null}");
+        if(target == null)
+        {
+            Target.Value = null;
+        }
         Target.Value = target;
     }
 }

@@ -1,19 +1,26 @@
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
 
 public class Lives : MonoBehaviour
 {
-    private TMP_Text livesCounter;
+    private readonly List<LifeShader> lives = new();
+
 
 
     private void Awake()
     {
-        livesCounter = GetComponentInChildren<TMP_Text>();
+        lives.AddRange(GetComponentsInChildren<LifeShader>());
     }
+
+
 
 
     public void ChangeLives(int newLives)
     {
-        livesCounter.text = newLives.ToString();
+        Debug.Log(newLives);
+        lives.First().TurnOff();
     }
 }
