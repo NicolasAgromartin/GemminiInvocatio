@@ -43244,7 +43244,7 @@ GameObject:
   - component: {fileID: 1818187539284417022}
   - component: {fileID: 1263295381766995668}
   - component: {fileID: 5791016755108646023}
-  - component: {fileID: 8048680864314729975}
+  - component: {fileID: 5791016755108646024}
   m_Layer: 0
   m_Name: Estatua
   m_TagString: Untagged
@@ -49084,6 +49084,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5791016755108646024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720522941501499341}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.8049974, y: 10.981233, z: 4.5190883}
+  m_Center: {x: -0.24410269, y: 5.4205003, z: 0.82349145}
 --- !u!1 &5811276266492738895
 GameObject:
   m_ObjectHideFlags: 0
@@ -50465,28 +50486,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6047704257228669191}
   m_Mesh: {fileID: 1637526288758671210, guid: e7581957b3ac4764ea725f6cddabfed8, type: 3}
---- !u!64 &8048680864314729975
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720522941501499341}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5634759975100542853, guid: 293af56e035365f4dab7d1897f431cf1, type: 3}
 --- !u!23 &8054356859789705021
 MeshRenderer:
   m_ObjectHideFlags: 0

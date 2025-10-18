@@ -18,7 +18,7 @@ public class Enemy : Fiend
     {
         base.Awake();
         name = data.name;
-        outline = GetComponent<Outline>();
+        outline = GetComponentInChildren<Outline>();
         GetComponent<BehaviorGraphAgent>().enabled = true;
     }
     private void OnEnable()

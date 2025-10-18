@@ -44,6 +44,14 @@ public class PlayerMovementState : BaseState
     {
         ApplyGravity();
     }
+    public override void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("DamageDealer")) return;
+
+        Weapon weapon = other.GetComponent<Weapon>();
+
+        if (weapon && weapon.IsEnemy) OnEventOccurred?.Invoke(TransitionEvent.RecieveDamage);
+    }
     #endregion
 
 

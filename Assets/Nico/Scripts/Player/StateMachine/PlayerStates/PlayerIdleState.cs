@@ -35,12 +35,11 @@ public class PlayerIdleState : BaseState
     }
     public override void OnTriggerEnter(Collider other)
     {
-        //GameObject parent = other.transform.parent.gameObject;
+        if (!other.CompareTag("DamageDealer")) return;
 
-        //if (other.CompareTag("DamageDealer"))
-        //{
-        //    if(parent.CompareTag("Enemy")) OnEventOccurred?.Invoke(TransitionEvent.RecieveDamage);
-        //}
+        Weapon weapon = other.GetComponent<Weapon>();
+
+        if(weapon && weapon.IsEnemy) OnEventOccurred?.Invoke(TransitionEvent.RecieveDamage);
     }
     #endregion
 

@@ -7,8 +7,6 @@ using System;
 
 public class CinemachineController : MonoBehaviour
 {
-    public static event Action OnTitleScreenCameraPositioned;
-
     public Quaternion PlanarRotation { get; private set; }
 
     [Header("Cameras")]
@@ -87,24 +85,5 @@ public class CinemachineController : MonoBehaviour
 
 
 
-
-    #region TitleScreen
-    private void DeactivateTitleScreenCamera()
-    {
-        titleScreenCamera.gameObject.SetActive(false);
-
-        mainCamera.gameObject.SetActive(true);
-        interactionCamera.gameObject.SetActive(false);
-        tacticalCamera.gameObject.SetActive(false);
-    }
-    private void ActivateTitleScreenCamera()
-    {
-        titleScreenCamera.gameObject.SetActive(true);
-
-        mainCamera.gameObject.SetActive(false);
-        interactionCamera.gameObject.SetActive(false);
-        tacticalCamera.gameObject.SetActive(false);
-    }
-    #endregion
 
 }

@@ -1,6 +1,8 @@
 using System;
-using System.Collections;
 using UnityEngine;
+
+
+
 
 public class PlayerHurtState : BaseState
 {
@@ -15,7 +17,6 @@ public class PlayerHurtState : BaseState
         Debug.Log("Recieved damage");
         animationEvents.OnHurtAnimationEnd += HandleEndAnimation;
         animator.SetTrigger("DamageRecieved");
-        //transform.GetComponent<Player>().StartCoroutine(RunHurtAnimation());
     }
     public override void ExitState() 
     {
