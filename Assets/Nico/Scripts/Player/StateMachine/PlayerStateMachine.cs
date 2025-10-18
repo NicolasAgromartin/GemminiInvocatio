@@ -56,7 +56,7 @@ public class PlayerStateMachine
     public void OnDisable()
     {
         UnsubscribeStateEvents();
-        CurrentState.ExitState();
+        if(CurrentState != null) CurrentState.ExitState();
     }
     public void Start()
     {

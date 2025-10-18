@@ -1,96 +1,62 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
+
 
 
 public class SceneLoader : Singleton<SceneLoader>
 {
-    public event Action<int> OnSceneLoaded;
-    private int currentSceneIndex;
+    public static event Action OnSceneLoaded;
+
+
+    public enum SceneNames
+    {
+        TitleScreen,
+        Ottagono,
+        Water,
+        Core,
+    }
+    private readonly Dictionary<SceneNames, string> scenesByName = new()
+    {
+        { SceneNames.TitleScreen, "Nico_TitleScreen" },
+        { SceneNames.Ottagono, "Nico_Ottagono" },
+        { SceneNames.Water, "Nico_Water" },
+        { SceneNames.Core, "Nico_Core"  },
+    };
+    private readonly Dictionary<int, SceneNames> scenesByIndex = new()
+    {
+        // el numero de index tiene que ser el mismo del build
+        { 0, SceneNames.TitleScreen },
+        { 1, SceneNames.Ottagono },
+        { 2, SceneNames.Water },
+        { 3, SceneNames.Core },
+    };
+
+
+    public SceneNames CurrentScene { get; private set; }
+    private SceneNavigator sceneNavigator;
+    private readonly List<AsyncOperation> scenesToLoad = new();
 
 
 
-    //private readonly int storySlideScene = 0;
-    private readonly int titleScreenScene = 1;
-    private readonly int mainGameScene = 2;
-    private readonly int gameOverScene = 3;
 
-    private Player player;
-    private Enemy finalBoss;
-
-
-
-
-
-
-
+    #region Life Cycle
     new private void Awake()
     {
         base.Awake();
         gameObject.transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
 
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        /* Game test  */
-        CheckLoadedScene(currentSceneIndex);
-
+        SuscribeToNavigationEvents();
+        OnSceneLoaded += SuscribeToNavigationEvents;
     }
-    private void OnEnable()
+    private void OnDestroy()
     {
-        Player.OnPlayerLost += GoToGameOverScreen;
-    }
-    private void OnDisable()
-    {
-        Player.OnPlayerLost -= GoToGameOverScreen;
-    }
-
-
-
-
-
-
-
-
-    private void CheckLoadedScene(int loadedScene)
-    {
-        if (currentSceneIndex == titleScreenScene)
-        {
-            ManageTitleScreen();
-        }
-        if (loadedScene == mainGameScene)
-        {
-            HandleGameScene();
-        }
-        if(loadedScene == gameOverScene)
-        {
-            ManageGameOverScreen();
-        }
-    }
-
-
-
-
-
-
-
-    #region GameScene
-    private void HandleGameScene()
-    {
-        player = FindAnyObjectByType<Player>();
-        //Player.OnPlayerLost += GoToDefeatScreen;
-
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-        foreach (Enemy enemy in enemies)
-        {
-            if (enemy.isFinalBoos)
-            {
-                finalBoss = enemy;
-                SuscribeToFinalBoss();
-                break;
-            }
-        }
+        OnSceneLoaded -= SuscribeToNavigationEvents;
+        UnsuscribeToNavigationEvents();
     }
     #endregion
 
@@ -99,27 +65,22 @@ public class SceneLoader : Singleton<SceneLoader>
 
 
 
-
-
-    #region TitleScreen
-    private void ManageTitleScreen()
+    #region Navigation Events
+    private void SuscribeToNavigationEvents()
     {
-        Canvas titleScreenCanvas = FindAnyObjectByType<Canvas>();
-        Button playButton = titleScreenCanvas.transform.Find("ButtonsContainer/PlayButton").GetComponent<Button>();
-        Button exitButton = titleScreenCanvas.transform.Find("ButtonsContainer/ExitButton").GetComponent<Button>();
+        sceneNavigator = FindAnyObjectByType<SceneNavigator>();
 
-        playButton.onClick.AddListener(() =>
-        {
-            SceneManager.LoadScene(mainGameScene);
-            OnSceneLoaded?.Invoke(mainGameScene);
-            playButton.onClick.RemoveAllListeners();
-        });
+        UnsuscribeToNavigationEvents();
 
-        exitButton.onClick.AddListener(() =>
-        {
-            ExitGame();
-            exitButton.onClick.RemoveAllListeners();
-        });
+        sceneNavigator.OnButtonPressed_ExitGame += ExitGame;
+        sceneNavigator.OnButtonPressed_StartGame += StartGame;
+        sceneNavigator.OnButtonPressed_TitleScreen += TitleScreen;
+    }
+    private void UnsuscribeToNavigationEvents()
+    {
+        sceneNavigator.OnButtonPressed_ExitGame -= ExitGame;
+        sceneNavigator.OnButtonPressed_StartGame -= StartGame;
+        sceneNavigator.OnButtonPressed_TitleScreen -= TitleScreen;
     }
     #endregion
 
@@ -127,68 +88,38 @@ public class SceneLoader : Singleton<SceneLoader>
 
 
 
-
-
-
-    #region GameScene
-    public void GoToTitleScreen()
+    #region Scene Navigation Buttons
+    private void StartGame()
     {
-        CursorManager.EnableCursor();
-        SceneManager.LoadScene(titleScreenScene);
+        // se lanza unicamente en la titleScreen
+        // descarga TitleScreen
+        // carga core, ottagono, water, mainlandExterior,
+        
+        CursorManager.DisableCursor();
+
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Ottagono]));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Core], LoadSceneMode.Additive));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Water], LoadSceneMode.Additive));
+
+        foreach(AsyncOperation op in scenesToLoad) op.allowSceneActivation = false;
+
+        StartCoroutine(LoadMultipleScenes());
+        SceneManager.UnloadSceneAsync(scenesByName[SceneNames.TitleScreen]);
     }
-    public void ExitGame()
+    private void ExitGame()
     {
         Application.Quit();
     }
-    private void GoToDefeatScreen()
+    private void TitleScreen()
     {
-        SceneManager.LoadScene(gameOverScene);
-    }
-    private void SuscribeToFinalBoss()
-    {
-        //finalBoss.OnFinalBossDefeated += GoToGameOverScreen;
-    }
-    private void UnsuscribeToFinalBoss()
-    {
-        //finalBoss.OnFinalBossDefeated -= GoToGameOverScreen;
-    }
-    private void GoToGameOverScreen()
-    {
-        //UnsuscribeToFinalBoss();
-        SceneManager.LoadScene(gameOverScene);
-    }
-    #endregion
-
-
-
-
-
-
-
-
-
-
-    #region GameOverScreen
-    private void ManageGameOverScreen()
-    {
-        Canvas gameOverScreen = FindAnyObjectByType<Canvas>();
-        Button titleScreenButton = gameOverScreen.transform.Find("ButtonsContainer/TitleScreen_Button").GetComponent<Button>();
-        Button exitButton = gameOverScreen.transform.Find("ButtonsContainer/Exit_Button").GetComponent<Button>();
-
         CursorManager.EnableCursor();
-        
-        titleScreenButton.onClick.AddListener(() =>
-        {
-            SceneManager.LoadScene(titleScreenScene);
-            OnSceneLoaded?.Invoke(titleScreenScene);
-            titleScreenButton.onClick.RemoveAllListeners();
-        });
+        //SceneManager.LoadScene(titleScreenScene);
 
-        exitButton.onClick.AddListener(() =>
-        {
-            ExitGame();
-            exitButton.onClick.RemoveAllListeners();
-        });
+        // fade a negro
+        // activar la camara de titleScreen como principal de nuevo
+        // resetear al jugador y todos los enemigos y objetos en la posicion inicial
+        // cargar la escena de titleScreen
+        // salir del fade en negro
     }
     #endregion
 
@@ -196,5 +127,18 @@ public class SceneLoader : Singleton<SceneLoader>
 
 
 
+
+    private IEnumerator LoadMultipleScenes()
+    {
+        foreach(AsyncOperation op in scenesToLoad)
+        {
+            Debug.Log(op.progress);
+            op.allowSceneActivation = true;
+            yield return null;
+        }
+        scenesToLoad.Clear();
+
+        OnSceneLoaded?.Invoke();
+    }
 
 }

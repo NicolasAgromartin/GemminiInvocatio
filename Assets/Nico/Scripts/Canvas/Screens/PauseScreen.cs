@@ -52,12 +52,12 @@ public class PauseScreen : MonoBehaviour
     public void GoToMainMenu()
     {
         OnButtonPressed_GoToMainMenu?.Invoke();
-        SceneLoader.Instance.GoToTitleScreen();
+        //SceneLoader.Instance.GoToTitleScreen();
     }
     public void CloseGame()
     {
         OnButtonPressed_ExitGame?.Invoke();
-        SceneLoader.Instance.ExitGame();
+        //SceneLoader.Instance.ExitGame();
     }
 
 

@@ -30,7 +30,6 @@ public class InputManager : MonoBehaviour
 
 
 
-
     #region Player InputActions
     private PlayerInput playerInput;
 
@@ -74,6 +73,7 @@ public class InputManager : MonoBehaviour
     {
         SuscribeToInputActions();
         PauseManager.OnPauseToggled += HandlePause;
+        
     }
     private void OnDisable()
     {

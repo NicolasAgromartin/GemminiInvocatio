@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class TitleScreenMenu : MonoBehaviour
 {
-
     [SerializeField] private GameObject instructionsPanel;
+
+
 
     private void Awake()
     {
@@ -17,4 +19,9 @@ public class TitleScreenMenu : MonoBehaviour
     {
         instructionsPanel.SetActive(false);
     }
+
+
+
+
+
 }

@@ -1,12 +1,14 @@
 using Unity.Cinemachine;
 using UnityEngine;
-
+using System;
 
 
 
 
 public class CinemachineController : MonoBehaviour
 {
+    public static event Action OnTitleScreenCameraPositioned;
+
     public Quaternion PlanarRotation { get; private set; }
 
     [Header("Cameras")]
@@ -14,17 +16,10 @@ public class CinemachineController : MonoBehaviour
     [SerializeField] private CinemachineCamera interactionCamera;
     [SerializeField] private CinemachineCamera tacticalCamera;
     [SerializeField] private CinemachineCamera combatCamera;
-    private CinemachineBasicMultiChannelPerlin cameraNoise;
+    [SerializeField] private CinemachineCamera titleScreenCamera;
 
-    [Header("Target Group")]
-    [SerializeField] private CinemachineTargetGroup targetGroup;
-
-    [Header("Camera Shake")]
-    [SerializeField] private float shakeDuration;
-    [SerializeField] private float shakeAmplitude;
 
     private Transform player;
-    private Transform enemy;
 
 
 
@@ -37,22 +32,17 @@ public class CinemachineController : MonoBehaviour
         interactionCamera.Follow = player;
         tacticalCamera.Follow = player;
         combatCamera.Follow = player;
-
-        cameraNoise = combatCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
     }
     private void OnEnable()
     {
         PlayerStateMachine.OnStateChange += HandlePlayerStateChange;
-
-        //EnemyDetector.OnTargetChanged += HandleEnemyDetection;
-        //Weapon.OnEnemyHitted += ShakeCamera;
+        
     }
     private void OnDisable()
     {
         PlayerStateMachine.OnStateChange -= HandlePlayerStateChange;
 
-        //EnemyDetector.OnTargetChanged -= HandleEnemyDetection;
-        //Weapon.OnEnemyHitted -= ShakeCamera;
+
     }
     private void Update()
     {
@@ -96,21 +86,25 @@ public class CinemachineController : MonoBehaviour
     }
 
 
-    private void HandleEnemyDetection(GameObject enemyDected)
+
+
+    #region TitleScreen
+    private void DeactivateTitleScreenCamera()
     {
-        if(enemyDected == null)
-        {
-            combatCamera.gameObject.SetActive(false);
-            targetGroup.RemoveMember(enemyDected.transform);
+        titleScreenCamera.gameObject.SetActive(false);
 
-            mainCamera.gameObject.SetActive(true);
-        }
-        else
-        {
-            combatCamera.gameObject.SetActive(true);
-            targetGroup.AddMember(enemyDected.transform, 0f, 0f);
-
-            mainCamera.gameObject.SetActive(false);
-        }
+        mainCamera.gameObject.SetActive(true);
+        interactionCamera.gameObject.SetActive(false);
+        tacticalCamera.gameObject.SetActive(false);
     }
+    private void ActivateTitleScreenCamera()
+    {
+        titleScreenCamera.gameObject.SetActive(true);
+
+        mainCamera.gameObject.SetActive(false);
+        interactionCamera.gameObject.SetActive(false);
+        tacticalCamera.gameObject.SetActive(false);
+    }
+    #endregion
+
 }

@@ -27,10 +27,19 @@ public class Fiend : Unit
         Stats = new(data.stats);
 
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
-        animationEvents = GetComponentInChildren<AnimationEvents>();
+
+
+        InstantiateModel();
     }
 
+    private void InstantiateModel()
+    {
+        if (GetComponentInChildren<Animator>() == null)
+            Instantiate(data.modelPrefab, transform, false);
+
+        animationEvents = GetComponentInChildren<AnimationEvents>();
+        animator = GetComponentInChildren<Animator>();
+    }
 
 
 

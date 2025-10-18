@@ -67,14 +67,14 @@ public class DefeatScreen : MonoBehaviour
     }
     public void GoToTitleScreen()
     {
-        SceneLoader.Instance.GoToTitleScreen();
+        //SceneLoader.Instance.GoToTitleScreen();
         OnButtonPressed_TitleScreen?.Invoke();
         HideButtons();
 
     }
     public void ExitGame()
     {
-        SceneLoader.Instance.ExitGame();
+        //SceneLoader.Instance.ExitGame();
         OnButtonPressed_ExitGame?.Invoke();
         HideButtons();
 
