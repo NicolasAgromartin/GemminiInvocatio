@@ -105,7 +105,7 @@ public class PlayerTacticsState : BaseState
     private void SelectEnemy(GameObject enemySelected)
     {
         Debug.Log(enemySelected);
-        minionOwner.ChangeTarget(enemySelected.transform.root.gameObject.GetComponent<Enemy>()); 
+        minionOwner.ChangeTarget(enemySelected); 
         UnsuscribeToInput();
     }
     private void PositionSelected(Vector3 pos)

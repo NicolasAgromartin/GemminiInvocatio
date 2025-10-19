@@ -22,10 +22,10 @@ public class PlayerMinion : Fiend
     {
         gameObject.layer = LayerMask.NameToLayer("Entity");
 
-        if (data != null) base.Awake();
-
         Destroy(GetComponent<Remains>());
         Destroy(GetComponent<SphereCollider>());
+
+        if (data != null) base.Awake();
 
         agent = GetComponent<NavMeshAgent>();
         player = FindAnyObjectByType<Player>().gameObject;
@@ -34,7 +34,8 @@ public class PlayerMinion : Fiend
         weapon.GetComponent<SphereCollider>().enabled = false;
         weapon.SetIsEnemy(false);
 
-        GetComponent<CapsuleCollider>().enabled = true;
+
+        agent.speed = 4f;
 
         controlCrown = GetComponentInChildren<ControlCrown>(true);
         controlCrown.gameObject.SetActive(true);
@@ -106,7 +107,12 @@ public class PlayerMinion : Fiend
     }
 
     // bloquear el movimiento hasta que haya revivido
-    private void EnableMovement() => canMove = true;
+    private void EnableMovement()
+    {
+        GetComponent<CapsuleCollider>().enabled = true;
+
+        canMove = true;
+    }
 
 
 
@@ -115,6 +121,8 @@ public class PlayerMinion : Fiend
     public void ReturnToPlayer()
     {
         if (!canMove) return;
+
+        Debug.Log(player == null);
 
         StopAllCoroutines();
         StartCoroutine(FollowTarget(player));

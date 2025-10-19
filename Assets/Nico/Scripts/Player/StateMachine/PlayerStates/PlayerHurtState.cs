@@ -14,7 +14,7 @@ public class PlayerHurtState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Recieved damage");
+        //Debug.Log("Recieved damage");
         animationEvents.OnHurtAnimationEnd += HandleEndAnimation;
         animator.SetTrigger("DamageRecieved");
     }
@@ -30,7 +30,7 @@ public class PlayerHurtState : BaseState
 
     private void HandleEndAnimation()
     {
-        Debug.Log("Ended hurt animation");
+        //Debug.Log("Ended hurt animation");
         if(stats.CurrentHealth <= 0)
         {
             OnEventOccurred?.Invoke(TransitionEvent.Die);

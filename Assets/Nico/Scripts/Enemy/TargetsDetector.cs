@@ -30,7 +30,7 @@ public class TargetsDetector : MonoBehaviour
             if (!targetsList.Contains(root))
             {
                 targetsList.Add(root);
-                SuscribeToTarget(root);
+                SuscribeToTarget(root.GetComponent<Unit>());
                 OnTargetsUpdated?.Invoke(SelectTarget());
             }
         }
@@ -43,25 +43,22 @@ public class TargetsDetector : MonoBehaviour
 
         if (targetsList.Contains(root)) 
         {
-            UnsuscribeToTarget(root);
             targetsList.Remove(root);
-            OnTargetsUpdated?.Invoke(SelectTarget());
+            UnsuscribeToTarget(root.GetComponent<Unit>());
+            SelectTarget();
+            OnTargetsUpdated?.Invoke(SelectedTarget);
         }
     }
 
 
 
-    private void SuscribeToTarget(GameObject target)
+    private void SuscribeToTarget(Unit target)
     {
-        Unit unit = target.GetComponent<Unit>();
-
-        if (unit != null) unit.OnDeath += RemoveMissingTarget;
+        if (target != null) target.OnDeath += RemoveMissingTarget;
     }
-    private void UnsuscribeToTarget(GameObject target)
+    private void UnsuscribeToTarget(Unit target)
     {
-        Unit unit = target.GetComponent<Unit>();
-
-        if (unit != null) unit.OnDeath -= RemoveMissingTarget;
+        if (target != null) target.OnDeath -= RemoveMissingTarget;
     }
     private void RemoveMissingTarget(Unit target)
     {
@@ -83,13 +80,11 @@ public class TargetsDetector : MonoBehaviour
 
         if (targetsList.Count > 0)
         {
-            //targetIndicator.text = targetsList.First().name;
             SelectedTarget = targetsList.First();
             return SelectedTarget;
         }
         else
         {
-            //targetIndicator.text = "no target";
             SelectedTarget = null;
             return null; 
         }

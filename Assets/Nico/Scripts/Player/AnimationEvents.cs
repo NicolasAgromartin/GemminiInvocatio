@@ -10,6 +10,7 @@ public class AnimationEvents : MonoBehaviour
     public event Action OnDeathAnimationEnd;
     public event Action OnHurtAnimationEnd;
     public event Action OnAttackAnimationEnd;
+    public event Action OnAttackAnimationStarts;
     public event Action OnResurrectAnimationEnd;
     public event Action OnComboEnabled;
 
@@ -42,6 +43,7 @@ public class AnimationEvents : MonoBehaviour
         attackCollider.enabled = false;
         if (parent.CompareTag("Player")) OnComboEnabled?.Invoke();
     }
+    public void AttackAnimationStarts() => OnAttackAnimationStarts?.Invoke();
     public void AttackAnimationEnd() => OnAttackAnimationEnd?.Invoke();
     public void ResurrectAnimationEnd() => OnResurrectAnimationEnd?.Invoke();
 }

@@ -1022,7 +1022,7 @@ GameObject:
   - component: {fileID: 887372309322632398}
   - component: {fileID: 212370572481761546}
   - component: {fileID: 4620315634214103739}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GreySkeleton
   m_TagString: FiendModel
   m_Icon: {fileID: 0}
@@ -1590,6 +1590,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 308874003868858754}
     m_Modifications:
+    - target: {fileID: 3547963400959568402, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
+      propertyPath: isEnemy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4818472777831986682, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0025
@@ -1630,73 +1634,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 6153054982014534671, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
       propertyPath: m_Name
       value: RustySword
       objectReference: {fileID: 0}
-    - target: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
-      propertyPath: m_TagString
-      value: DamageDealer
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3721235066603080400}
-    - targetCorrespondingSourceObject: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1183911466494398965}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
 --- !u!4 &5817047118675944947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4818472777831986682, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
   m_PrefabInstance: {fileID: 1325442569226883081}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &9023497123649331482 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8024583501847441683, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
-  m_PrefabInstance: {fileID: 1325442569226883081}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3721235066603080400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9023497123649331482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd48c6fc37121b44aeac2c99bd31a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AttackPerformer
-  Damage: 10
-  isEnemy: 1
-  damageableLayer:
-    serializedVersion: 2
-    m_Bits: 512
---- !u!135 &1183911466494398965
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9023497123649331482}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.4
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &2398947967897872802
 PrefabInstance:
   m_ObjectHideFlags: 0

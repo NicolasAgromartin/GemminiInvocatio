@@ -1,16 +1,6 @@
-using Unity.Behavior;
 
 
-//[BlackboardEnum]
-//public enum EnemyStates
-//{
-//    Idle,
-//    Patrol,
-//    Chase,
-//    Attack,
-//    Hurt,
-//    Dead,
-//}
+
 public enum TransitionEvent
 {
     Move,
@@ -23,6 +13,23 @@ public enum TransitionEvent
     End,
     Die,
     Respawn,
+}
+public enum EnemyEvents
+{
+    StartPatrol,
+
+    TargetFound,
+    TargetDied,
+    TargetMoved,
+    TargetAtRange,
+    TargetLost,
+
+    End,
+
+    Attack,
+    TakeHit,
+    Die,
+
 }
 
 public enum FiendType

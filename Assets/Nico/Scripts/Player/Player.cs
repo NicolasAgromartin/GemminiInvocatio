@@ -4,11 +4,6 @@ using UnityEngine;
 
 
 
-// tematica oscura
-// acompañante
-// cartas
-
-
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : Unit

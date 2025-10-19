@@ -116,9 +116,11 @@ public class MinionOwner:MonoBehaviour
     {
         MinionSelected.ReturnToPlayer();
     }
-    public void ChangeTarget(Enemy target)
+    public void ChangeTarget(GameObject target)
     {
-        MinionSelected.AttackTarget(target.gameObject);
+        Debug.Log(MinionSelected == null);
+        //Debug.Log(target.transform.parent.GetComponent<EnemyTest>());
+        MinionSelected.AttackTarget(target);
     }
     public void MoveToPosition(Vector3 posToMove)
     {

@@ -16,7 +16,9 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if (CompareTag("DetectionCollider")) return;
         if (!other.CompareTag("DamageDealer")) return;
+        if (other.gameObject.layer != LayerMask.NameToLayer("Weapon")) return;
 
         Weapon weapon = other.GetComponent<Weapon>();
 
@@ -47,9 +49,6 @@ public abstract class Unit : MonoBehaviour
 
         OnDamageRecieved?.Invoke(this, Stats.CurrentHealth);
 
-
-        //Debug.Log($"{this.gameObject.name} recieved {damage} -- {Stats.CurrentHealth}");
-
         if(Stats.CurrentHealth <= 0)
         {
             OnDeath?.Invoke(this);
@@ -65,7 +64,4 @@ public abstract class Unit : MonoBehaviour
 
         OnHealthIncreased?.Invoke(this, Stats.CurrentHealth);
     }
-
-
-
 }
