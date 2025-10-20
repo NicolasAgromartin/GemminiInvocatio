@@ -44,15 +44,22 @@ public abstract class EnemyBaseState
 
 
 
-    public abstract void EnterState();
-    public abstract void ExitState();
+    public virtual void EnterState()
+    {
+        targetsDetector.OnTargetsUpdated += TargetFound;
+    }
+    public virtual void ExitState()
+    {
+        targetsDetector.OnTargetsUpdated -= TargetFound;
+    }
     public abstract void UpdateState();
     public virtual void OnTriggerEnter(Collider other) 
     { 
     }
 
 
+    protected virtual void TargetFound(GameObject target)
+    {
 
-
-
+    }
 }

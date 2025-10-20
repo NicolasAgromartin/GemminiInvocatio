@@ -11,82 +11,56 @@ public class TargetsDetector : MonoBehaviour
 
     public GameObject SelectedTarget;
     [SerializeField] private List<GameObject> targetsList = new();
-    private GameObject root;
-
-
-
+    private GameObject detected;
 
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DetectionCollider")) return;
-        
-        root = other.transform.root.gameObject;
+        detected = other.gameObject;
 
+        if (!detected.CompareTag("Player") && !detected.CompareTag("PlayerMinion")) return;
 
-        if (root.CompareTag("Player") || root.CompareTag("PlayerMinion"))
+        if (targetsList.Contains(detected)) return;
+
+        targetsList.Add(detected);
+        detected.GetComponent<Unit>().OnDeath += RemoveMissingTarget;
+
+        if(SelectedTarget == null)
         {
-            if (!targetsList.Contains(root))
-            {
-                targetsList.Add(root);
-                SuscribeToTarget(root.GetComponent<Unit>());
-                OnTargetsUpdated?.Invoke(SelectTarget());
-            }
+            SelectedTarget = detected;
+            OnTargetsUpdated?.Invoke(SelectedTarget);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("DetectionCollider")) return;
+        detected = other.gameObject;
 
-        root = other.transform.root.gameObject;
+        if (!detected.CompareTag("Player") && !detected.CompareTag("PlayerMinion")) return;
 
-        if (targetsList.Contains(root)) 
+        if (targetsList.Contains(detected))
         {
-            targetsList.Remove(root);
-            UnsuscribeToTarget(root.GetComponent<Unit>());
-            SelectTarget();
+            targetsList.Remove(detected);
+            if(detected == SelectedTarget) SelectedTarget = null;
             OnTargetsUpdated?.Invoke(SelectedTarget);
+
+            detected.GetComponent<Unit>().OnDeath -= RemoveMissingTarget;
         }
+
+
     }
 
 
 
-    private void SuscribeToTarget(Unit target)
-    {
-        if (target != null) target.OnDeath += RemoveMissingTarget;
-    }
-    private void UnsuscribeToTarget(Unit target)
-    {
-        if (target != null) target.OnDeath -= RemoveMissingTarget;
-    }
     private void RemoveMissingTarget(Unit target)
     {
         targetsList.Remove(target.gameObject);
-        OnTargetsUpdated?.Invoke(SelectTarget());
-    }
 
-
-
-
-
-    /* proximamente aca va la logica para seleccionar al enemigo */
-    private GameObject SelectTarget()
-    {
-        foreach(GameObject target in targetsList)
+        if(target.gameObject == SelectedTarget)
         {
-            if (target == null) targetsList.Remove(target);
+            SelectedTarget = targetsList.Count > 0 ? targetsList.First() : null;
         }
 
-        if (targetsList.Count > 0)
-        {
-            SelectedTarget = targetsList.First();
-            return SelectedTarget;
-        }
-        else
-        {
-            SelectedTarget = null;
-            return null; 
-        }
+        OnTargetsUpdated?.Invoke(SelectedTarget);
     }
 }

@@ -82,7 +82,6 @@ public class EnemyStateMachine
         // idle
         eventMap.Add((idleState, EnemyEvents.StartPatrol), patrolState);
         eventMap.Add((idleState, EnemyEvents.TargetFound), chaseState);
-        eventMap.Add((idleState, EnemyEvents.Attack), attackState);
 
         // patrol
         eventMap.Add((patrolState, EnemyEvents.TargetFound), chaseState);

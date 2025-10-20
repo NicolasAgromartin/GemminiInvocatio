@@ -9,12 +9,13 @@ public class EnemyHurtState : EnemyBaseState
 
     public override void EnterState()
     {
+        base.EnterState();
         animator.SetTrigger("Hurt");
-
         animationEvents.OnHurtAnimationEnd += HandleEndAnimation;
     }
     public override void ExitState()
     {
+        base.ExitState();
         animationEvents.OnHurtAnimationEnd -= HandleEndAnimation;
     }
     public override void UpdateState()
@@ -26,7 +27,6 @@ public class EnemyHurtState : EnemyBaseState
     {
         if (stats.CurrentHealth <= 0)
         {
-            //animator.SetBool("IsDead", false);
             OnEventOccurred?.Invoke(EnemyEvents.Die);
         }
         else

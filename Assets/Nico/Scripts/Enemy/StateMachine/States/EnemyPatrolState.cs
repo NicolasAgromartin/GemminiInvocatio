@@ -19,16 +19,15 @@ public class EnemyPatrolState : EnemyBaseState
 
     public override void EnterState()
     {
+        base.EnterState();  
         animator.SetFloat("Movement", .5f);
         agent.speed = .8f;
 
         MoveToNextPoint();
-        
-        targetsDetector.OnTargetsUpdated += TargetFound;
     }
     public override void ExitState()
     {
-        targetsDetector.OnTargetsUpdated -= TargetFound;
+        base.ExitState();
         agent.ResetPath();
     }
     public override void UpdateState()
@@ -49,7 +48,7 @@ public class EnemyPatrolState : EnemyBaseState
         agent.SetDestination(patrollingPoints[patrolIndex].position);
         patrolIndex = (patrolIndex + 1) % patrollingPoints.Count;
     }
-    private void TargetFound(GameObject target)
+    protected override void TargetFound(GameObject target)
     {
         OnEventOccurred?.Invoke(EnemyEvents.TargetFound);
     }

@@ -1,15 +1,20 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Target : MonoBehaviour
 {
-    private TMP_Text focusedTarget;
+    private TMP_Text target;
+    private Image targetIcon;
+    private Image targetHealthBar;
+
 
 
 
     private void Awake()
     {
-        focusedTarget = transform.Find("FocusedTarget").GetComponent<TMP_Text>();
+        target = transform.Find("TargetName").GetComponent<TMP_Text>();
+        targetIcon = transform.Find("TargetIcon").GetComponent<Image>();
     }
     private void OnEnable()
     {
@@ -27,11 +32,11 @@ public class Target : MonoBehaviour
     {
         if (newTarget == null)
         {
-            focusedTarget.text = string.Empty;
+            target.text = string.Empty;
         }
         else
         {
-            focusedTarget.text = newTarget.name;
+            target.text = newTarget.name;
         }
     }
 }

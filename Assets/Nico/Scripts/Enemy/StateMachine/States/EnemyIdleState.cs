@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -19,14 +17,15 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void EnterState()
     {
+        base.EnterState();
         elapsedTime = 0f;
-
         animator.SetFloat("Movement", 0);
-        targetsDetector.OnTargetsUpdated += TargetFound;
+
+        if (targetsDetector.SelectedTarget != null) OnEventOccurred?.Invoke(EnemyEvents.TargetFound);
     }
     public override void ExitState()
     {
-        targetsDetector.OnTargetsUpdated -= TargetFound;
+        base.ExitState();
     }
     public override void UpdateState()
     {
@@ -39,12 +38,7 @@ public class EnemyIdleState : EnemyBaseState
     }
 
 
-    // transicionar a attack
-    // transicionar a chase
-
-
-
-    private void TargetFound(GameObject target)
+    protected override void TargetFound(GameObject target)
     {
         OnEventOccurred?.Invoke(EnemyEvents.TargetFound);
     }

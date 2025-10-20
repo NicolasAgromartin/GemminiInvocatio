@@ -20,11 +20,13 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void EnterState()
     {
+        base.EnterState();
         agent.speed = 4f;
         animator.SetFloat("Movement", 1f);
     }
     public override void ExitState()
     {
+        base.ExitState();
     }
     public override void UpdateState()
     {
