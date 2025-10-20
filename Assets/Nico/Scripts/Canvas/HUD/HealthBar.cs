@@ -17,15 +17,19 @@ public class HealthBar : MonoBehaviour
 
 
 
+    public void SetInitialHealth(int initialHealth, int maxHealth)
+    {
+        healthBar.fillAmount = (float)initialHealth / (float)maxHealth;
+    }
 
-    public void ChangeHealth(int newHealth)
+    public void ChangeHealth(int newHealth, int maxHealth)
     {
         if(newHealth < 0) newHealth = 0;
-        StartCoroutine(ChangeHealthBar(newHealth));
+        StartCoroutine(ChangeHealthBar(newHealth, maxHealth));
     }
-    private IEnumerator ChangeHealthBar(int newHealth)
+    private IEnumerator ChangeHealthBar(int newHealth, int maxHealth)
     {
-        float target = newHealth / 100f;
+        float target = (float)newHealth / (float)maxHealth;
         float speed = 0.01f;
 
         while (!Mathf.Approximately(healthBar.fillAmount, target))
@@ -39,6 +43,4 @@ public class HealthBar : MonoBehaviour
             yield return null;
         }
     }
-
-
 }

@@ -53,7 +53,7 @@ public class PlayerHUD : MonoBehaviour
     #region Health
     private void ChangeHealth(Unit player, int newHealth)
     {
-        healthBar.ChangeHealth(newHealth);
+        healthBar.ChangeHealth(newHealth, player.Stats.MaxHealth);
     }
     #endregion
 

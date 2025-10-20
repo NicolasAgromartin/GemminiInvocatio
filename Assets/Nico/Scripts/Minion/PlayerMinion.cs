@@ -85,7 +85,7 @@ public class PlayerMinion : Fiend
     }
     private void DestroyGameObject()
     {
-        Debug.Log("Destroy GameObject");
+        //Debug.Log("Destroy GameObject");
     }
 
 
@@ -121,8 +121,6 @@ public class PlayerMinion : Fiend
     public void ReturnToPlayer()
     {
         if (!canMove) return;
-
-        Debug.Log(player == null);
 
         StopAllCoroutines();
         StartCoroutine(FollowTarget(player));

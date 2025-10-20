@@ -6,8 +6,9 @@ public class Target : MonoBehaviour
 {
     private TMP_Text target;
     private Image targetIcon;
-    private Image targetHealthBar;
+    private HealthBar health;
 
+    private Unit unit;
 
 
 
@@ -15,6 +16,7 @@ public class Target : MonoBehaviour
     {
         target = transform.Find("TargetName").GetComponent<TMP_Text>();
         targetIcon = transform.Find("TargetIcon").GetComponent<Image>();
+        health = GetComponentInChildren<HealthBar>();
     }
     private void OnEnable()
     {
@@ -30,13 +32,29 @@ public class Target : MonoBehaviour
 
     private void ChangeFocusedTarget(GameObject newTarget)
     {
+        if(unit != null) unit.OnDamageRecieved -= ChangeTargetHealt;
+
+
         if (newTarget == null)
         {
             target.text = string.Empty;
         }
         else
         {
-            target.text = newTarget.name;
+            unit = newTarget.GetComponent<Unit>();
+
+            target.text = unit.name;
+            health.SetInitialHealth(unit.Stats.CurrentHealth, unit.Stats.MaxHealth);
+            // unit.data.type y seteo el icono correspondiente de su tipo
+
+            unit.OnDamageRecieved += ChangeTargetHealt;
         }
+    }
+
+
+
+    private void ChangeTargetHealt(Unit target, int newHealth)
+    {
+        health.ChangeHealth(newHealth, target.Stats.MaxHealth);
     }
 }

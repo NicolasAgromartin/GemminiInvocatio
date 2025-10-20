@@ -14,7 +14,6 @@ public class EnemyDetector : MonoBehaviour
 
     public GameObject SelectedTarget { get; private set; } = null;
     [SerializeField] private List<GameObject> enemiesNearby = new();
-    private int lastIndexedTarget = 0;
     private GameObject detected;
 
 
