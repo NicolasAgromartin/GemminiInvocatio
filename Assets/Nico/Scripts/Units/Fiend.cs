@@ -77,5 +77,9 @@ public class Fiend : Unit
         }
     }
     #endregion
+
+
+    public Sprite GetFiendIcon() => data.icon;
+    public string GetFiendName() => data.fiendName;
 }
 

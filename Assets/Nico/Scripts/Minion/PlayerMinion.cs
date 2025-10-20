@@ -102,8 +102,8 @@ public class PlayerMinion : Fiend
     }
     private void WeakenByResurrection()
     {
-        Stats.Attack /= 2;
-        Stats.MaxHealth /= 2;
+        //Stats.Attack /= 2;
+        //Stats.MaxHealth /= 2;
     }
 
     // bloquear el movimiento hasta que haya revivido

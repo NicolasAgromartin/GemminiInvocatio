@@ -8,7 +8,7 @@ public class Target : MonoBehaviour
     private Image targetIcon;
     private HealthBar health;
 
-    private Unit unit;
+    private Fiend unit;
 
 
 
@@ -41,11 +41,12 @@ public class Target : MonoBehaviour
         }
         else
         {
-            unit = newTarget.GetComponent<Unit>();
+            unit = newTarget.GetComponent<Fiend>();
 
-            target.text = unit.name;
+            target.text = unit.GetFiendName();
+            targetIcon.sprite = unit.GetFiendIcon();
+
             health.SetInitialHealth(unit.Stats.CurrentHealth, unit.Stats.MaxHealth);
-            // unit.data.type y seteo el icono correspondiente de su tipo
 
             unit.OnDamageRecieved += ChangeTargetHealt;
         }

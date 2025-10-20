@@ -24,6 +24,8 @@ public class HealthBar : MonoBehaviour
 
     public void ChangeHealth(int newHealth, int maxHealth)
     {
+        Debug.Log($"new health is {newHealth} from {maxHealth}");
+
         if(newHealth < 0) newHealth = 0;
         StartCoroutine(ChangeHealthBar(newHealth, maxHealth));
     }

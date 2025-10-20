@@ -24,3 +24,4 @@ MonoBehaviour:
   attackRange: 2
   patrolSpeed: 0.5
   chaseSpeed: 1
+  icon: {fileID: 21300000, guid: 03b6a8d14b2ad85479202af37bb95a69, type: 3}

@@ -33,7 +33,7 @@ public abstract class Unit : MonoBehaviour
                 if (gameObject.CompareTag("Enemy"))
                 {
                     RecieveDamage(other.GetComponent<Weapon>().Damage);
-                    Debug.Log($"{this.gameObject} recieved an attack");
+                    //Debug.Log($"{this.gameObject} recieved an attack");
                 }
                 break;
         }

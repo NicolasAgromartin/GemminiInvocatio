@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinionsPanel : MonoBehaviour
 {
@@ -30,8 +31,10 @@ public class MinionsPanel : MonoBehaviour
             if (minionBoxes.ContainsKey(minion)) continue;
 
             GameObject newMinionUI = Instantiate(minionBox, transform);
-            newMinionUI.GetComponentInChildren<TMP_Text>().text = minion.name;
-            newMinionUI.transform.Find("Stats/AttackValue").GetComponent<TMP_Text>().text = "Atk : " + minion.Stats.Attack.ToString();
+
+            // aca agrego el icono de minion a la ui
+            newMinionUI.transform.Find("Icon").gameObject.GetComponent<Image>().sprite = minion.GetFiendIcon();
+            newMinionUI.transform.Find("Name").gameObject.GetComponent<TMP_Text>().text = minion.GetFiendName();
 
             minionBoxes.Add(minion, newMinionUI);
             SuscribeToMinionEvents(minion);
@@ -41,8 +44,7 @@ public class MinionsPanel : MonoBehaviour
 
     private void UpdateMinionHealth(Unit minion, int newHealth)
     {
-        //StartCoroutine(ChangeHealthBar(playerMinionBoxes[minion.GetComponent<PlayerMinion>()].transform.Find("Health/HealthBar").GetComponent<Image>(), newHealth));
-        //Debug.Log($"{minion.name} reduce life to {newHealth}");
+        minionBoxes[minion.gameObject.GetComponent<PlayerMinion>()].GetComponentInChildren<HealthBar>().ChangeHealth(newHealth, minion.Stats.MaxHealth);
     }
     private void RemoveMinionFromList(Unit minion)
     {
