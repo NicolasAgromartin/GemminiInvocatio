@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,14 +11,26 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : Singleton<SceneLoader>
 {
     public static event Action OnSceneLoaded;
+    private Player player;
+    private float loadRange;
 
 
     public enum SceneNames
     {
         TitleScreen,
+        GameOverScreen,
+        LoadingScreen,
+
+        Core,
+
         Ottagono,
         Water,
-        Core,
+        MainlandExterior,
+
+        Hall,
+        Library,
+        Bedroom,
+        Kitchen,
     }
     private readonly Dictionary<SceneNames, string> scenesByName = new()
     {
@@ -29,10 +42,28 @@ public class SceneLoader : Singleton<SceneLoader>
     private readonly Dictionary<int, SceneNames> scenesByIndex = new()
     {
         // el numero de index tiene que ser el mismo del build
+        // ui
         { 0, SceneNames.TitleScreen },
-        { 1, SceneNames.Ottagono },
-        { 2, SceneNames.Water },
+        { 1, SceneNames.GameOverScreen },
+        { 2, SceneNames.LoadingScreen },
+
+        // player, camera y scripts de sistema
         { 3, SceneNames.Core },
+
+        // exteriores
+        { 4, SceneNames.Ottagono },
+        { 5, SceneNames.Water },
+        { 6, SceneNames.MainlandExterior},
+        
+        // interior del castillo
+        { 7, SceneNames.Hall },
+        { 8, SceneNames.Library },
+        { 9, SceneNames.Bedroom },
+        { 10, SceneNames.Kitchen },
+    };
+    private readonly Dictionary<SceneNames, bool> scenesLoading = new()
+    {
+        { SceneNames.Kitchen, false},
     };
 
 
@@ -97,7 +128,8 @@ public class SceneLoader : Singleton<SceneLoader>
         
         CursorManager.DisableCursor();
 
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Ottagono]));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.MainlandExterior]));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Ottagono], LoadSceneMode.Additive));
         scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Core], LoadSceneMode.Additive));
         scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Water], LoadSceneMode.Additive));
 
