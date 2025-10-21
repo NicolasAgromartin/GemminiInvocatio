@@ -61,7 +61,7 @@ public class SceneLoader : Singleton<SceneLoader>
         { 9, SceneNames.Bedroom },
         { 10, SceneNames.Kitchen },
     };
-    private readonly Dictionary<SceneNames, bool> scenesLoading = new()
+    private readonly Dictionary<SceneNames, bool> scenesLoadState = new()
     {
         { SceneNames.Kitchen, false},
     };
