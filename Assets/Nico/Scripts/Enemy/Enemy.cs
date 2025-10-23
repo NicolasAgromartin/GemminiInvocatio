@@ -48,8 +48,8 @@ public class Enemy : Fiend
     {
         stateMachine.Update();
 
-        currentState.transform.LookAt(Camera.main.transform);
-        currentState.transform.Rotate(0, 180f, 0); // Para que no se vea al revés
+        //currentState.transform.LookAt(Camera.main.transform);
+        //currentState.transform.Rotate(0, 180f, 0); // Para que no se vea al revés
     }
     protected override void OnTriggerEnter(Collider other)
     {

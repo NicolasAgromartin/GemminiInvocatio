@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 
@@ -7,10 +8,18 @@ public class PauseManager : Singleton<PauseManager>
 {
     public static event Action<bool> OnPauseToggled;
 
+    [Header("Audio Mixer")]
+    [SerializeField] private AudioMixer mixer;
+
+    [Header("Mixer Snapshots")]
+    [SerializeField] private AudioMixerSnapshot pausedSnapshot;
+    [SerializeField] private AudioMixerSnapshot unpausedSnapshot;
+
     private bool isGamePaused = false;
 
     private PauseScreen pauseScreen;
-    private Player player;
+
+
 
 
     #region Life Cykle
@@ -18,7 +27,6 @@ public class PauseManager : Singleton<PauseManager>
     {
         base.Awake();
         pauseScreen = FindAnyObjectByType<PauseScreen>(FindObjectsInactive.Include);
-        player = FindAnyObjectByType<Player>(FindObjectsInactive.Include);
     }
     private void OnEnable()
     {
@@ -48,11 +56,22 @@ public class PauseManager : Singleton<PauseManager>
         {
             Time.timeScale = 0f;
             CursorManager.EnableCursor();
+            //pausedSnapshot.TransitionTo(.5f);
+            //Debug.Log("Change th fkin m");
+
+            //mixer.TransitionToSnapshots(
+            //    new[] { unpausedSnapshot, pausedSnapshot }, 
+            //    new float[] { 1f, 0f }, 
+            //    .5f);
+
         }
         else
         {
             CursorManager.DisableCursor();
             Time.timeScale = 1.0f;
+            //unpausedSnapshot.TransitionTo(.5f);
+            //Debug.Log("Change itback");
+
         }
     }
 }

@@ -23,6 +23,7 @@ public class SceneNavigator : MonoBehaviour
     }
     public void TitleScreen()
     {
+        Debug.Log("TsS");
         OnButtonPressed_TitleScreen?.Invoke();
     }
 

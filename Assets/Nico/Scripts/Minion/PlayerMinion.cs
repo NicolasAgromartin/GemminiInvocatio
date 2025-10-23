@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 
 
@@ -49,14 +51,22 @@ public class PlayerMinion : Fiend
 
         base.OnDamageRecieved += HandleDamage;
         base.OnDeath += HandleDeath;
+
+        SceneLoader.OnSceneStartLoading += Reposition;
     }
     private void OnDisable()
     {
         animationEvents.OnResurrectAnimationEnd -= EnableMovement;
         animationEvents.OnDeathAnimationEnd -= DestroyGameObject;
-
+        
         base.OnDamageRecieved += HandleDamage;
         base.OnDeath -= HandleDeath;
+
+        SceneLoader.OnSceneStartLoading -= Reposition;
+    }
+    private void Start()
+    {
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName("Nico_Core"));
     }
     private void Update()
     {
@@ -67,7 +77,13 @@ public class PlayerMinion : Fiend
 
 
 
-
+    private void Reposition()
+    {
+        Debug.Log("Repositioned");
+        canMove = true;
+        ReturnToPlayer();
+        transform.position = player.transform.position;
+    }
 
     private void HandleDamage(Unit minion, int currentHealth)
     {
@@ -110,7 +126,6 @@ public class PlayerMinion : Fiend
     private void EnableMovement()
     {
         GetComponent<CapsuleCollider>().enabled = true;
-
         canMove = true;
     }
 

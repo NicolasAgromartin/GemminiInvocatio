@@ -16,6 +16,7 @@ TagManager:
   - DetectionCollider
   - Gate
   - DamageDealer
+  - ScenePortal
   layers:
   - Default
   - TransparentFX

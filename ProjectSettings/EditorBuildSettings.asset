@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Nico/Scenes/Core/Nico_Core.unity
     guid: 308d52fa5bec53147b6272bb27183c3d
+  - enabled: 1
+    path: Assets/Nico/Scenes/Exterior/Nico_MainlandExterior.unity
+    guid: d5d9e352a9761364d887073e1d4853db
+  - enabled: 1
+    path: Assets/Nico/Scenes/Tests/Nico_Test.unity
+    guid: 1d7c9620127a94748b767d362b751d0c
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

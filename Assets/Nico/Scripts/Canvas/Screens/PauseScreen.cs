@@ -8,8 +8,6 @@ public class PauseScreen : MonoBehaviour
 {
     #region Events
     public event Action OnButtonPressed_ResumeGame;
-    public event Action OnButtonPressed_GoToMainMenu;
-    public event Action OnButtonPressed_ExitGame;
     #endregion
 
 
@@ -49,17 +47,6 @@ public class PauseScreen : MonoBehaviour
         inventoryPanel.SetActive(false);
         optionsPanel.SetActive(true);
     }
-    public void GoToMainMenu()
-    {
-        OnButtonPressed_GoToMainMenu?.Invoke();
-        //SceneLoader.Instance.GoToTitleScreen();
-    }
-    public void CloseGame()
-    {
-        OnButtonPressed_ExitGame?.Invoke();
-        //SceneLoader.Instance.ExitGame();
-    }
-
 
 
 }

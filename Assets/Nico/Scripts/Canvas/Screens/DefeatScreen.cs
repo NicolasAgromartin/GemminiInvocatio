@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class DefeatScreen : MonoBehaviour
 {
     public static event Action OnButtonPressed_Retry;
-    public static event Action OnButtonPressed_TitleScreen;
-    public static event Action OnButtonPressed_ExitGame;
+
+
+
 
     private GameObject defeatMessage;
     private GameObject buttonsContainer;
@@ -64,20 +65,6 @@ public class DefeatScreen : MonoBehaviour
         RespawnManager.Instance.RespawnPlayer();
         OnButtonPressed_Retry?.Invoke();
         HideButtons();
-    }
-    public void GoToTitleScreen()
-    {
-        //SceneLoader.Instance.GoToTitleScreen();
-        OnButtonPressed_TitleScreen?.Invoke();
-        HideButtons();
-
-    }
-    public void ExitGame()
-    {
-        //SceneLoader.Instance.ExitGame();
-        OnButtonPressed_ExitGame?.Invoke();
-        HideButtons();
-
     }
     #endregion
 

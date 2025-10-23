@@ -35,7 +35,7 @@ public class Fiend : Unit
     private void InstantiateModel()
     {
         if (GetComponentInChildren<Animator>() == null)
-            Instantiate(data.modelPrefab, transform, false);
+            Instantiate(data.modelPrefab, transform);
 
         animationEvents = GetComponentInChildren<AnimationEvents>();
         animator = GetComponentInChildren<Animator>();

@@ -80,3 +80,9 @@ public enum PageType
     FiendPage,
     SummonPage,
 }
+public enum SoundSettings
+{
+    Master_Volume,
+    Music_Volume,
+    SFX_Volume,
+}

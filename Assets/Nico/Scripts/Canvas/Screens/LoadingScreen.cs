@@ -29,7 +29,7 @@ public class LoadingScreen : MonoBehaviour
 
         while (currecntColor.a < 1f)
         {
-            currecntColor.a += Time.deltaTime * fadeSpeed;
+            currecntColor.a += Time.unscaledDeltaTime * fadeSpeed;
             blackScreen.color = currecntColor;
             yield return null;
         }
@@ -42,15 +42,21 @@ public class LoadingScreen : MonoBehaviour
     {
         loadingBar.fillAmount = amount;
     }
+    public void HideLoadBar()
+    {
+        loadingBar.enabled = false;
+        loadingBar.fillAmount = 0;
+    }
 
     public IEnumerator HideBlackScreen()
     {
+
         currecntColor = blackScreen.color;
         loadingBar.enabled = false;
 
         while (currecntColor.a > 0f)
         {
-            currecntColor.a -= Time.deltaTime * fadeSpeed;
+            currecntColor.a -= Time.unscaledDeltaTime * fadeSpeed;
             blackScreen.color = currecntColor;
             yield return null;
         }

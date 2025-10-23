@@ -24,5 +24,11 @@ public static class Dictionaries
     };
 
 
+    public static readonly Dictionary<SoundSettings, string> SoundOptions = new()
+    {
+        { SoundSettings.Master_Volume, "Master_Volume" },
+        { SoundSettings.Music_Volume, "Music_Volume" },
+        { SoundSettings.SFX_Volume, "SFX_Volume" },
+    };
 
 }

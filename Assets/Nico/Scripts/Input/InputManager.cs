@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 
@@ -71,18 +72,32 @@ public class InputManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        SuscribeToInputActions();
+        //SuscribeToInputActions();
         PauseManager.OnPauseToggled += HandlePause;
-        
+
+        SceneLoader.OnSceneLoaded += SuscribeToInputActions;
+        SceneLoader.OnSceneStartLoading += UnsuscribeToInputActions;
     }
     private void OnDisable()
     {
         UnsuscribeToInputActions();
         PauseManager.OnPauseToggled -= HandlePause;
+
+        SceneLoader.OnSceneLoaded -= SuscribeToInputActions;
+        SceneLoader.OnSceneStartLoading -= UnsuscribeToInputActions;
+
     }
     private void Update()
     {
-        OnPlayerMovement?.Invoke(moveAction.ReadValue<Vector2>().normalized);
+        if (SceneLoader.AreScenesLoading)
+        {
+            OnPlayerMovement?.Invoke(new(0,0)); 
+            return;
+        }
+        else
+        {
+            OnPlayerMovement?.Invoke(moveAction.ReadValue<Vector2>().normalized);
+        }
     }
     #endregion
 
@@ -190,6 +205,8 @@ public class InputManager : MonoBehaviour
             SuscribeToInputActions();
         }
     }
+
+
 }
 
 

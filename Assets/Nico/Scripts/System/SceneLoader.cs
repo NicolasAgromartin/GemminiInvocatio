@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
 
 
 
@@ -11,15 +13,20 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : Singleton<SceneLoader>
 {
     public static event Action OnSceneLoaded;
-    private Player player;
-    private float loadRange;
+    public static event Action OnSceneLoading;
+    public static event Action OnSceneStartLoading;
+
+    private LoadingScreen loadingScreen;
+
+    public static bool AreScenesLoading { get; private set; }
 
 
     public enum SceneNames
     {
+        Test,
+
         TitleScreen,
         GameOverScreen,
-        LoadingScreen,
 
         Core,
 
@@ -34,42 +41,28 @@ public class SceneLoader : Singleton<SceneLoader>
     }
     private readonly Dictionary<SceneNames, string> scenesByName = new()
     {
+        { SceneNames.Test, "Nico_Test" },
+
         { SceneNames.TitleScreen, "Nico_TitleScreen" },
+        { SceneNames.GameOverScreen ,"GameOverScreen" },
+
         { SceneNames.Ottagono, "Nico_Ottagono" },
         { SceneNames.Water, "Nico_Water" },
         { SceneNames.Core, "Nico_Core"  },
-    };
-    private readonly Dictionary<int, SceneNames> scenesByIndex = new()
-    {
-        // el numero de index tiene que ser el mismo del build
-        // ui
-        { 0, SceneNames.TitleScreen },
-        { 1, SceneNames.GameOverScreen },
-        { 2, SceneNames.LoadingScreen },
+        { SceneNames.MainlandExterior, "Nico_MainlandExterior"  },
 
-        // player, camera y scripts de sistema
-        { 3, SceneNames.Core },
 
-        // exteriores
-        { 4, SceneNames.Ottagono },
-        { 5, SceneNames.Water },
-        { 6, SceneNames.MainlandExterior},
-        
-        // interior del castillo
-        { 7, SceneNames.Hall },
-        { 8, SceneNames.Library },
-        { 9, SceneNames.Bedroom },
-        { 10, SceneNames.Kitchen },
-    };
-    private readonly Dictionary<SceneNames, bool> scenesLoadState = new()
-    {
-        { SceneNames.Kitchen, false},
     };
 
 
-    public SceneNames CurrentScene { get; private set; }
+
+
     private SceneNavigator sceneNavigator;
+    private readonly List<ScenePortal> portals = new();
     private readonly List<AsyncOperation> scenesToLoad = new();
+    private readonly List<SceneNames> scenesNeeded = new();
+
+
 
 
 
@@ -81,27 +74,51 @@ public class SceneLoader : Singleton<SceneLoader>
         gameObject.transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
 
+        loadingScreen = GetComponentInChildren<LoadingScreen>();
+
         SuscribeToNavigationEvents();
+
+        OnSceneLoaded += SuscribeToPortals;
         OnSceneLoaded += SuscribeToNavigationEvents;
     }
     private void OnDestroy()
     {
+        OnSceneLoaded -= SuscribeToPortals;
         OnSceneLoaded -= SuscribeToNavigationEvents;
+
         UnsuscribeToNavigationEvents();
     }
     #endregion
 
 
 
+    private void SuscribeToPortals()
+    {
+        if (portals.Count != 0) UnsuscribeToPortals();
+
+        portals.AddRange(FindObjectsByType<ScenePortal>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+
+        foreach(ScenePortal portal in portals)
+        {
+            portal.OnPortalInteracted += EnterPortal;
+        }
+    }
+    private void UnsuscribeToPortals()
+    {
+        foreach (ScenePortal portal in portals)
+        {
+            portal.OnPortalInteracted -= EnterPortal;
+        }
+    }
 
 
 
     #region Navigation Events
     private void SuscribeToNavigationEvents()
     {
-        sceneNavigator = FindAnyObjectByType<SceneNavigator>();
+        if(sceneNavigator != null) UnsuscribeToNavigationEvents();
 
-        UnsuscribeToNavigationEvents();
+        sceneNavigator = FindAnyObjectByType<SceneNavigator>(FindObjectsInactive.Include);
 
         sceneNavigator.OnButtonPressed_ExitGame += ExitGame;
         sceneNavigator.OnButtonPressed_StartGame += StartGame;
@@ -119,24 +136,18 @@ public class SceneLoader : Singleton<SceneLoader>
 
 
 
-    #region Scene Navigation Buttons
+    #region Scene Navigation
     private void StartGame()
     {
-        // se lanza unicamente en la titleScreen
-        // descarga TitleScreen
-        // carga core, ottagono, water, mainlandExterior,
-        
         CursorManager.DisableCursor();
 
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.MainlandExterior]));
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Ottagono], LoadSceneMode.Additive));
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Core], LoadSceneMode.Additive));
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[SceneNames.Water], LoadSceneMode.Additive));
+        scenesNeeded.Add(SceneNames.Core);
+        scenesNeeded.Add(SceneNames.Water);
+        scenesNeeded.Add(SceneNames.Ottagono);
+        scenesNeeded.Add(SceneNames.MainlandExterior);
 
-        foreach(AsyncOperation op in scenesToLoad) op.allowSceneActivation = false;
-
-        StartCoroutine(LoadMultipleScenes());
-        SceneManager.UnloadSceneAsync(scenesByName[SceneNames.TitleScreen]);
+        StartCoroutine(TrasitionBetweenScenes(scenesNeeded));
+        
     }
     private void ExitGame()
     {
@@ -144,33 +155,92 @@ public class SceneLoader : Singleton<SceneLoader>
     }
     private void TitleScreen()
     {
-        CursorManager.EnableCursor();
-        //SceneManager.LoadScene(titleScreenScene);
+        Debug.Log("Go to TitleScreen");
 
-        // fade a negro
-        // activar la camara de titleScreen como principal de nuevo
-        // resetear al jugador y todos los enemigos y objetos en la posicion inicial
-        // cargar la escena de titleScreen
-        // salir del fade en negro
+        CursorManager.EnableCursor();
+
+        scenesNeeded.Add(SceneNames.TitleScreen);
+
+        StartCoroutine(TrasitionBetweenScenes(scenesNeeded));
+    }
+    private void EnterPortal(ScenePortal scenePortal)
+    {
+        scenesNeeded.AddRange(scenePortal.ScenesToGo);
+
+        StartCoroutine(TrasitionBetweenScenes(scenesNeeded));
     }
     #endregion
 
 
 
+    private readonly List<SceneNames> loadedScenes = new();
 
-
-
-    private IEnumerator LoadMultipleScenes()
+    private IEnumerator TrasitionBetweenScenes(List<SceneNames> scenesNeeded)
     {
-        foreach(AsyncOperation op in scenesToLoad)
-        {
-            Debug.Log(op.progress);
-            op.allowSceneActivation = true;
-            yield return null;
-        }
-        scenesToLoad.Clear();
+        OnSceneStartLoading?.Invoke();
+        AreScenesLoading = true;
+        yield return StartCoroutine(loadingScreen.ShowBlackScreen());
 
+        OnSceneLoading?.Invoke();
+        yield return UnloadExtraScenes();
+
+
+        foreach(SceneNames scene in scenesNeeded)
+        {
+            scenesToLoad.Add(SceneManager.LoadSceneAsync(scenesByName[scene], DefineMode(scene)));
+            loadedScenes.Add(scene);
+        }
+
+        yield return StartCoroutine(ProgressLoadingBar());
+        yield return StartCoroutine(loadingScreen.HideBlackScreen());
+
+        scenesToLoad.Clear();
+        scenesNeeded.Clear();
         OnSceneLoaded?.Invoke();
+        AreScenesLoading = false;
+        Time.timeScale = 1.0f;
     }
 
+
+
+    private IEnumerator UnloadExtraScenes()
+    {
+        List<SceneNames> toUnload = new(loadedScenes);
+
+        foreach (SceneNames scene in toUnload)
+        {
+            if (scene == SceneNames.Core || scene == SceneNames.TitleScreen || scene == SceneNames.GameOverScreen)
+                continue;
+
+            yield return SceneManager.UnloadSceneAsync(scenesByName[scene]);
+            loadedScenes.Remove(scene);
+        }
+    }
+    private IEnumerator ProgressLoadingBar()
+    {
+        float loadProgress = 0f;
+
+        for(int i = 0; i< scenesToLoad.Count; i++)
+        {
+            while (!scenesToLoad[i].isDone)
+            {
+                loadProgress += scenesToLoad[i].progress;
+                loadingScreen.LoadBar(loadProgress / scenesToLoad.Count);
+                yield return null;
+            }
+        }
+
+        loadingScreen.HideLoadBar();
+    }
+    private LoadSceneMode DefineMode(SceneNames scene)
+    {
+        if(scene == SceneNames.Core || scene == SceneNames.TitleScreen || scene == SceneNames.GameOverScreen)
+        {
+            return LoadSceneMode.Single;
+        }
+        else
+        {
+            return LoadSceneMode.Additive;
+        }
+    }
 }
