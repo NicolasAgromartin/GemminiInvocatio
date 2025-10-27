@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8131724615697134244}
   - component: {fileID: 2421706600024064119}
+  - component: {fileID: 1311273258999742868}
   m_Layer: 0
   m_Name: 3DModel_LowPoly
   m_TagString: Untagged
@@ -382,6 +383,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.013583064, y: -0.15732527, z: 0.12041573}
     m_Extent: {x: 0.9049557, y: 0.890151, z: 0.24627815}
   m_DirtyAABB: 0
+--- !u!114 &1311273258999742868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161371647575426178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6963f1587c262bd4ea1bc55286055ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dissolver
+  dissolveRate: 0.0125
+  refreshRate: 0.025
 --- !u!1 &2168850591406877518
 GameObject:
   m_ObjectHideFlags: 0

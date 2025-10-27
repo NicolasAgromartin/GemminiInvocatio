@@ -27,6 +27,7 @@ public class HealthBar : MonoBehaviour
         //Debug.Log($"new health is {newHealth} from {maxHealth}");
 
         if(newHealth < 0) newHealth = 0;
+        StopAllCoroutines();
         StartCoroutine(ChangeHealthBar(newHealth, maxHealth));
     }
     private IEnumerator ChangeHealthBar(int newHealth, int maxHealth)

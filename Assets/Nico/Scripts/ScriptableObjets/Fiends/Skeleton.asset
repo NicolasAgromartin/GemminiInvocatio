@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34ecf80e52934241b21f854dd673c57, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
-  modelPrefab: {fileID: 5749857716793003049, guid: 063fd7ec086fa6d47b6af43f01bc7cca, type: 3}
+  modelPrefab: {fileID: 5749857716793003049, guid: 0ae0234151aaa8d48856ea3e4a61e24f, type: 3}
   fiendName: Basic Skeleton
   type: 0
   stats:

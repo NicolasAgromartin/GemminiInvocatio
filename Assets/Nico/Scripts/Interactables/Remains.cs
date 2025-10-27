@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 
@@ -42,5 +43,15 @@ public class Remains : MonoBehaviour, IInteractable
         {
             interactor.GetComponent<Necromancy>().SetRemains(this);
         }
+    }
+
+    public IEnumerator DestroyRemains()
+    {
+        foreach(Dissolver dissolver in GetComponentsInChildren<Dissolver>())
+        {
+            yield return StartCoroutine(dissolver.Dissolve(1));
+        }
+        
+        Destroy(gameObject);
     }
 }

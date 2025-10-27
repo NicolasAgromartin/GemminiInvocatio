@@ -38,11 +38,11 @@ public class PlayerMinion : Fiend
         controlCrown.gameObject.SetActive(true);
 
         animationEvents = GetComponentInChildren<AnimationEvents>();
+        //dissolver = GetComponentInChildren<Dissolver>();    
     }
     private void OnEnable()
     {
         animationEvents.OnResurrectAnimationEnd += EnableMovement;
-        animationEvents.OnDeathAnimationEnd += DestroyGameObject;
 
         base.OnDamageRecieved += HandleDamage;
         base.OnDeath += HandleDeath;
@@ -52,7 +52,6 @@ public class PlayerMinion : Fiend
     private void OnDisable()
     {
         animationEvents.OnResurrectAnimationEnd -= EnableMovement;
-        animationEvents.OnDeathAnimationEnd -= DestroyGameObject;
         
         base.OnDamageRecieved += HandleDamage;
         base.OnDeath -= HandleDeath;
@@ -95,13 +94,21 @@ public class PlayerMinion : Fiend
         Destroy(GetComponent<Rigidbody>());
         Debug.Log($"{minion} is dead");
         // cuando se termina la animacion se ejecuta DestroyGameObject();
+        //Destroy(gameObject);
+        StartCoroutine(Dissolve());
+    }
+    private IEnumerator Dissolve() 
+    {
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log(dissolver.Count);
+
+        foreach(Dissolver d in dissolver)
+        {
+            yield return d.Dissolve(1);
+        }
         Destroy(gameObject);
     }
-    private void DestroyGameObject()
-    {
-        //Debug.Log("Destroy GameObject");
-    }
-
 
 
     public void SetMinionData(FiendSO data)

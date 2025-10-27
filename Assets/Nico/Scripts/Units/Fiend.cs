@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,7 +20,8 @@ public class Fiend : Unit
     protected float patrolSpeed;
     protected float chaseSpeed;
 
-
+    protected GameObject model;
+    protected List<Dissolver> dissolver = new();
 
 
 
@@ -39,10 +41,12 @@ public class Fiend : Unit
     private void InstantiateModel()
     {
         if (GetComponentInChildren<Animator>() == null)
-            Instantiate(data.modelPrefab, transform);
+            model = Instantiate(data.modelPrefab, transform);
 
         animationEvents = GetComponentInChildren<AnimationEvents>();
         animator = GetComponentInChildren<Animator>();
+
+        dissolver.AddRange(GetComponentsInChildren<Dissolver>());
     }
 
 
@@ -85,5 +89,16 @@ public class Fiend : Unit
 
     public Sprite GetFiendIcon() => data.icon;
     public string GetFiendName() => data.fiendName;
+
+
+
+    private Material[] targetMaterials;
+    private void Dissolve()
+    {
+        model.GetComponent<Renderer>();
+
+    }
+
+
 }
 

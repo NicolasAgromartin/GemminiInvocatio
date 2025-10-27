@@ -145,12 +145,44 @@ public class Player : Unit
         necromancy.SetInventory(inventory);
     }
     public Inventory GetInventory() => inventory;
-    public Item UseKey()
+    public bool FindKey(int gateId)
     {
-        return inventory.GetKey();
+        if (Inventory.Items[ItemType.KeyItem].Count == 0) return false;
+
+        foreach (Item key in Inventory.Items[ItemType.KeyItem])
+        {
+            if (key.Data is KeyItem_SO keyItem)
+            {
+                if (keyItem.id == gateId) return true;
+                else continue;
+            }
+        }
+
+        return false;
     }
     #endregion
 
 
 
+
+
+    private void OnDrawGizmos()
+    {
+        // Parámetros del OverlapBox
+        Vector3 center = transform.position + transform.forward * 1.5f + Vector3.up * 1f;
+        Vector3 halfExtents = new Vector3(1f, 2.5f, 1f);
+
+        // Dibujo del gizmo
+        Gizmos.color = Color.cyan;
+
+        // Aplicamos la rotación del objeto al dibujo
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(center, transform.rotation, Vector3.one);
+        Gizmos.matrix = rotationMatrix;
+
+        // Dibuja un cubo con el mismo tamaño que el OverlapBox
+        Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2);
+
+        // (Opcional) Restaurar la matriz
+        Gizmos.matrix = Matrix4x4.identity;
+    }
 }

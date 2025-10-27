@@ -11,10 +11,11 @@ public class Item
     public Sprite Icon { get; private set; }
     public ItemType Type { get; private set; }
 
-
+    public Item_SO Data { get; private set; }
 
     public Item(Item_SO data)
     {
+        Data = data;
         ItemName = data.itemName;
         Description = data.description;
         Icon = data.icon;

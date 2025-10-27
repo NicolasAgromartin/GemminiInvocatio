@@ -11,7 +11,6 @@ public class Inventory
 
     public static Dictionary<ItemType, List<Item>> Items { get; private set; }
 
-    
 
     public Inventory()
     {

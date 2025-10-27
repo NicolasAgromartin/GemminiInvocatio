@@ -176,7 +176,7 @@ public class Necromancy : MonoBehaviour
             inventory.AddItem(new(lootableMaterials[item]));
         }
 
-        Destroy(remains.gameObject);
+        StartCoroutine(remains.DestroyRemains());
     }
     #endregion
 
