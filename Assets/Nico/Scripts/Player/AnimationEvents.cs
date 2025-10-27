@@ -64,12 +64,10 @@ public class AnimationEvents : MonoBehaviour
     #region Hurt
     public void HurtAnimationEnd()
     {
-        Debug.Log($"Animation ended for {this.gameObject}");
         OnHurtAnimationEnd?.Invoke();
     }
     public void HurtAnimationStart()
     {
-        Debug.Log(this.gameObject);
         PlayClip(hurtSounds, voiceSource);
     }
     #endregion

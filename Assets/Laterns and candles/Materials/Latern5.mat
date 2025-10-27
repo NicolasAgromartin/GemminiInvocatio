@@ -78,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 21ba25856046e6944ab974c8af30660a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -148,14 +148,10 @@ Material:
     m_Colors:
 <<<<<<<< Updated upstream:Assets/Laterns and candles/Materials/Latern5.mat
     - _BaseColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-<<<<<<< Updated upstream
 ========
     - _BaseColor: {r: 0.084905684, g: 0.082278304, b: 0.07329123, a: 1}
 >>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/Materials/New Material.mat
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-=======
-    - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
->>>>>>> Stashed changes
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

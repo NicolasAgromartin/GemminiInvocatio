@@ -51,13 +51,9 @@ Material:
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
     - _UnscaledTime: 111.38296
 =======
     - _UnscaledTime: 57.988113
->>>>>>> Stashed changes
-=======
-    - _UnscaledTime: 26.784798
 >>>>>>> Stashed changes
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}

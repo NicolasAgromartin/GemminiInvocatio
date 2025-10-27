@@ -216,6 +216,7 @@ public class PlayerMinion : Fiend
 
     private IEnumerator PerformAttack(GameObject target)    
     {
+
         while (target != null && Vector3.Distance(transform.position, target.transform.position) <= agent.stoppingDistance)
         {
             if (!target.CompareTag("Enemy")) yield break;

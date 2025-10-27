@@ -21,6 +21,10 @@ public class Lives : MonoBehaviour
     }
 
 
+    // newlives = 2 --> elimino 1
+    // newLives = 1 --> Elimino 2
+    // newLives = 0 --> Elimino 3
+
     public void ChangeLives(int newLives)
     {
         Debug.Log(newLives);
@@ -37,6 +41,12 @@ public class Lives : MonoBehaviour
                 DeactivateLiveSphere(3);
                 break;
         }
+        // tengo una lista ocn todos los gameobjects
+        // cada gameObject representa 1 vida
+
+        // busco entre los gameObjects los activos y elimino uno
+        // o defino para cada gameobject un numnero
+        // cuando pierdo una vida desactivo ese numero del diccionario
     }
 
     private void DeactivateLiveSphere(int liveCount)

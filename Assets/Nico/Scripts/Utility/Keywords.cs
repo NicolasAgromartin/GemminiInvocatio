@@ -34,10 +34,10 @@ public enum EnemyEvents
 
 public enum FiendType
 {
-    DarkCrystal,
     Skeleton,
-    Demon,
+    Creature,
     Zombie,
+    Demon,
 }
 public enum SummonName
 {

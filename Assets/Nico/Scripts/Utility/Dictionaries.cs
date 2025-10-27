@@ -23,6 +23,7 @@ public static class Dictionaries
     {
         { FiendType.Skeleton, new List<ItemType> { ItemType.Bone, ItemType.Skull } },
         { FiendType.Zombie, new List<ItemType> { ItemType.Blood, ItemType.Skin, ItemType.Heart, ItemType.Bone, ItemType.Skull } },
+        { FiendType.Creature, new List<ItemType> { ItemType.Blood, ItemType.Skull } },
         { FiendType.Demon, new List<ItemType> { ItemType.Blood, ItemType.Bone, ItemType.Skull } }
     };
 

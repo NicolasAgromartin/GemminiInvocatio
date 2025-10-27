@@ -17,8 +17,6 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Entered idle state");
-
         base.EnterState();
         elapsedTime = 0f;
         animator.SetFloat("Movement", 0);

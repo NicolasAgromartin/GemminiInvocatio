@@ -37,9 +37,9 @@ public class Dissolver : MonoBehaviour
     {
         StartCoroutine(Dissolve(0f));
     }
-    public IEnumerator Dissapear()
+    public void Dissapear()
     {
-        yield return StartCoroutine(Dissolve(1f));
+        StartCoroutine(Dissolve(1f));
     }
 
 

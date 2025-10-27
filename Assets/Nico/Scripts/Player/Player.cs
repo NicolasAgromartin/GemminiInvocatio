@@ -38,7 +38,7 @@ public class Player : Unit
     #region Life Cykle
     private void Awake()
     {
-        Stats = new(100, 10, 6f, 2f);
+        Stats = new(100, 100, 6f, 2f);
 
         GetComponentInChildren<Weapon>().SetWeaponDamage(Stats.Attack);
 
@@ -96,11 +96,11 @@ public class Player : Unit
 
     override protected void RecieveDamage(int damage)
     {
-        //Debug.Log($"{damage} recieved from player script");
+        Debug.Log($"{damage} recieved from player script");
 
         Stats.CurrentHealth -= damage;
 
-        if (Stats.CurrentHealth <= 0) Stats.CurrentHealth = 0;
+        if (Stats.CurrentHealth < 0) Stats.CurrentHealth = 0;
 
         OnDamageRecieved?.Invoke(this, Stats.CurrentHealth);
 

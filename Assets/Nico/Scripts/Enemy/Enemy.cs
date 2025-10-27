@@ -5,6 +5,7 @@ using TMPro;
 
 public class Enemy : Fiend
 {
+    private Outline outline;
     private EnemyContext context;
     private EnemyStateMachine stateMachine;
     private TargetsDetector targetsDetector;
@@ -24,6 +25,7 @@ public class Enemy : Fiend
         base.Awake();
         name = data.name;
 
+        outline = GetComponentInChildren<Outline>();
         targetsDetector = GetComponentInChildren<TargetsDetector>();
         unitAudio = GetComponentInChildren<UnitAudio>();
 
@@ -60,7 +62,10 @@ public class Enemy : Fiend
 
 
 
-
+    #region Outline
+    public void MarkEnemy() => outline.enabled = true;
+    public void DismarkEnemy() => outline.enabled = false;
+    #endregion
 
 
 
@@ -97,6 +102,7 @@ public class Enemy : Fiend
         GetComponent<CapsuleCollider>().enabled = false;
 
         Destroy(GetComponentInChildren<TargetsDetector>().gameObject);
+        Destroy(outline);
         Destroy(this);
     }
     
