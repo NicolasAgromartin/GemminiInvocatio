@@ -7,26 +7,57 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
   m_Name: DissolveMatirial
   m_Shader: {fileID: -6465566751694194690, guid: 7c6e41aedb98a1942b9fbbb7b8a036a3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+========
+  m_Name: DissolveMatirial 1
+  m_Shader: {fileID: -6465566751694194690, guid: 2e26875e5ac888343a386cceb5abd618, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+=======
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+  m_Name: DissolveMatirial 1
+  m_Shader: {fileID: -6465566751694194690, guid: 2e26875e5ac888343a386cceb5abd618, type: 3}
+========
+  m_Name: DissolveMatirial
+  m_Shader: {fileID: -6465566751694194690, guid: 7c6e41aedb98a1942b9fbbb7b8a036a3, type: 3}
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+>>>>>>> Stashed changes
   m_InvalidKeywords:
   - _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
   stringTagMap:
     RenderType: TransparentCutout
+========
+  stringTagMap: {}
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+=======
+  stringTagMap: {}
+>>>>>>> Stashed changes
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _noise_scale
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
     - _AmbientOcclusion:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -51,6 +82,40 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+========
+=======
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+>>>>>>> Stashed changes
+    - _SampleTexture2D_030ebe49537d4b1e94e927aed6262b61_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c1a4babcf6b037a45abea717462ad17a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_1004676aabfa41539daab24615d4497a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 355d1b1138fd80b4fa3fb0d0d77daeec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2c8717f944c941cabf32dd88d38a2ace_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 355d1b1138fd80b4fa3fb0d0d77daeec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture3D_7c33a5d325c14142839c671fe13bcbd7_Texture_1_Texture3D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+<<<<<<< Updated upstream
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+=======
+========
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
+>>>>>>> Stashed changes
     - _base_taxture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -69,6 +134,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
     - _AlphaClip: 1
     - _AlphaToMask: 1
     - _Blend: 0
@@ -94,6 +161,33 @@ Material:
     - _visble_amount: 0
     m_Colors:
     - _edge_color: {r: 5.038032, g: 0.36733863, b: 0, a: 0}
+========
+    - _QueueControl: 0
+    - _QueueOffset: 0
+=======
+    - _QueueControl: 0
+    - _QueueOffset: 0
+<<<<<<<< Updated upstream:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+>>>>>>> Stashed changes
+    - _edge_width: 0.01
+    - _noise_scale: 30
+    - _t_value: 1
+    - _visble_amount: 0
+    m_Colors:
+    - _edge_color: {r: 0, g: 11.96775, b: 16, a: 0}
+    - _edge_color_2: {r: 0.6496549, g: 0, b: 1, a: 0}
+<<<<<<< Updated upstream
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial 1.mat
+=======
+========
+    - _RoughLevel: 0.05
+    - _edge_width: 0.01
+    - _noise_scale: 30
+    - _visble_amount: 0
+    m_Colors:
+    - _edge_color: {r: 5.038032, g: 0.36733863, b: 0, a: 0}
+>>>>>>>> Stashed changes:Assets/Nico/Art/Shaders/Dissolve/DissolveMatirial.mat
+>>>>>>> Stashed changes
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2270146469920721639

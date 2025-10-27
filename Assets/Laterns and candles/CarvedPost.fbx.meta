@@ -1,19 +1,34 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
 guid: 1d7d476448a20da4e94fa3441f50757c
 timeCreated: 1495646392
 licenseType: Store
+========
+guid: 4770919e9ec5899458cbe54c017216ac
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
+    2100000: book.001
+    2100002: book
     2300000: //RootNode
     3300000: //RootNode
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
     4300000: CarvedLampPost
+========
+    4300000: theredbook.001
+  externalObjects: {}
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
+========
+    materialLocation: 1
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -39,13 +54,25 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
     importBlendShapes: 1
+========
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
+========
+    preserveHierarchy: 0
+    indexFormat: 0
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -55,6 +82,10 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
+========
+    normalCalculationMode: 4
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -82,8 +113,16 @@ ModelImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
+<<<<<<<< Updated upstream:Assets/Laterns and candles/CarvedPost.fbx.meta
   productId: 85527
   packageName: Modular Medival Lanterns
   packageVersion: 1.0
   assetPath: Assets/Laterns and candles/Meshes/CarvedPost.fbx
   uploadId: 185448
+========
+  productId: 131004
+  packageName: Full Medieval Room
+  packageVersion: 1.0
+  assetPath: Assets/Room/models/book.fbx
+  uploadId: 278357
+>>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/book.fbx.meta

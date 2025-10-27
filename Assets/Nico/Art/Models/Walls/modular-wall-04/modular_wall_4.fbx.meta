@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Walls/modular-wall-04/modular_wall_4.fbx.meta
 guid: e4e7686394dabba45b23c5dc3e63d53f
+========
+guid: 9758007bdcede1a40abded8ed6446529
+>>>>>>>> Stashed changes:Assets/Nico/Art/Models/Fiends/Demons/Winged/WingedDemon.fbx.meta
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +11,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Walls/modular-wall-04/modular_wall_4.fbx.meta
       name: default_material
     second: {fileID: 2100000, guid: 0aeab0546cdc8114793b25a1549eebca, type: 2}
+========
+      name: Material.001
+    second: {fileID: 2100000, guid: 4aebb431408b291448d0c983443d4313, type: 2}
+>>>>>>>> Stashed changes:Assets/Nico/Art/Models/Fiends/Demons/Winged/WingedDemon.fbx.meta
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +44,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

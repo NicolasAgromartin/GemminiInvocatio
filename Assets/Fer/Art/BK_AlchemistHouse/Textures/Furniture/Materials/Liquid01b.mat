@@ -1,6 +1,14 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< Updated upstream
 --- !u!114 &-2219567811949667118
+=======
+<<<<<<< HEAD
+--- !u!114 &-7240800549128138882
+=======
+--- !u!114 &-2219567811949667118
+>>>>>>> 0c02b67c50101f8f0491f7a8f43ee11c50a92f90
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36,7 +44,14 @@ Material:
   disabledShaderPasses:
   - MOTIONVECTORS
   - DepthOnly
+<<<<<<< Updated upstream
   - SHADOWCASTER
+=======
+<<<<<<< HEAD
+=======
+  - SHADOWCASTER
+>>>>>>> 0c02b67c50101f8f0491f7a8f43ee11c50a92f90
+>>>>>>> Stashed changes
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -66,7 +81,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ed4be1b682e0a264ca1437227f5c2cfa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -142,10 +157,23 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 0, b: 0, a: 0.384}
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    - _Color: {r: 0.8206897, g: 1, b: 0, a: 1}
+    - _DiffuseColor: {r: 0, g: 1, b: 0.751724, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+=======
+>>>>>>> Stashed changes
     - _Color: {r: 1, g: 0, b: 0, a: 0.384}
     - _DiffuseColor: {r: 0, g: 1, b: 0.751724, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0c02b67c50101f8f0491f7a8f43ee11c50a92f90
+>>>>>>> Stashed changes
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _node_7647: {r: 0.061764684, g: 0.30882353, b: 0, a: 1}
   m_BuildTextureStacks: []

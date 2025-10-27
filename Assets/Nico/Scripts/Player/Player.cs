@@ -164,6 +164,7 @@ public class Player : Unit
 
 
 
+<<<<<<< Updated upstream
 
 
     private void OnDrawGizmos()
@@ -185,4 +186,6 @@ public class Player : Unit
         // (Opcional) Restaurar la matriz
         Gizmos.matrix = Matrix4x4.identity;
     }
+=======
+>>>>>>> Stashed changes
 }

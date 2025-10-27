@@ -1,5 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Fiends/Demons/DemonLord/Textures/Mat_DemonLord2_Armor_Skin1.mat
 --- !u!114 &-3459684676360677015
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -13,6 +14,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
   version: 10
+========
+>>>>>>>> Stashed changes:Assets/Nico/Art/Models/Fiends/Corpse/Materials/lambert1.mat
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,6 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Fiends/Demons/DemonLord/Textures/Mat_DemonLord2_Armor_Skin1.mat
   m_Name: Mat_DemonLord2_Armor_Skin1
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
@@ -28,13 +32,19 @@ Material:
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OCCLUSIONMAP
+========
+  m_Name: lambert1
+  m_Shader: {fileID: -6465566751694194690, guid: 7c6e41aedb98a1942b9fbbb7b8a036a3, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+>>>>>>>> Stashed changes:Assets/Nico/Art/Models/Fiends/Corpse/Materials/lambert1.mat
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -73,6 +83,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: c9c897b23ffb89e48b7b0796f63a1934, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 3b4d253b71909fe4ba55854eb28c022d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 2800000, guid: 8e529e07149e21f4ab045a18b22d1285, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -81,8 +95,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 2800000, guid: 8dd69d00984ccce4db66b167079b97bf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _base_taxture:
+        m_Texture: {fileID: 2800000, guid: 6c08366fdf8adf04da24311eda4ee01f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -120,10 +142,16 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Fiends/Demons/DemonLord/Textures/Mat_DemonLord2_Armor_Skin1.mat
     - _Smoothness: 0.4472136
+========
+    - _RoughLevel: 0.06
+    - _Smoothness: 0.06
+>>>>>>>> Stashed changes:Assets/Nico/Art/Models/Fiends/Corpse/Materials/lambert1.mat
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -133,10 +161,27 @@ Material:
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
+    - _edge_width: 0.01
+    - _noise_scale: 30
+    - _visble_amount: 0.131
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _edge_color: {r: 15.999998, g: 2.7714357, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &7063380054037451676
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10

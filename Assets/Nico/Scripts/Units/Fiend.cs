@@ -20,8 +20,12 @@ public class Fiend : Unit
     protected float patrolSpeed;
     protected float chaseSpeed;
 
+<<<<<<< Updated upstream
     protected GameObject model;
     protected List<Dissolver> dissolver = new();
+=======
+
+>>>>>>> Stashed changes
 
 
 
