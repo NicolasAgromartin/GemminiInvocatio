@@ -16,9 +16,9 @@ public class PauseManager : Singleton<PauseManager>
     [SerializeField] private AudioMixerSnapshot unpausedSnapshot;
 
     private bool isGamePaused = false;
+    private bool canBePaused = true;
 
     private PauseScreen pauseScreen;
-
 
 
 
@@ -32,11 +32,17 @@ public class PauseManager : Singleton<PauseManager>
     {
         InputManager.OnPauseButtonPressed += ToggleGamePause;
         pauseScreen.OnButtonPressed_ResumeGame += ToggleGamePause;
+
+        PlayerStateMachine.OnStateChange += HandleStateChange;
+        Player.OnPlayerRestored += EnablePause;
     }
     private void OnDisable()
     {
         InputManager.OnPauseButtonPressed -= ToggleGamePause;
         pauseScreen.OnButtonPressed_ResumeGame -= ToggleGamePause;
+
+        PlayerStateMachine.OnStateChange -= HandleStateChange;
+        Player.OnPlayerRestored -= EnablePause;
     }
     private void OnDestroy()
     {
@@ -44,10 +50,21 @@ public class PauseManager : Singleton<PauseManager>
     }
     #endregion
 
+    private void EnablePause() => canBePaused = true;
+    private void DisablePause() => canBePaused = false;
+    private void HandleStateChange(BaseState state)
+    {
+        if (state is PlayerDeadState) DisablePause();
+    }
+
 
 
     private void ToggleGamePause()
     {
+        //if (PlayerStateMachine.CurrentState is PlayerDeadState) return;
+        // evitar que el jugador pueda pausar la partida cuando todabia no se 
+        if (!canBePaused) return;
+
         isGamePaused = !isGamePaused;
             
         OnPauseToggled?.Invoke(isGamePaused);
@@ -56,22 +73,11 @@ public class PauseManager : Singleton<PauseManager>
         {
             Time.timeScale = 0f;
             CursorManager.EnableCursor();
-            //pausedSnapshot.TransitionTo(.5f);
-            //Debug.Log("Change th fkin m");
-
-            //mixer.TransitionToSnapshots(
-            //    new[] { unpausedSnapshot, pausedSnapshot }, 
-            //    new float[] { 1f, 0f }, 
-            //    .5f);
-
         }
         else
         {
             CursorManager.DisableCursor();
             Time.timeScale = 1.0f;
-            //unpausedSnapshot.TransitionTo(.5f);
-            //Debug.Log("Change itback");
-
         }
     }
 }

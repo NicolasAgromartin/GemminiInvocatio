@@ -15,6 +15,5 @@ MonoBehaviour:
   itemName: Blood
   description: A bottle of fresh blood
   model: {fileID: 8280163429606962500, guid: 723f4c7b2b862654ea898d83901b3f5d, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 587030f7d448650469e67e91de39f5af, type: 3}
   type: 1
-  materialType: 0

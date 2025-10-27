@@ -5,22 +5,16 @@ using UnityEngine;
 public class ScreenManager : MonoBehaviour
 {
     private PauseScreen pauseScreen;
-    private BlackScreen blackScreen;
     private DefeatScreen defeatScreen;
     private TacticalScreen tacticalScreen;
     private NecromancyScreen necromancyScreen;
-
-    private Player player;
 
 
 
 
     private void Awake()
     {
-        player = FindAnyObjectByType<Player>();
-
         pauseScreen = GetComponentInChildren<PauseScreen>(includeInactive:true);
-        blackScreen = GetComponentInChildren<BlackScreen>(includeInactive:true);
         defeatScreen = GetComponentInChildren<DefeatScreen>(includeInactive: true);
         tacticalScreen = GetComponentInChildren<TacticalScreen>(includeInactive: true);
         necromancyScreen = GetComponentInChildren<NecromancyScreen>(includeInactive: true);
@@ -39,23 +33,6 @@ public class ScreenManager : MonoBehaviour
     }
 
 
-
-
-
-    private void ShowDefeatScreen()
-    {
-        defeatScreen.gameObject.SetActive(true);
-    }
-    private void HideDefeatScreen()
-    {
-        defeatScreen.gameObject.SetActive(false);
-    }
-
-
-    private void SuscribeToBlackScreen()
-    {
-
-    }
 
 
     private void TogglePauseScreen(bool isGamePaused)
@@ -83,11 +60,11 @@ public class ScreenManager : MonoBehaviour
                 tacticalScreen.gameObject.SetActive(false);
                 break;
             case PlayerDeadState:
-                //blackScreen.gameObject.SetActive(true);
                 defeatScreen.gameObject.SetActive(true);
 
                 tacticalScreen.gameObject.SetActive(false);
                 necromancyScreen.gameObject.SetActive(false);
+                pauseScreen.gameObject.SetActive(false);
                 break;
             default:
                 tacticalScreen.gameObject.SetActive(false);

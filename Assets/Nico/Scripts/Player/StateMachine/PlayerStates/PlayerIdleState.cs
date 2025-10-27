@@ -45,15 +45,24 @@ public class PlayerIdleState : BaseState
 
 
 
-
+    private float movementValue;
     private void MovePlayer(Vector2 direction)
     {
-        animator.SetFloat("Movement", new Vector3(direction.x, 0, direction.y).magnitude, .2f, Time.deltaTime);
+        movementValue = new Vector3(direction.x, 0f, direction.y).magnitude;
 
-        if (direction.x != 0 || direction.y != 0)
+        //animator.SetFloat("Movement", movementValue, .2f, Time.deltaTime);
+        //animator.SetFloat("Movement", 0f);
+        if (animator.GetFloat("Movement") > 0.1 || movementValue > 0)
         {
+            animator.SetFloat("Movement", movementValue, .2f, Time.deltaTime);
+        }
+        else if (movementValue == 0)
+        {
+            animator.SetFloat("Movement", 0);
+        }
+
+        if (movementValue > 0.05f)
             OnEventOccurred?.Invoke(TransitionEvent.Move);
-        }   
     }
 
     private void Attack() => OnEventOccurred?.Invoke(TransitionEvent.Attack);

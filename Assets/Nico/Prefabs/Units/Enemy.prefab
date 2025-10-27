@@ -152,8 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTest
   data: {fileID: 11400000, guid: b0b1fdf8520a4fb4db62b6066996709d, type: 2}
-  patrolSpeed: 0.5
-  chaseSpeed: 0
+  magikCircle: {fileID: 2038633205215223605, guid: 1243013cebc6f1d4886be255748236fd, type: 3}
   currentState: {fileID: 6449680557770154565}
   patrollingPoints:
   - {fileID: 0}

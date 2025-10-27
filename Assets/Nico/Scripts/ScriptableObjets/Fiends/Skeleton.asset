@@ -16,12 +16,11 @@ MonoBehaviour:
   fiendName: Basic Skeleton
   type: 0
   stats:
-    MaxHealth: 120
-    CurrentHealth: 0
-    Attack: 120
-    MovementSpeed: 0
+    MaxHealth: 60
+    CurrentHealth: 60
+    Attack: 20
   timeBetweenAttacks: 2
-  attackRange: 2
-  patrolSpeed: 0.5
-  chaseSpeed: 1
+  stoppingDistance: 2
+  patrolSpeed: 0.8
+  chaseSpeed: 2
   icon: {fileID: 21300000, guid: 03b6a8d14b2ad85479202af37bb95a69, type: 3}

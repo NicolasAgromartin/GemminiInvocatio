@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -12,13 +11,10 @@ public class PlayerMinion : Fiend
     private Weapon weapon;
     private GameObject player;
     private ControlCrown controlCrown;
-    //private readonly float maxRange = 20f;
     private readonly float timeReaction = 1f;
     private bool canMove = false;
 
-
-
-
+    
 
     new private void Awake()
     {
@@ -30,14 +26,13 @@ public class PlayerMinion : Fiend
         if (data != null) base.Awake();
 
         agent = GetComponent<NavMeshAgent>();
-        player = FindAnyObjectByType<Player>().gameObject;
         
         weapon = GetComponentInChildren<Weapon>();
         weapon.GetComponent<SphereCollider>().enabled = false;
         weapon.SetIsEnemy(false);
 
 
-        agent.speed = 4f;
+
 
         controlCrown = GetComponentInChildren<ControlCrown>(true);
         controlCrown.gameObject.SetActive(true);
@@ -66,11 +61,14 @@ public class PlayerMinion : Fiend
     }
     private void Start()
     {
+        player = FindAnyObjectByType<Player>().gameObject;
         SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName("Nico_Core"));
+        EnableMovement();
+        
     }
     private void Update()
     {
-        animator.SetFloat("Movement", agent.velocity.magnitude);
+        animator.SetFloat("Movement", Mathf.Clamp01(agent.velocity.magnitude / agent.speed));
     }
 
 
@@ -127,6 +125,8 @@ public class PlayerMinion : Fiend
     {
         GetComponent<CapsuleCollider>().enabled = true;
         canMove = true;
+        agent.speed = chaseSpeed;
+        GetComponentInChildren<Weapon>().SetWeaponDamage(Stats.Attack);
     }
 
 
@@ -210,7 +210,7 @@ public class PlayerMinion : Fiend
     private IEnumerator PerformAttack(GameObject target)    
     {
 
-        while (target != null && Vector3.Distance(transform.position, target.transform.position) <= data.attackRange)
+        while (target != null && Vector3.Distance(transform.position, target.transform.position) <= agent.stoppingDistance)
         {
             if (!target.CompareTag("Enemy")) yield break;
             //Debug.Log($"{gameObject.name} is attacking {target.name}");

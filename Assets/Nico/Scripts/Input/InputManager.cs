@@ -72,7 +72,7 @@ public class InputManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        //SuscribeToInputActions();
+        SuscribeToInputActions();
         PauseManager.OnPauseToggled += HandlePause;
 
         SceneLoader.OnSceneLoaded += SuscribeToInputActions;

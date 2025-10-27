@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Ashes
   description: The ashes of a burned corpse
   model: {fileID: 0}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 098c04e31cd452146be0441cc6f3ae86, type: 3}
   type: 0

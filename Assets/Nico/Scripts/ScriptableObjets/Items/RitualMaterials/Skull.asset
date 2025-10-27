@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skull
   m_EditorClassIdentifier: Assembly-CSharp::RitualMaterial_SO
   itemName: Skull
-  description: 
+  description: A skull extracted from a decapitated enemy
   model: {fileID: 78629302324348035, guid: d469d02a167732f4b89e62906d7a3ed8, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 1c728f7cc6548f24cadceb6478fa25cc, type: 3}
   type: 3

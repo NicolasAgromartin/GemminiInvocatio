@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: c72bdbfe54c43054b91569715234cbb4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - data: {instanceID: 0}
+  - magikCircle: {fileID: 2038633205215223605, guid: 1243013cebc6f1d4886be255748236fd, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

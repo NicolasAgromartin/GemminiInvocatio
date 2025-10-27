@@ -15,6 +15,12 @@ public class TacticalScreen : MonoBehaviour
 
     private GameObject minionTacticsUI;
 
+    [SerializeField] private TMP_Text minionName;
+
+    [Header("Tactic Buttons")]
+    [SerializeField] private Button moveMinionButton;
+    [SerializeField] private Button changeTargetButton;
+    [SerializeField] private Button returnButton;
 
 
 
@@ -44,20 +50,29 @@ public class TacticalScreen : MonoBehaviour
 
         currentSelectedMinion = selectedMinion;
         minionTacticsUI.SetActive(true);
-        minionTacticsUI.GetComponentInChildren<TMP_Text>().text = selectedMinion.name;
+        minionName.text = selectedMinion.GetFiendName();
 
         RemoveButtonsListener();
         SetMinionTacticsButtonsAction();
     }
     private void SetMinionTacticsButtonsAction()
     {
-        minionTacticsUI.transform.Find("ReturnButton").GetComponent<Button>().onClick.AddListener(
+        //minionTacticsUI.transform.Find("ReturnButton").GetComponent<Button>().onClick.AddListener(
+        //    () => { HideMinionTactics(); OnButtonPressed_Return?.Invoke(); });
+
+        //minionTacticsUI.transform.Find("MoveMinionButton").GetComponent<Button>().onClick.AddListener(
+        //    () => { HideMinionTactics(); OnButtonPressed_Move?.Invoke(); });
+
+        //minionTacticsUI.transform.Find("ChangeTargetButton").GetComponent<Button>().onClick.AddListener(
+        //    () => { HideMinionTactics(); OnButtonPressed_ChangeTarget?.Invoke(); });
+
+        returnButton.onClick.AddListener(
             () => { HideMinionTactics(); OnButtonPressed_Return?.Invoke(); });
 
-        minionTacticsUI.transform.Find("MoveMinionButton").GetComponent<Button>().onClick.AddListener(
+        moveMinionButton.onClick.AddListener(
             () => { HideMinionTactics(); OnButtonPressed_Move?.Invoke(); });
 
-        minionTacticsUI.transform.Find("ChangeTargetButton").GetComponent<Button>().onClick.AddListener(
+        changeTargetButton.onClick.AddListener(
             () => { HideMinionTactics(); OnButtonPressed_ChangeTarget?.Invoke(); });
     }
     public void HideMinionTactics()
@@ -72,8 +87,8 @@ public class TacticalScreen : MonoBehaviour
 
     private void RemoveButtonsListener()
     {
-        minionTacticsUI.transform.Find("ReturnButton").GetComponent<Button>().onClick.RemoveAllListeners();
-        minionTacticsUI.transform.Find("MoveMinionButton").GetComponent<Button>().onClick.RemoveAllListeners();
-        minionTacticsUI.transform.Find("ChangeTargetButton").GetComponent<Button>().onClick.RemoveAllListeners();
+        returnButton.onClick.RemoveAllListeners();
+        moveMinionButton.onClick.RemoveAllListeners();
+        changeTargetButton.onClick.RemoveAllListeners();
     }
 }

@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryPanel : MonoBehaviour
 {
+    [Header("Items")]
+    [SerializeField] private List<Item_SO> items;
     [Header("Prefab")]
     [SerializeField] private GameObject itemBox;
 
@@ -20,7 +24,6 @@ public class InventoryPanel : MonoBehaviour
 
             itemBoxes.Add(type, item);
             item.transform.Find("ItemName").GetComponent<TMP_Text>().text = type.ToString();
-            item.transform.Find("ItemCount").GetComponent<TMP_Text>().text = 0.ToString();
         }
     }
     private void OnEnable()
@@ -30,6 +33,8 @@ public class InventoryPanel : MonoBehaviour
             foreach (Item item in itemsList)
             {
                 itemBoxes[item.Type].transform.Find("ItemCount").GetComponent<TMP_Text>().text = itemsList.Count.ToString();
+                itemBoxes[item.Type].transform.Find("ItemDescription").GetComponent<TMP_Text>().text = itemsList.First().Description;
+                itemBoxes[item.Type].transform.Find("ItemIcon").GetComponent<Image>().sprite = itemsList.First().Icon;
             }
         }
     }

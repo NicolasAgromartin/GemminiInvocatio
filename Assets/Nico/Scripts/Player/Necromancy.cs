@@ -17,15 +17,13 @@ public class Necromancy : MonoBehaviour
 
 
     [Header("Prefabs")]
-    [SerializeField] private GameObject playerMinion;
-    [SerializeField] private GameObject invocationAModel;
-    [SerializeField] private GameObject invocationBModel;
-    [SerializeField] private GameObject skeletonPrefab;
+    [SerializeField] private GameObject minionPrefab;
+    [SerializeField] private GameObject demonLordPrefab;
+    [SerializeField] private GameObject wingedPrefab;
 
     [Header("Fiends SO")]
-    [SerializeField] private FiendSO skeletonData;
-    [SerializeField] private FiendSO invocationA;
-    [SerializeField] private FiendSO invocationB;
+    [SerializeField] private FiendSO demonLord_so;
+    [SerializeField] private FiendSO winged_so;
 
     [Header("Ritual Materials")]
     [SerializeField] private RitualMaterial_SO blood;
@@ -34,7 +32,6 @@ public class Necromancy : MonoBehaviour
     [SerializeField] private RitualMaterial_SO heart;
     [SerializeField] private RitualMaterial_SO skin;
     [SerializeField] private RitualMaterial_SO ashes;
-
 
     [Header("Components")]
     [SerializeField] private Inventory inventory;
@@ -65,7 +62,6 @@ public class Necromancy : MonoBehaviour
     private void OnEnable()
     {
         NecromancyScreen.OnButtonPressed_Resurrect += Resurrect;
-        NecromancyScreen.OnButtonPressed_UseSkeleton += UseSkeleton;
         NecromancyScreen.OnButtonPressed_Disect += Disect;
 
         RitualPanel.OnPanelOpened += ShowRitualOptions;
@@ -74,11 +70,15 @@ public class Necromancy : MonoBehaviour
     private void OnDisable()
     {
         NecromancyScreen.OnButtonPressed_Resurrect -= Resurrect;
-        NecromancyScreen.OnButtonPressed_UseSkeleton -= UseSkeleton;
         NecromancyScreen.OnButtonPressed_Disect -= Disect;
 
         RitualPanel.OnPanelOpened -= ShowRitualOptions;
         RitualPanel.OnButtonPressed_Summon -= Summon;
+    }
+
+    private void Start()
+    {
+        LoadInventory();
     }
 
 
@@ -97,42 +97,6 @@ public class Necromancy : MonoBehaviour
         OnNewMinionCreated?.Invoke(resurrectedMinion);
     }
     #endregion
-
-
-    #region Use Skeleton
-    private void UseSkeleton()
-    {
-        GameObject minion = remains.gameObject;
-        RemoveModel(remains.transform); // eliminarlo antes de instanciar el nuevo modelo
-
-        minion.tag = "PlayerMinion";
-        minion.name = "PlayerMinion - " + $"{remains.Data.name}";
-
-        Instantiate(skeletonPrefab, minion.transform);
-
-        PlayerMinion skeleton = minion.AddComponent<PlayerMinion>();
-        skeleton.SetMinionData(skeletonData);
-
-        OnNewMinionCreated?.Invoke(skeleton);
-
-    }
-    private void RemoveModel(Transform remains)
-    {
-        GameObject model = null;
-
-        foreach (Transform child in remains)
-        {
-            if (child.gameObject.CompareTag("FiendModel"))
-            {
-                model = child.gameObject;
-                break;
-            }
-        }
-
-        if (model != null) Destroy(model);
-    }
-    #endregion
-
 
 
     #region Summons
@@ -179,15 +143,15 @@ public class Necromancy : MonoBehaviour
         RemoveModel(remains.transform); // eliminarlo antes de instanciar el nuevo modelo
         PlayerMinion newMinion = minion.AddComponent<PlayerMinion>();
 
-        if (summon == SummonName.SummonA)
+        if (summon == SummonName.DemonLord)
         {
-            Instantiate(invocationAModel, minion.transform);
-            newMinion.SetMinionData(invocationA);
+            Instantiate(demonLordPrefab, minion.transform);
+            newMinion.SetMinionData(demonLord_so);
         }
-        if (summon == SummonName.SummonB)
+        if (summon == SummonName.Winged)
         {
-            Instantiate(invocationBModel, minion.transform);
-            newMinion.SetMinionData(invocationB);
+            Instantiate(wingedPrefab, minion.transform);
+            newMinion.SetMinionData(winged_so);
         }
 
         // elimino los recursos de la lsita del inventario
@@ -258,7 +222,21 @@ public class Necromancy : MonoBehaviour
 
     }
 
+    private void RemoveModel(Transform remains)
+    {
+        GameObject model = null;
 
+        foreach (Transform child in remains)
+        {
+            if (child.gameObject.CompareTag("FiendModel"))
+            {
+                model = child.gameObject;
+                break;
+            }
+        }
+
+        if (model != null) Destroy(model);
+    }
 
 }
 

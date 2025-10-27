@@ -7,7 +7,6 @@ public class Stats
     public int MaxHealth;
     public int CurrentHealth;
     public int Attack;
-    public float MovementSpeed;
 
 
     public Stats(int health, int attack, float maxMovementSpeed, float attackRange)
@@ -15,7 +14,6 @@ public class Stats
         MaxHealth = health;
         CurrentHealth = MaxHealth;
         Attack = attack;
-        MovementSpeed = maxMovementSpeed;
     }
 
     public Stats(Stats stats)
@@ -23,7 +21,6 @@ public class Stats
         MaxHealth = stats.MaxHealth;
         CurrentHealth = MaxHealth;
         Attack = stats.Attack;
-        MovementSpeed = stats.MovementSpeed;
     }
 }
 

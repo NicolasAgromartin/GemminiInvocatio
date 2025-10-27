@@ -12,7 +12,8 @@ public class EnemyDetector : MonoBehaviour
 
 
 
-    public GameObject SelectedTarget { get; private set; } = null;
+    public GameObject SelectedTarget;
+    //public GameObject SelectedTarget { get; private set; } = null;
     [SerializeField] private List<GameObject> enemiesNearby = new();
     private GameObject detected;
 
@@ -59,6 +60,7 @@ public class EnemyDetector : MonoBehaviour
         {
             SelectedTarget = detected;
             OnTargetChanged?.Invoke(SelectedTarget);
+            SelectedTarget.GetComponent<Enemy>().MarkEnemy();
         }
 
     }
@@ -72,6 +74,7 @@ public class EnemyDetector : MonoBehaviour
 
         // lo elimino de la lista y me desuscribo de su evento de muerte
         enemiesNearby.Remove(detected);
+        detected.GetComponent<Enemy>().DismarkEnemy();
         detected.GetComponent<Unit>().OnDeath -= RemoveFromList;
 
         // si me quede sin enemigos en la lista selected target == null si no cambio al siguiente en la lista
@@ -82,6 +85,7 @@ public class EnemyDetector : MonoBehaviour
         else if (detected == SelectedTarget)
         {
             SelectedTarget = enemiesNearby[0];
+            SelectedTarget.GetComponent<Enemy>().MarkEnemy();
         }
 
         OnTargetChanged?.Invoke(SelectedTarget);
@@ -91,8 +95,9 @@ public class EnemyDetector : MonoBehaviour
 
     private void RemoveFromList(Unit enemy)
     {
-        enemy.GetComponent<Unit>().OnDeath -= RemoveFromList;
+        enemy.OnDeath -= RemoveFromList;
         enemiesNearby.Remove(enemy.gameObject);
+
         SelectedTarget = null;
         OnTargetChanged?.Invoke(SelectedTarget);
     }

@@ -12,9 +12,11 @@ public class FiendSO : ScriptableObject
 
     [Header("Unit Stats")]
     public Stats stats;
-
     public float timeBetweenAttacks;
-    public float attackRange;
+
+
+    [Header("NavMesh Agent Values")]
+    public float stoppingDistance;
     public float patrolSpeed;
     public float chaseSpeed;
 

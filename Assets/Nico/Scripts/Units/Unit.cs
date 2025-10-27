@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     public virtual event Action<Unit> OnDeath;
-    public event Action<Unit, int> OnDamageRecieved;
+    public virtual event Action<Unit, int> OnDamageRecieved;
     public event Action<Unit, int> OnHealthIncreased;
 
 
@@ -22,6 +22,9 @@ public abstract class Unit : MonoBehaviour
 
         Weapon weapon = other.GetComponent<Weapon>();
 
+        // el enemigo creo que transiciona a su mismo estado y se rompe trabado en takeDamage
+
+
         switch (weapon.IsEnemy)
         {
             case true:
@@ -33,7 +36,7 @@ public abstract class Unit : MonoBehaviour
                 if (gameObject.CompareTag("Enemy"))
                 {
                     RecieveDamage(other.GetComponent<Weapon>().Damage);
-                    //Debug.Log($"{this.gameObject} recieved an attack");
+                    //Debug.Log($"{gameObject} recieved an attack");
                 }
                 break;
         }
@@ -46,6 +49,8 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void RecieveDamage(int damage)
     {
+        Debug.Log($"{damage} recieved from UNIT");
+
         Stats.CurrentHealth -= damage;
 
         if(Stats.CurrentHealth < 0) Stats.CurrentHealth = 0;

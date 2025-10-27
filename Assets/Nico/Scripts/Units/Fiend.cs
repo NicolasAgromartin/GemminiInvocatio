@@ -12,13 +12,14 @@ public class Fiend : Unit
 {
     [SerializeField] protected FiendSO data;
 
-    [SerializeField] protected float patrolSpeed;
-    [SerializeField] protected float chaseSpeed;
-
-
     protected Animator animator;
     protected NavMeshAgent agent;
     protected AnimationEvents animationEvents;
+
+    protected float patrolSpeed;
+    protected float chaseSpeed;
+
+
 
 
 
@@ -27,7 +28,10 @@ public class Fiend : Unit
         Stats = new(data.stats);
 
         agent = GetComponent<NavMeshAgent>();
+        agent.stoppingDistance = data.stoppingDistance;
 
+        patrolSpeed = data.patrolSpeed;
+        chaseSpeed = data.chaseSpeed;
 
         InstantiateModel();
     }
@@ -45,7 +49,7 @@ public class Fiend : Unit
 
 
 
-
+     
 
     #region Movement
     protected IEnumerator MoveToTarget(GameObject target)

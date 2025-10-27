@@ -12,7 +12,7 @@ public class MinionOwner:MonoBehaviour
     public static PlayerMinion MinionSelected { get; private set; }
     public static event Action<List<PlayerMinion>> OnMinionsUpdated;
 
-    private readonly List<PlayerMinion> minions = new();
+    [SerializeField] private List<PlayerMinion> minions = new();
     private EnemyDetector enemyDetector;
 
 
@@ -39,6 +39,7 @@ public class MinionOwner:MonoBehaviour
     }
     private void Start()
     {
+        RegisterMinions_Dev();
         UpdateMinionsList();
     }
 
@@ -51,6 +52,8 @@ public class MinionOwner:MonoBehaviour
     {
         PlayerMinion[] detectedMinions = FindObjectsByType<PlayerMinion>(FindObjectsSortMode.None);
 
+
+        
         foreach(PlayerMinion minion in detectedMinions)
         {
             minions.Add(minion);
@@ -128,4 +131,13 @@ public class MinionOwner:MonoBehaviour
         MinionSelected.MoveToPosition(posToMove);
     }
     #endregion
+
+
+
+    private void RegisterMinions_Dev()
+    {
+        PlayerMinion[] playerMinions = FindObjectsByType<PlayerMinion>(FindObjectsSortMode.None);
+
+        foreach(PlayerMinion minion in playerMinions) AddMinion(minion);
+    }
 }

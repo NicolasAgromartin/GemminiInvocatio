@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using UnityEngine;
 
 
 
@@ -21,7 +19,7 @@ public class EnemyChaseState : EnemyBaseState
     public override void EnterState()
     {
         base.EnterState();
-        agent.speed = 4f;
+        agent.speed = chaseSpeed;
         animator.SetFloat("Movement", 1f);
     }
     public override void ExitState()

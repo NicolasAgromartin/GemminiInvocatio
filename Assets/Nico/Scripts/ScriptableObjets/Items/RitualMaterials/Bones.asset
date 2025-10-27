@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Bones
   description: Bones from the dead
   model: {fileID: 3526308427017519573, guid: ef499bd078a8ec04f8773e96e60254ad, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b45939f11371c524684402713923fe54, type: 3}
   type: 4

@@ -41,9 +41,8 @@ public enum FiendType
 }
 public enum SummonName
 {
-    SummonA,
-    SummonB, 
-    SummonC,
+    DemonLord,
+    Winged,
 }
 public enum ItemType
 {

@@ -10,6 +10,8 @@ public class Player : Unit
 {
     public static event Action OnPlayerRestored;
     public static event Action OnPlayerLost;
+    override public event Action<Unit> OnDeath;
+    override public event Action<Unit, int> OnDamageRecieved;
 
     public int Lives { get; private set; } = 3;
     
@@ -36,7 +38,9 @@ public class Player : Unit
     #region Life Cykle
     private void Awake()
     {
-        Stats = new(100, 10, 6f, 2f);
+        Stats = new(100, 100, 6f, 2f);
+
+        GetComponentInChildren<Weapon>().SetWeaponDamage(Stats.Attack);
 
         necromancy = GetComponent<Necromancy>();
         minionOwner = GetComponent<MinionOwner>();
@@ -56,16 +60,12 @@ public class Player : Unit
         StateMachine.OnEnable();
 
         RespawnManager.OnPlayerRespawned += RestorePlayer;
-
-        animationEvents.OnDeathAnimationEnd += CheckLives;
     }
     private void OnDisable()
     {
         StateMachine.OnDisable();
 
         RespawnManager.OnPlayerRespawned -= RestorePlayer;
-
-        animationEvents.OnDeathAnimationEnd -= CheckLives;
     }
     private void Start()
     {
@@ -91,28 +91,42 @@ public class Player : Unit
     private void RestorePlayer()
     {
         IncreaseHealth(Stats.MaxHealth);
-        tag = "Player";
-
         StartCoroutine(SimulateRestoreTime());
     }
-    private void CheckLives()
+
+    override protected void RecieveDamage(int damage)
     {
-        Debug.Log("Player died");
+        Debug.Log($"{damage} recieved from player script");
+
+        Stats.CurrentHealth -= damage;
+
+        if (Stats.CurrentHealth < 0) Stats.CurrentHealth = 0;
+
+        OnDamageRecieved?.Invoke(this, Stats.CurrentHealth);
+
+
+
 
         if (Stats.CurrentHealth <= 0)
         {
             tag = "Untagged";
             Lives--;
-        }
 
-        if (Lives <= 0)
-        {
-            OnPlayerLost?.Invoke();
+            if (Lives <= 0)
+            {
+                OnDeath?.Invoke(this);
+                OnPlayerLost?.Invoke();
+                return;
+            }
+
+            OnDeath?.Invoke(this);
+            return;
         }
     }
     private IEnumerator SimulateRestoreTime()
     {
         yield return new WaitForSecondsRealtime(3f);
+        tag = "Player";
         OnPlayerRestored?.Invoke();
     }
     #endregion
@@ -138,17 +152,5 @@ public class Player : Unit
     #endregion
 
 
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-
-    //    //Gizmos.DrawWireSphere(transform.position + new Vector3(0f,1f,.8f), 1f);
-
-    //    //Gizmos.DrawWireCube(transform.position + transform.forward * 1.5f + Vector3.up * 1f, new Vector3(1f, 2.5f, 1f));
-    //}
-
-
-    ////Collider[] colliders = Physics.OverlapBox(, transform.rotation, LayerMask.GetMask("Interactable"));
 
 }

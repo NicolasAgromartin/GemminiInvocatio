@@ -17,7 +17,6 @@ public class PauseScreen : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
 
     [Header("Panels")]
-    [SerializeField] private GameObject blackPanel;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject optionsPanel;
 

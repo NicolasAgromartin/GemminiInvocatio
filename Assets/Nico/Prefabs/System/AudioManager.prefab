@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   mixer: {fileID: 24100000, guid: 1175c9ca92de28c479368823023802c4, type: 2}
+  unpausedSnapshot: {fileID: 4957394381464062222, guid: 1175c9ca92de28c479368823023802c4, type: 2}
+  sceneLoadingSnapshot: {fileID: 1979472074304807872, guid: 1175c9ca92de28c479368823023802c4, type: 2}

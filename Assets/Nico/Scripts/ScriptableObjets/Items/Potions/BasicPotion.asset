@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Basic Potion
   description: "A basic potion used to restore health\t"
   model: {fileID: 8411246461903978672, guid: d92abf71c129fc14a978c5aa4c55a47a, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 88167cecef0c4b440acb97cb417709c2, type: 3}
   type: 0
   healthRestored: 10

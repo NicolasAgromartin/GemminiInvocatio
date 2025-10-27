@@ -4,19 +4,19 @@ using UnityEngine.UI;
 
 public class Target : MonoBehaviour
 {
-    private TMP_Text target;
+    private TMP_Text targetName;
     private Image targetIcon;
     private HealthBar health;
 
-    private Fiend unit;
+    private Fiend target;
 
 
 
     private void Awake()
     {
-        target = transform.Find("TargetName").GetComponent<TMP_Text>();
+        targetName = transform.Find("TargetName").GetComponent<TMP_Text>();
         targetIcon = transform.Find("TargetIcon").GetComponent<Image>();
-        health = GetComponentInChildren<HealthBar>();
+        health = GetComponentInChildren<HealthBar>(true);
     }
     private void OnEnable()
     {
@@ -32,23 +32,31 @@ public class Target : MonoBehaviour
 
     private void ChangeFocusedTarget(GameObject newTarget)
     {
-        if(unit != null) unit.OnDamageRecieved -= ChangeTargetHealt;
+        if(target != null) target.OnDamageRecieved -= ChangeTargetHealt; // si habia un target seleccionado de antes me dessuscribo de el
 
 
         if (newTarget == null)
         {
-            target.text = string.Empty;
+            targetName.text = string.Empty;
+
+            health.gameObject.SetActive(false);
+            targetName.gameObject.SetActive(false);
+            targetIcon.gameObject.SetActive(false);
         }
         else
         {
-            unit = newTarget.GetComponent<Fiend>();
+            health.gameObject.SetActive(true);
+            targetName.gameObject.SetActive(true);
+            targetIcon.gameObject.SetActive(true);
 
-            target.text = unit.GetFiendName();
-            targetIcon.sprite = unit.GetFiendIcon();
+            target = newTarget.GetComponent<Fiend>();
 
-            health.SetInitialHealth(unit.Stats.CurrentHealth, unit.Stats.MaxHealth);
+            targetName.text = target.GetFiendName();
+            targetIcon.sprite = target.GetFiendIcon();
 
-            unit.OnDamageRecieved += ChangeTargetHealt;
+            health.SetInitialHealth(target.Stats.CurrentHealth, target.Stats.MaxHealth);
+
+            target.OnDamageRecieved += ChangeTargetHealt;
         }
     }
 

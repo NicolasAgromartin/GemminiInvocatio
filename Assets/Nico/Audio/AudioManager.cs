@@ -11,8 +11,13 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioMixer mixer;
 
     [Header("Audio Snapshots")]
-    [SerializeField] private AudioMixerSnapshot unpausedSnapshot;
     [SerializeField] private AudioMixerSnapshot sceneLoadingSnapshot;
+
+    [Header("Music Snapshots")]
+    [SerializeField] private AudioMixerSnapshot necromancyBGM_snapshot;
+    [SerializeField] private AudioMixerSnapshot exteriorBGM_snapshot;
+    [SerializeField] private AudioMixerSnapshot interiorBGM_snapshot;
+
 
 
     #region Life Cycle
@@ -40,16 +45,14 @@ public class AudioManager : Singleton<AudioManager>
     #endregion
 
 
-
+    // audio mixer 
 
 
     private void HandleSceneLoadStart()
     {
-        sceneLoadingSnapshot.TransitionTo(.5f);
     }
     private void HandleSceneLoading()
     {
-        unpausedSnapshot.TransitionTo(.5f);
     }
     private void HandleLoadedScene()
     {

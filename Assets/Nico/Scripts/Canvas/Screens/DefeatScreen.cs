@@ -1,21 +1,16 @@
-using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+
+
+
 
 public class DefeatScreen : MonoBehaviour
 {
-    public static event Action OnButtonPressed_Retry;
-
-
-
-
-    private GameObject defeatMessage;
-    private GameObject buttonsContainer;
-    private Image blackScreen;
-    private Color currecntColor;
-    private readonly float fadeSpeed = .8f;
+    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject defeatUI;
+    [SerializeField] private Image blackScreen;
 
 
 
@@ -23,39 +18,85 @@ public class DefeatScreen : MonoBehaviour
 
     private void Awake()
     {
-        defeatMessage = transform.Find("Defeat").gameObject;
-        buttonsContainer = transform.Find("ButtonsContainer").gameObject;
-        blackScreen = GetComponent<Image>();
+        HideUI();
     }
     private void OnEnable()
     {
-        ShowBlackScreen();
-        Player.OnPlayerRestored += HideBlackScreen;
+        StartCoroutine(EntranceSequence());
+        RespawnManager.OnPlayerRespawned += HandleRespawn;
     }
     private void OnDisable()
     {
-        Player.OnPlayerRestored -= HideBlackScreen;
+        RespawnManager.OnPlayerRespawned -= HandleRespawn;
     }
 
 
 
 
-    private void ShowButtons()
+
+
+
+
+    private IEnumerator EntranceSequence()
     {
-        if (FindAnyObjectByType<Player>().Lives > 0)
+        yield return new WaitForSeconds(2f);
+
+        blackScreen.gameObject.SetActive(true);
+        blackScreen.color = new(0f, 0f, 0f, 0f);
+
+        yield return StartCoroutine(UIEffects.FadeIn(blackScreen, .5f));
+
+        // if player
+        if(FindAnyObjectByType<Player>().Lives == 0)
         {
-            defeatMessage.SetActive(true);
-            buttonsContainer.SetActive(true);
-            CursorManager.EnableCursor();
+            ShowGameOver();
         }
+        else
+        {
+            //ShowButtons();
+            ShowDefeat();
+        }
+        CursorManager.EnableCursor();
     }
-    private void HideButtons()
+
+    private void ShowGameOver()
     {
-        defeatMessage.SetActive(false);
-        buttonsContainer.SetActive(false);
-        this.gameObject.SetActive(false);
+        gameOverUI.SetActive(true);
+    }
+    private void ShowDefeat()
+    {
+        defeatUI.SetActive(true);
+    }
+
+
+    private void HandleRespawn()
+    {
+        StartCoroutine(ExitSequence());
+    }
+    private IEnumerator ExitSequence()
+    {
+
+        HideUI();
+        yield return new WaitForSeconds(1f); // o cambiar la suscripcion del respawn manager --> a suscribirme al player restored
+
+        yield return StartCoroutine(UIEffects.FadeOut(blackScreen, 1f));
+
+        Debug.Log("esta corrutina termino?");
+        gameObject.SetActive(false);
+    }
+    private void HideUI()
+    {
+        gameOverUI.SetActive(false);
+        defeatUI.SetActive(false);
         CursorManager.DisableCursor();
     }
+
+
+
+
+
+
+
 
 
 
@@ -63,56 +104,6 @@ public class DefeatScreen : MonoBehaviour
     public void Retry()
     {
         RespawnManager.Instance.RespawnPlayer();
-        OnButtonPressed_Retry?.Invoke();
-        HideButtons();
-    }
-    #endregion
-
-
-
-
-    #region Black Screen
-    private void ShowBlackScreen()
-    {
-        StartCoroutine(FadeIn());
-    }
-    private void HideBlackScreen()
-    {
-        HideButtons();
-        StartCoroutine(FadeOut());
-    }
-
-    private IEnumerator FadeIn()
-    {
-        blackScreen.enabled = true;
-        currecntColor = blackScreen.color;
-
-        while (currecntColor.a < 1f)
-        {
-            currecntColor.a += Time.deltaTime * fadeSpeed;
-            blackScreen.color = currecntColor;
-            yield return null;
-        }
-
-        currecntColor.a = 1f;
-        blackScreen.color = currecntColor;
-
-        ShowButtons();
-    }
-    private IEnumerator FadeOut()
-    {
-        currecntColor = blackScreen.color;
-
-        while (currecntColor.a > 0f)
-        {
-            currecntColor.a -= Time.deltaTime * fadeSpeed;
-            blackScreen.color = currecntColor;
-            yield return null;
-        }
-
-        currecntColor.a = 0f;
-        blackScreen.color = currecntColor;
-        blackScreen.enabled = false;
     }
     #endregion
 }

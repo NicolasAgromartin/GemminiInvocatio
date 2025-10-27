@@ -37,6 +37,9 @@ public class PlayerHUD : MonoBehaviour
 
         PlayerStateMachine.OnStateChange += UpdateCurrentState;
     }
+
+
+
     private void OnDisable()
     {
         player.OnDamageRecieved -= ChangeHealth;

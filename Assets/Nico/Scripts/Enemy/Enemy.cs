@@ -9,6 +9,7 @@ public class Enemy : Fiend
     private EnemyContext context;
     private EnemyStateMachine stateMachine;
     private TargetsDetector targetsDetector;
+    private UnitAudio unitAudio;
 
     public TMP_Text currentState;
 
@@ -26,13 +27,15 @@ public class Enemy : Fiend
 
         outline = GetComponentInChildren<Outline>();
         targetsDetector = GetComponentInChildren<TargetsDetector>();
+        unitAudio = GetComponentInChildren<UnitAudio>();
 
-        context = new(animator, transform, animationEvents, Stats, targetsDetector, agent, patrollingPoints);
+        context = new(animator, transform, animationEvents, Stats, targetsDetector, agent, patrollingPoints, patrolSpeed, chaseSpeed);
         stateMachine = new(context);
     }
     private void Start()
     {
-        stateMachine.Start();   
+        stateMachine.Start();
+        GetComponentInChildren<Weapon>().SetWeaponDamage(Stats.Attack);
     }
     private void OnEnable()
     {
@@ -47,9 +50,6 @@ public class Enemy : Fiend
     private void Update()
     {
         stateMachine.Update();
-
-        //currentState.transform.LookAt(Camera.main.transform);
-        //currentState.transform.Rotate(0, 180f, 0); // Para que no se vea al revés
     }
     protected override void OnTriggerEnter(Collider other)
     {
@@ -74,6 +74,15 @@ public class Enemy : Fiend
     {
         currentState.text = state.ToString();
 
+        if(state is EnemyPatrolState)
+        {
+            unitAudio.PlayPatrollingSounds();
+        }
+        else
+        {
+            unitAudio.StopPatrollingSounds();
+        }
+        
         if(state is EnemyDeadState)
         {
             MakeRemains();

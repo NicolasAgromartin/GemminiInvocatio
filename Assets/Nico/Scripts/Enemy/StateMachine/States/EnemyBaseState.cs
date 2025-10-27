@@ -23,7 +23,8 @@ public abstract class EnemyBaseState
     protected List<Transform> patrollingPoints;
 
     protected GameObject detected;
-
+    protected float patrolSpeed;
+    protected float chaseSpeed;
 
 
     public EnemyBaseState(EnemyStateMachine stateMachine)
@@ -31,6 +32,9 @@ public abstract class EnemyBaseState
         this.stateMachine = stateMachine;
 
         context = stateMachine.Context;
+
+        patrolSpeed = context.PatrolSpeed;
+        chaseSpeed = context.ChaseSpeed;
 
         stats = context.Stats;
         animator = context.Animator;

@@ -7,6 +7,7 @@ public class Inventory
 {
     public event Action<ItemType> OnItemListChanged;
     public static event Action<Dictionary<ItemType, List<Item>>> OnItemsUpdated;
+    public static event Action<ItemType> OnItemAdded;
 
     public static Dictionary<ItemType, List<Item>> Items { get; private set; }
 
@@ -30,6 +31,7 @@ public class Inventory
         OnItemListChanged?.Invoke(item.Type);
 
         OnItemsUpdated?.Invoke(Items);
+        OnItemAdded?.Invoke(item.Type);
     }
     public void RemoveItem(ItemType type, Item item)
     {

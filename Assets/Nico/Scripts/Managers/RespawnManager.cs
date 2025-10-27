@@ -43,7 +43,7 @@ public class RespawnManager : Singleton<RespawnManager>
             }
         }
 
-        // recién acá lo movés
+        // muevo al player
         player.transform.position = closestRespawnPoint.transform.position;
 
         OnPlayerRespawned?.Invoke();
