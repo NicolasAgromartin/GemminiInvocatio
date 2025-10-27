@@ -119,8 +119,8 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _OcclusionStrength: 0
-    - _Parallax: 0.0327
+    - _OcclusionStrength: 1
+    - _Parallax: 0.0134
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0
