@@ -1,18 +1,14 @@
 fileFormatVersion: 2
-<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Fiends/Zombie/Zombie.fbx.meta
 guid: c62c92739df80224a9d0b8f89ea67ae0
-========
-guid: 21c6023fbcdc7fe47b0e81bb1b81c198
->>>>>>>> Stashed changes:Assets/Nico/Art/Models/Props/Window/window_01_sket.fbx.meta
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
-    materialSearch: 0
-    materialLocation: 0
+    materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

@@ -4,15 +4,7 @@ using System.Collections;
 
 public class Dissolver : MonoBehaviour
 {
-<<<<<<< Updated upstream
     private Renderer targetRenderer;
-=======
-    //the target object renderer
-    private Renderer targetRenderer;
-
-
-    //all the monkeys matirials
->>>>>>> Stashed changes
     private Material[] targetMaterials;
 
 
@@ -27,7 +19,6 @@ public class Dissolver : MonoBehaviour
         targetMaterials = targetRenderer.materials;
     }
 
-<<<<<<< Updated upstream
 
 
 
@@ -48,22 +39,6 @@ public class Dissolver : MonoBehaviour
     public IEnumerator Dissolve(float targetValue)
     {
         float current = targetMaterials[0].GetFloat("_VisibleAmount");
-=======
-    // 1 desaparece 
-    // 0 aparece
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.root.CompareTag("Player"))
-        {
-            StartCoroutine(Dissolve(1f));
-        }
-    }
-
-
-    private IEnumerator Dissolve(float targetValue)
-    {
-        float current = targetMaterials[0].GetFloat("_visble_amount");
->>>>>>> Stashed changes
 
         // Decidir dirección: 1 si va aumentando, -1 si va disminuyendo
         float direction = Mathf.Sign(targetValue - current);
@@ -75,11 +50,7 @@ public class Dissolver : MonoBehaviour
 
             for (int i = 0; i < targetMaterials.Length; i++)
             {
-<<<<<<< Updated upstream
                 targetMaterials[i].SetFloat("_VisibleAmount", current);
-=======
-                targetMaterials[i].SetFloat("_visble_amount", current);
->>>>>>> Stashed changes
             }
 
             yield return new WaitForSeconds(refreshRate);

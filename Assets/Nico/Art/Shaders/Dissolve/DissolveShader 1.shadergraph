@@ -873,23 +873,15 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-<<<<<<< Updated upstream
     "m_PerRendererData": false,
     "m_customAttributes": [],
     "m_Value": {
         "m_SerializedTexture": "",
-=======
-    "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
->>>>>>> Stashed changes
         "m_Guid": ""
     },
     "isMainTexture": false,
     "useTilingAndOffset": false,
-<<<<<<< Updated upstream
     "useTexelSize": true,
-=======
->>>>>>> Stashed changes
     "m_Modifiable": true,
     "m_DefaultType": 2
 }
@@ -949,17 +941,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-<<<<<<< Updated upstream
             "x": -537.0,
             "y": -154.0,
             "width": 148.99996948242188,
             "height": 33.99999237060547
-=======
-            "x": -312.0,
-            "y": 110.39999389648438,
-            "width": 149.60000610351563,
-            "height": 33.600006103515628
->>>>>>> Stashed changes
         }
     },
     "m_Slots": [
@@ -1285,12 +1270,9 @@
     "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
-<<<<<<< Updated upstream
     "m_DisableTint": false,
     "m_AdditionalMotionVectorMode": 0,
     "m_AlembicMotionVectors": false,
-=======
->>>>>>> Stashed changes
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
@@ -1618,11 +1600,8 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 2,
     "m_Hidden": false,
-<<<<<<< Updated upstream
     "m_PerRendererData": false,
     "m_customAttributes": [],
-=======
->>>>>>> Stashed changes
     "m_Value": {
         "r": 0.0,
         "g": 0.5602549910545349,
@@ -1927,11 +1906,8 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 2,
     "m_Hidden": false,
-<<<<<<< Updated upstream
     "m_PerRendererData": false,
     "m_customAttributes": [],
-=======
->>>>>>> Stashed changes
     "m_Value": {
         "r": 0.4866041839122772,
         "g": 0.0,
@@ -1954,17 +1930,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-<<<<<<< Updated upstream
             "x": -370.9999694824219,
             "y": -153.99998474121095,
             "width": 182.9999542236328,
             "height": 249.0
-=======
-            "x": -198.4000244140625,
-            "y": 120.80000305175781,
-            "width": 183.20001220703126,
-            "height": 247.99998474121095
->>>>>>> Stashed changes
         }
     },
     "m_Slots": [
@@ -2029,17 +1998,13 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-<<<<<<< Updated upstream
     "m_PerRendererData": false,
     "m_customAttributes": [],
-=======
->>>>>>> Stashed changes
     "m_Value": 0.0,
     "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.0,
         "y": 1.0
-<<<<<<< Updated upstream
     },
     "m_SliderType": 0,
     "m_SliderPower": 3.0,
@@ -2051,9 +2016,6 @@
     "m_EnumValues": [
         0
     ]
-=======
-    }
->>>>>>> Stashed changes
 }
 
 {
@@ -2115,11 +2077,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-<<<<<<< Updated upstream
         "m_SerializedTexture": "",
-=======
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"355d1b1138fd80b4fa3fb0d0d77daeec\",\"type\":3}}",
->>>>>>> Stashed changes
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -2373,11 +2331,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-<<<<<<< Updated upstream
         "m_SerializedTexture": "",
-=======
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
->>>>>>> Stashed changes
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -2418,17 +2372,13 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-<<<<<<< Updated upstream
     "m_PerRendererData": false,
     "m_customAttributes": [],
-=======
->>>>>>> Stashed changes
     "m_Value": 0.009999999776482582,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
         "y": 1.0
-<<<<<<< Updated upstream
     },
     "m_SliderType": 0,
     "m_SliderPower": 3.0,
@@ -2440,9 +2390,6 @@
     "m_EnumValues": [
         0
     ]
-=======
-    }
->>>>>>> Stashed changes
 }
 
 {
@@ -2457,11 +2404,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-<<<<<<< Updated upstream
         "m_SerializedTexture": "",
-=======
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"c1a4babcf6b037a45abea717462ad17a\",\"type\":3}}",
->>>>>>> Stashed changes
         "m_Guid": ""
     },
     "m_DefaultType": 0

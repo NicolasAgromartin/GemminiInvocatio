@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Candle3.fbx.meta
 guid: 21c30a3c7192a0649813ca3fe2cdb009
 timeCreated: 1497360709
-========
-guid: cff28c00b06ee6746b7a1a0ef634ad96
-timeCreated: 1542047265
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/chair 00.fbx .fbx.meta
 licenseType: Store
 ModelImporter:
   serializedVersion: 19
@@ -14,11 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Candle3.fbx.meta
     4300000: Candle2
-========
-    4300000: chare.000
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/chair 00.fbx .fbx.meta
   materials:
     importMaterials: 1
     materialName: 0
@@ -91,16 +82,8 @@ ModelImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Candle3.fbx.meta
   productId: 85527
   packageName: Modular Medival Lanterns
   packageVersion: 1.0
   assetPath: Assets/Laterns and candles/Meshes/Candle3.fbx
   uploadId: 185448
-========
-  productId: 131004
-  packageName: Full Medieval Room
-  packageVersion: 1.0
-  assetPath: Assets/Room/models/chair 00.fbx .fbx
-  uploadId: 278357
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/models/chair 00.fbx .fbx.meta

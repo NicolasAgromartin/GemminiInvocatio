@@ -20,24 +20,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Materials/Wall Lamp.mat
   m_Name: Wall Lamp
-========
-  m_Name: wood the tabel and chaer.002_Base_Color
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/textures/chiar/Materials/wood the tabel and chaer.002_Base_Color.mat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Materials/Wall Lamp.mat
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _SPECGLOSSMAP
   - _SPECULAR_SETUP
-========
-  - _OCCLUSIONMAP
-  - _PARALLAXMAP
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/textures/chiar/Materials/wood the tabel and chaer.002_Base_Color.mat
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -52,19 +43,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Materials/Wall Lamp.mat
         m_Texture: {fileID: 2800000, guid: b5cb6487340b3e140b0269f2edb8d653, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 1dc7197b9448c3d499f1fd46f3ecaa60, type: 3}
-========
-        m_Texture: {fileID: 2800000, guid: f69b0381dd2e0bc4987103d490444d22, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 0}
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/textures/chiar/Materials/wood the tabel and chaer.002_Base_Color.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -92,11 +75,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 88acd088206b6534ebd54c5b5f6e0cb8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: e23826739a3225b4f9d49f2d268bbfa2, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -138,14 +121,10 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.0689
+    - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Materials/Wall Lamp.mat
     - _Smoothness: 1
-========
-    - _Smoothness: 0.5
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/textures/chiar/Materials/wood the tabel and chaer.002_Base_Color.mat
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -162,19 +141,3 @@ Material:
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<<< Updated upstream:Assets/Laterns and candles/Materials/Wall Lamp.mat
-========
---- !u!114 &7866901634685410146
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
-  version: 10
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Room/textures/chiar/Materials/wood the tabel and chaer.002_Base_Color.mat

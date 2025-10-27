@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Fiends/Demons/DemonLord/Base_Mesh/DemonLordHammer.fbx.meta
 guid: 248a05ca8d107614a983d4d92cf0a466
 ModelImporter:
   serializedVersion: 21300
-========
-guid: 9df3a5a4b391c874f80efc29ec217ecc
-ModelImporter:
-  serializedVersion: 22200
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Persian_Carpet_URP/Models/Persian_Carpet_URP_004.FBX.meta
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -57,7 +51,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    bakeAxisConversion: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
@@ -112,16 +106,8 @@ ModelImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-<<<<<<<< Updated upstream:Assets/Nico/Art/Models/Fiends/Demons/DemonLord/Base_Mesh/DemonLordHammer.fbx.meta
   productId: 296754
   packageName: DemonLord2
   packageVersion: 1.0
   assetPath: Assets/DemonLord2/Base_Mesh/BM_Hummer.fbx
   uploadId: 693761
-========
-  productId: 261455
-  packageName: Persiang Carpets - Collection of traditional rugs URP
-  packageVersion: 1.0
-  assetPath: Assets/Persian_Carpet_URP/Models/Persian_Carpet_URP_004.FBX
-  uploadId: 639236
->>>>>>>> Stashed changes:Assets/Vicky/Assetsvicky/catillo/biblioteca/Persian_Carpet_URP/Models/Persian_Carpet_URP_004.FBX.meta
