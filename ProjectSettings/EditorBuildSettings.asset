@@ -19,7 +19,7 @@ EditorBuildSettings:
     guid: 308d52fa5bec53147b6272bb27183c3d
   - enabled: 1
     path: Assets/Nico/Scenes/Exterior/Nico_MainlandExterior.unity
-    guid: d5d9e352a9761364d887073e1d4853db
+    guid: 32eaaf8d783d6584bbfadb9c1b7fda79
   - enabled: 1
     path: Assets/Nico/Scenes/Tests/Nico_Test.unity
     guid: 1d7c9620127a94748b767d362b751d0c
