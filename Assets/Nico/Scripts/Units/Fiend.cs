@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 
 
@@ -16,6 +18,7 @@ public class Fiend : Unit
     protected Animator animator;
     protected NavMeshAgent agent;
     protected AnimationEvents animationEvents;
+    protected List<Outline> outlines = new();
 
     protected float patrolSpeed;
     protected float chaseSpeed;
@@ -30,12 +33,17 @@ public class Fiend : Unit
         Stats = new(data.stats);
 
         agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = data.stoppingDistance;
+        if (agent != null)
+        {
+            agent.stoppingDistance = data.stoppingDistance;
 
-        patrolSpeed = data.patrolSpeed;
-        chaseSpeed = data.chaseSpeed;
+            patrolSpeed = data.patrolSpeed;
+            chaseSpeed = data.chaseSpeed;
+        }
 
         InstantiateModel();
+
+        outlines.AddRange(GetComponentsInChildren<Outline>());
     }
 
     private void InstantiateModel()
@@ -53,7 +61,7 @@ public class Fiend : Unit
 
 
 
-     
+
 
     #region Movement
     protected IEnumerator MoveToTarget(GameObject target)
@@ -99,6 +107,21 @@ public class Fiend : Unit
 
     }
 
-
+    #region Outline
+    public void Mark()
+    {
+        foreach (Outline outline in outlines)
+        {
+            outline.enabled = true;
+        }
+    }
+    public void Dismark()
+    {
+        foreach (Outline outline in outlines)
+        {
+            outline.enabled = false;
+        }
+    }
+    #endregion
 }
 

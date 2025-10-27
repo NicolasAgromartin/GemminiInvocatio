@@ -60,7 +60,7 @@ public class EnemyDetector : MonoBehaviour
         {
             SelectedTarget = detected;
             OnTargetChanged?.Invoke(SelectedTarget);
-            SelectedTarget.GetComponent<Enemy>().MarkEnemy();
+            SelectedTarget.GetComponent<Fiend>().Mark();
         }
 
     }
@@ -74,7 +74,7 @@ public class EnemyDetector : MonoBehaviour
 
         // lo elimino de la lista y me desuscribo de su evento de muerte
         enemiesNearby.Remove(detected);
-        detected.GetComponent<Enemy>().DismarkEnemy();
+        detected.GetComponent<Fiend>().Dismark();
         detected.GetComponent<Unit>().OnDeath -= RemoveFromList;
 
         // si me quede sin enemigos en la lista selected target == null si no cambio al siguiente en la lista
@@ -85,7 +85,7 @@ public class EnemyDetector : MonoBehaviour
         else if (detected == SelectedTarget)
         {
             SelectedTarget = enemiesNearby[0];
-            SelectedTarget.GetComponent<Enemy>().MarkEnemy();
+            SelectedTarget.GetComponent<Fiend>().Mark();
         }
 
         OnTargetChanged?.Invoke(SelectedTarget);
@@ -126,13 +126,13 @@ public class EnemyDetector : MonoBehaviour
         foreach (GameObject enemy in enemiesNearby)
         {
             if (enemy == null) continue;
-            enemy.GetComponent<Enemy>().DismarkEnemy();
+            enemy.GetComponent<Fiend>().Dismark();
         }
 
         // Marcar el nuevo objetivo
         if (SelectedTarget != null)
         {
-            SelectedTarget.GetComponent<Enemy>().MarkEnemy();
+            SelectedTarget.GetComponent<Fiend>().Mark();
             OnTargetChanged?.Invoke(SelectedTarget);
         }
     }

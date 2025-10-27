@@ -11,6 +11,7 @@ public class EnemyHurtState : EnemyBaseState
     {
         base.EnterState();
         animator.SetTrigger("Hurt");
+
         animationEvents.OnHurtAnimationEnd += HandleEndAnimation;
     }
     public override void ExitState()
