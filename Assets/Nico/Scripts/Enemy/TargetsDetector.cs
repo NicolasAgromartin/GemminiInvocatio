@@ -63,4 +63,13 @@ public class TargetsDetector : MonoBehaviour
 
         OnTargetsUpdated?.Invoke(SelectedTarget);
     }
+
+
+
+    public void EnforceTarget(Unit target)
+    {
+        SelectedTarget = target.gameObject;
+        targetsList.Add(SelectedTarget);
+        OnTargetsUpdated?.Invoke(SelectedTarget);
+    }
 }

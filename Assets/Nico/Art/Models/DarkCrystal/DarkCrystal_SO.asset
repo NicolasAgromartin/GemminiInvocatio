@@ -16,8 +16,8 @@ MonoBehaviour:
   fiendName: Dark Crystal
   type: 0
   stats:
-    MaxHealth: 1
-    CurrentHealth: 1
+    MaxHealth: 10
+    CurrentHealth: 10
     Attack: 0
   timeBetweenAttacks: 0
   stoppingDistance: 0

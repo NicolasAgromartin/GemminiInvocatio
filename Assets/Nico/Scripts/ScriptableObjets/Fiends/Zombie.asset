@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
   modelPrefab: {fileID: 423366731604829157, guid: dc9004444c1c7b24395042205ec21ace, type: 3}
   fiendName: Zombie
-  type: 2
+  type: 3
   stats:
     MaxHealth: 120
     CurrentHealth: 120

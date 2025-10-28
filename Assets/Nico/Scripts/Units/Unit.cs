@@ -37,7 +37,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
                 if (gameObject.CompareTag("Enemy"))
                 {
                     RecieveDamage(other.GetComponent<Weapon>().Damage);
-                    Debug.Log($"{gameObject} recieved an attack, current health {Stats.CurrentHealth}");
+                    //Debug.Log($"{gameObject} recieved an attack, current health {Stats.CurrentHealth}");
                 }
                 break;
         }

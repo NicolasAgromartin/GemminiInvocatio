@@ -15,6 +15,8 @@ public class PlayerMinion : Fiend
     private bool canMove = false;
 
     
+    //diferenciar entre minion que revive y minion que se invoca
+
 
     new private void Awake()
     {
@@ -38,7 +40,8 @@ public class PlayerMinion : Fiend
         controlCrown.gameObject.SetActive(true);
 
         animationEvents = GetComponentInChildren<AnimationEvents>();
-        //dissolver = GetComponentInChildren<Dissolver>();    
+        //dissolver = GetComponentInChildren<Dissolver>();
+        animator = GetComponentInChildren<Animator>();
     }
     private void OnEnable()
     {
@@ -216,10 +219,13 @@ public class PlayerMinion : Fiend
 
     private IEnumerator PerformAttack(GameObject target)    
     {
+        Debug.Log(target != null && Vector3.Distance(transform.position, target.transform.position) <= agent.stoppingDistance);
+
         while (target != null && Vector3.Distance(transform.position, target.transform.position) <= agent.stoppingDistance)
         {
+            Debug.Log(target);
             if (!target.CompareTag("Enemy")) yield break;
-            //Debug.Log($"{gameObject.name} is attacking {target.name}");
+            Debug.Log($"{gameObject.name} is attacking {target.name}");
 
             animator.SetTrigger("Attack");
             yield return new WaitForSeconds(3f);

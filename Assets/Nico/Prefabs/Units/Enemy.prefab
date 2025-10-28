@@ -121,7 +121,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &603551425181664846
 Transform:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 6733138024202766985}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -152,11 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTest
   data: {fileID: 11400000, guid: b0b1fdf8520a4fb4db62b6066996709d, type: 2}
-  magikCircle: {fileID: 2038633205215223605, guid: 1243013cebc6f1d4886be255748236fd, type: 3}
   currentState: {fileID: 6449680557770154565}
-  patrollingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  patrollingPoints: []
 --- !u!195 &2521212821383055252
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -296,8 +293,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enemy State
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ee85846fc870e2d41a9cdffc98a9d0c8, type: 2}
+  m_sharedMaterial: {fileID: 2185610201983941795, guid: ee85846fc870e2d41a9cdffc98a9d0c8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

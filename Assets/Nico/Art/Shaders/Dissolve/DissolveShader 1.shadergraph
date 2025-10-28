@@ -1398,7 +1398,7 @@
         "m_Id": "ad9d79adf6a14439952847df03765f0b"
     },
     "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
+    "m_SurfaceType": 0,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
@@ -2178,10 +2178,10 @@
     "m_Guid": {
         "m_GuidSerialized": "f3e5524f-cbd4-4ff6-83da-76dbdf8f00cb"
     },
-    "m_Name": "visble amount",
+    "m_Name": "VisibleAmount",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "visble amount",
-    "m_DefaultReferenceName": "_visble_amount",
+    "m_RefNameGeneratedByDisplayName": "VisibleAmount",
+    "m_DefaultReferenceName": "_VisibleAmount",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -2390,7 +2390,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "b882d4b0612b4ff98bd0ebc8cf29d975",
     "m_Id": 0,
-    "m_DisplayName": "visble amount",
+    "m_DisplayName": "VisibleAmount",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

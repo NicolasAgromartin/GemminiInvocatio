@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 public class Fiend : Unit
 {
+    public void SetFiendData(FiendSO data) => this.data = data; 
     [SerializeField] protected FiendSO data;
 
     protected Animator animator;

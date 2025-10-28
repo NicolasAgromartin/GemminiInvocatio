@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NonPlayableUnit
   modelPrefab: {fileID: 5749857716793003049, guid: 0ae0234151aaa8d48856ea3e4a61e24f, type: 3}
   fiendName: Basic Skeleton
-  type: 0
+  type: 1
   stats:
     MaxHealth: 60
     CurrentHealth: 60

@@ -5555,67 +5555,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 546207602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1280908060
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1892638308}
-    m_Modifications:
-    - target: {fileID: 811293138665137921, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_Name
-      value: PlayerMinion (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 811293138665137921, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -24.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -48.240005
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
 --- !u!1 &1281583894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5965,11 +5904,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 446274, guid: abc6c50a534b4b541a052aeadef59225, type: 3}
   m_PrefabInstance: {fileID: 1328822106}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1330156047 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7026993952814250734, guid: fe95c545b6c68cf49a92715380fb0ab4, type: 3}
-  m_PrefabInstance: {fileID: 1280908060}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1347475387
 GameObject:
@@ -7826,7 +7760,6 @@ GameObject:
   - component: {fileID: 1892638308}
   - component: {fileID: 1892638307}
   - component: {fileID: 1892638304}
-  - component: {fileID: 1892638306}
   - component: {fileID: 1892638305}
   - component: {fileID: 1892638303}
   m_Layer: 3
@@ -7985,18 +7918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e092094b892bd4345aa37f31a08bdb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
---- !u!114 &1892638306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892638302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464f84262c913bd4ea6206cb7636e742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
 --- !u!143 &1892638307
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8038,7 +7959,6 @@ Transform:
   - {fileID: 1622234025}
   - {fileID: 1151638221}
   - {fileID: 714118994}
-  - {fileID: 1330156047}
   - {fileID: 51143232}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -11,7 +11,7 @@ public class InventoryPanel : MonoBehaviour
     [SerializeField] private List<Item_SO> items;
     [Header("Prefab")]
     [SerializeField] private GameObject itemBox;
-
+    [SerializeField] private GameObject contentArea;
 
     private readonly Dictionary<ItemType, GameObject> itemBoxes = new();
 
@@ -20,7 +20,7 @@ public class InventoryPanel : MonoBehaviour
     {
         foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
         {
-            GameObject item = Instantiate(itemBox, transform);
+            GameObject item = Instantiate(itemBox, contentArea.transform);
 
             itemBoxes.Add(type, item);
             item.transform.Find("ItemName").GetComponent<TMP_Text>().text = type.ToString();

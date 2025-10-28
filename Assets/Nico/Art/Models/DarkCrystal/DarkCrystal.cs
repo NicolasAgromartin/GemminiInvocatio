@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DarkCrystal : Enemy
+
+
+
+public class DarkCrystal : Fiend
 {
     public event Action<DarkCrystal> OnDestroy;
-
     
     
     private readonly float floatingSpeed = 2f;
@@ -22,12 +25,9 @@ public class DarkCrystal : Enemy
     {
         StartCoroutine(RotateAndFloat());
     }
-    new protected void RecieveDamage(int damage)
+    protected override  void RecieveDamage(int damage)
     {
-        //Stats.CurrentHealth -= damage;
-
         base.RecieveDamage(damage);
-        Debug.Log($"{gameObject} recieved {damage}, {Stats.CurrentHealth} health left");
 
         if(Stats.CurrentHealth <= 0)
         {
@@ -41,17 +41,34 @@ public class DarkCrystal : Enemy
     {
         OnDestroy?.Invoke(this);
         StartCoroutine(Vibrate());
+        GetComponent<SphereCollider>().enabled = false;
+        tag = "Untagged";
 
-        foreach (Dissolver dissolver in GetComponentsInChildren<Dissolver>())
-        {
-            yield return StartCoroutine(dissolver.Dissapear());
-        }
+        Dismark();
+        yield return StartCoroutine(DissolveShards());
+
 
         StopAllCoroutines();
         Destroy(gameObject);
     }
-    
 
+    private IEnumerator DissolveShards()
+    {
+        Dissolver[] dissolvers = GetComponentsInChildren<Dissolver>();
+        List<Coroutine> coroutines = new List<Coroutine>();
+
+        // Iniciar todas las corrutinas al mismo tiempo
+        foreach (Dissolver dissolver in dissolvers)
+        {
+            coroutines.Add(StartCoroutine(dissolver.Dissapear()));
+        }
+
+        // Esperar hasta que todas hayan terminado
+        foreach (Coroutine c in coroutines)
+        {
+            yield return c;
+        }
+    }
 
 
     private IEnumerator RotateAndFloat()
