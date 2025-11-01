@@ -15,8 +15,6 @@ public class PlayerMinion : Fiend
     private bool canMove = false;
 
     
-    //diferenciar entre minion que revive y minion que se invoca
-
 
     new private void Awake()
     {
@@ -28,20 +26,29 @@ public class PlayerMinion : Fiend
         if (data != null) base.Awake();
 
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = 5f;
         
         weapon = GetComponentInChildren<Weapon>();
         weapon.GetComponent<SphereCollider>().enabled = false;
         weapon.SetIsEnemy(false);
 
 
+        outlines.Clear();
+        outlines.AddRange(GetComponentsInChildren<Outline>());
+        if(outlines.Count > 0)
+        {
+            foreach(Outline outline in outlines)
+            {
+                outline.enabled = false;
+            }
+        }
 
 
         controlCrown = GetComponentInChildren<ControlCrown>(true);
         controlCrown.gameObject.SetActive(true);
 
-        animationEvents = GetComponentInChildren<AnimationEvents>();
-        //dissolver = GetComponentInChildren<Dissolver>();
         animator = GetComponentInChildren<Animator>();
+        animationEvents = GetComponentInChildren<AnimationEvents>();
     }
     private void OnEnable()
     {
@@ -65,8 +72,6 @@ public class PlayerMinion : Fiend
     {
         player = FindAnyObjectByType<Player>().gameObject;
         SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName("Nico_Core"));
-        EnableMovement();
-        
     }
     private void Update()
     {
@@ -223,7 +228,7 @@ public class PlayerMinion : Fiend
 
         while (target != null && Vector3.Distance(transform.position, target.transform.position) <= agent.stoppingDistance)
         {
-            Debug.Log(target);
+            //Debug.Log(target);
             if (!target.CompareTag("Enemy")) yield break;
             Debug.Log($"{gameObject.name} is attacking {target.name}");
 

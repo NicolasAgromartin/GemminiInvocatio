@@ -25,6 +25,6 @@ public class Item
 
     public void Use(Player player)
     {
-        if(Type == ItemType.Potion) player.IncreaseHealth(10);
+        if(Type == ItemType.Potion) player.IncreaseHealth(25);
     }
 }

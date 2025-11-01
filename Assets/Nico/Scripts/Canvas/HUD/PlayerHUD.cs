@@ -16,6 +16,7 @@ public class PlayerHUD : MonoBehaviour
 
     private Player player;
 
+    [SerializeField] private GameObject interactionPanel;
 
 
 
@@ -36,6 +37,10 @@ public class PlayerHUD : MonoBehaviour
         player.OnDeath += ChangeLives;
 
         PlayerStateMachine.OnStateChange += UpdateCurrentState;
+
+        InteractionDetector.OnInteractionDetected += ShowInteractionPanel;
+        InteractionDetector.OnInteractionLost += HideInteractionPanel;
+
     }
 
 
@@ -47,6 +52,9 @@ public class PlayerHUD : MonoBehaviour
         player.OnDeath -= ChangeLives;
 
         PlayerStateMachine.OnStateChange -= UpdateCurrentState;
+
+        InteractionDetector.OnInteractionDetected -= ShowInteractionPanel;
+        InteractionDetector.OnInteractionLost -= HideInteractionPanel;
     }
 
 
@@ -78,5 +86,15 @@ public class PlayerHUD : MonoBehaviour
     private void UpdateCurrentState(BaseState currentState) => this.currentState.text = currentState.ToString();
     #endregion
 
+    #region Interaction Panel
+    private void ShowInteractionPanel(GameObject interacteable)
+    {
+        interactionPanel.SetActive(true);
+    }
+    private void HideInteractionPanel(GameObject interacteable)
+    {
+        interactionPanel.SetActive(false);
+    }
+    #endregion
 }
 

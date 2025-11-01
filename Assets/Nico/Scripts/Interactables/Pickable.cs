@@ -1,14 +1,12 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
+
 
 public class Pickable : MonoBehaviour, IInteractable
 {
     [Header("Scriptable Object")]
     [SerializeField] private Item_SO data;
-
-    [Header("Item UI")]
-    [SerializeField] private GameObject itemCanvas;
-    [SerializeField] private TMP_Text itemName;
+    public Item_SO Data => data;
 
     private Item item;
 
@@ -18,34 +16,15 @@ public class Pickable : MonoBehaviour, IInteractable
     {
         Instantiate(data.model, transform);
         name = data.itemName;
-        itemName.text = name;
 
         item = new(data);
     }
-    private void LateUpdate()
+    private void Start()
     {
-        //itemCanvas.transform.LookAt(transform.position + mainCamera.transform.forward);
+        StartCoroutine(RotateAndFloat());
     }
 
 
-
-
-    //#region Collider
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        itemCanvas.SetActive(true);
-    //    }
-    //}
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        itemCanvas.SetActive(false);
-    //    }
-    //}
-    //#endregion
 
 
 
@@ -57,4 +36,30 @@ public class Pickable : MonoBehaviour, IInteractable
         Destroy(this.gameObject);
     }
     #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+    private IEnumerator RotateAndFloat()
+    {
+        Vector3 startPos = transform.position;
+
+        while (enabled)
+        {
+            float newY = startPos.y + Mathf.Sin(Time.time * 2f) * 0.3f;
+            transform.position = new Vector3(startPos.x, newY, startPos.z);
+
+            transform.Rotate(Vector3.up, 100f * Time.deltaTime, Space.World);
+
+            yield return null;
+        }
+    }
 }

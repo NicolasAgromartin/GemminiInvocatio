@@ -78,7 +78,7 @@ public class Necromancy : MonoBehaviour
 
     private void Start()
     {
-        LoadInventory();
+        //LoadInventory();
     }
 
 

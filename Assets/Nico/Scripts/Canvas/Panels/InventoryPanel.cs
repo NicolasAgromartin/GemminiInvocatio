@@ -20,6 +20,8 @@ public class InventoryPanel : MonoBehaviour
     {
         foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
         {
+            if (type != ItemType.Potion && type != ItemType.KeyItem) continue;
+
             GameObject item = Instantiate(itemBox, contentArea.transform);
 
             itemBoxes.Add(type, item);
@@ -32,6 +34,9 @@ public class InventoryPanel : MonoBehaviour
         {
             foreach (Item item in itemsList)
             {
+
+                if (item.Data.type != ItemType.Potion && item.Data.type != ItemType.KeyItem) continue;
+
                 itemBoxes[item.Type].transform.Find("ItemCount").GetComponent<TMP_Text>().text = itemsList.Count.ToString();
                 itemBoxes[item.Type].transform.Find("ItemDescription").GetComponent<TMP_Text>().text = itemsList.First().Description;
                 itemBoxes[item.Type].transform.Find("ItemIcon").GetComponent<Image>().sprite = itemsList.First().Icon;

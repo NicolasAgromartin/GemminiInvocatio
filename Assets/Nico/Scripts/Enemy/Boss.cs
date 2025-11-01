@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject spawnerPrefab;
     
     private int lives = 3;
+    private UnitAudio audio;
 
 
     private List<DarkCrystal> crystals = new();
@@ -24,6 +25,7 @@ public class Boss : MonoBehaviour
 
     private void Awake()
     {
+        audio = GetComponent<UnitAudio>();
         crystals.AddRange(FindObjectsByType<DarkCrystal>(FindObjectsSortMode.None));
 
         foreach(Transform position in spawnerPositions)
@@ -38,9 +40,18 @@ public class Boss : MonoBehaviour
             crystal.OnDestroy += RecieveDamage;
         }
     }
+    private void OnDisable()
+    {
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach(Enemy enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+    }
     private void Start()
     {
         InstantiateSpawners();
+        //GetComponent<UnitAudio>().PlayPatrollingSounds();
     }
 
 
@@ -57,8 +68,8 @@ public class Boss : MonoBehaviour
         if(lives > 0)
         {
             // spawn new spawner
+            audio.PlayDeathSound();
             InstantiateSpawners();
-
         }
         else
         {
@@ -73,6 +84,21 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator RunDestructionSequence()
     {
-        yield return null;
+        Dissolver[] dissolvers = GetComponentsInChildren<Dissolver>();
+        List<Coroutine> coroutines = new();
+
+        // Iniciar todas las corrutinas al mismo tiempo
+        foreach (Dissolver dissolver in dissolvers)
+        {
+            coroutines.Add(StartCoroutine(dissolver.Dissapear()));
+        }
+
+        // Esperar hasta que todas hayan terminado
+        foreach (Coroutine c in coroutines)
+        {
+            yield return c;
+        }
+
+        Destroy(gameObject);
     }
 }

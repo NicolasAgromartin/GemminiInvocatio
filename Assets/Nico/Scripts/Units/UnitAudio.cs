@@ -8,9 +8,10 @@ public class UnitAudio : MonoBehaviour
 
     [Header("Audio Clips")]
     [SerializeField] private List<AudioClip> voiceClips;
+    [SerializeField] private List<AudioClip> deadClips;
 
-    private readonly float minDelay = 1f;
-    private readonly float maxDelay = 5f;
+    private readonly float minDelay = 10f;
+    private readonly float maxDelay = 20f;
 
 
 
@@ -24,6 +25,19 @@ public class UnitAudio : MonoBehaviour
     {
         StopAllCoroutines();
     }
+    public void PlayDeathSound()
+    {
+        StopAllCoroutines();
+        PlayClip(deadClips, voiceSource);
+    }
+
+
+
+
+
+
+
+
 
     private IEnumerator VoiceRoutine()
     {

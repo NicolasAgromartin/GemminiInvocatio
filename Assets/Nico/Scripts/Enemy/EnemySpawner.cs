@@ -15,8 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private FiendSO zombieData;
     [SerializeField] private FiendSO skeletonData;
 
-    private float timeInterval = 30f;
-    private bool enabled = true;
+    [SerializeField] private float timeInterval;
 
 
 
@@ -36,11 +35,11 @@ public class EnemySpawner : MonoBehaviour
 
             Fiend fiend = enemyObj.GetComponent<Fiend>();
             fiend.SetFiendData(selectedData);
-            enemyObj.SetActive(true);
-
-            enemyObj.GetComponentInChildren<TargetsDetector>().EnforceTarget(GetTarget());
 
             yield return new WaitForSeconds(timeInterval);
+
+            enemyObj.SetActive(true);
+            enemyObj.GetComponentInChildren<TargetsDetector>().EnforceTarget(GetTarget());
         }
     }
 

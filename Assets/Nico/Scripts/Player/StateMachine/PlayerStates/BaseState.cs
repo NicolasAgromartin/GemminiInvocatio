@@ -73,9 +73,18 @@ public abstract class BaseState
     {
         detected = null;
 
-        Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward * 1.5f + Vector3.up * 1f, 
-            new Vector3(1f, 2.5f, 1f), transform.rotation, LayerMask.GetMask("Interactable"));
+        //Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward * 1.5f + Vector3.up * 1f, 
+        //    new Vector3(1f, 2.5f, 1f), transform.rotation, LayerMask.GetMask("Interactable"));
 
+        Vector3 center = transform.TransformPoint(new Vector3(0.0175f, 0.9129f, 0.1656f));
+        Vector3 halfExtents = new Vector3(1.0662f, 1.8248f, 0.4272f) * 0.5f;
+
+        Collider[] colliders = Physics.OverlapBox(
+            center,
+            halfExtents,
+            transform.rotation,
+            LayerMask.GetMask("Interactable")
+        );
 
         foreach (Collider collider in colliders)
         {

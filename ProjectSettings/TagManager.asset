@@ -17,6 +17,7 @@ TagManager:
   - Gate
   - DamageDealer
   - ScenePortal
+  - Item
   layers:
   - Default
   - TransparentFX

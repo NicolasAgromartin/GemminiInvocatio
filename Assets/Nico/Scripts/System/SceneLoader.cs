@@ -35,23 +35,26 @@ public class SceneLoader : Singleton<SceneLoader>
         MainlandExterior,
 
         Hall,
-        Library,
-        Bedroom,
-        Kitchen,
+        Hallway,
+
+        FinalDungeon,
     }
     private readonly Dictionary<SceneNames, string> scenesByName = new()
     {
         { SceneNames.Test, "Nico_Test" },
 
         { SceneNames.TitleScreen, "Nico_TitleScreen" },
-        { SceneNames.GameOverScreen ,"GameOverScreen" },
+        { SceneNames.GameOverScreen ,"Nico_GameOverScreen" },
 
         { SceneNames.Ottagono, "Nico_Ottagono" },
         { SceneNames.Water, "Nico_Water" },
         { SceneNames.Core, "Nico_Core"  },
         { SceneNames.MainlandExterior, "Nico_MainlandExterior"  },
 
+        { SceneNames.Hall, "Nico_Hall" },
+        { SceneNames.Hallway, "Nico_Hallway" },
 
+        { SceneNames.FinalDungeon, "Nico_FinalDungeon"},
     };
 
 
@@ -181,6 +184,8 @@ public class SceneLoader : Singleton<SceneLoader>
         AreScenesLoading = true;
         yield return StartCoroutine(loadingScreen.ShowBlackScreen());
 
+
+
         OnSceneLoading?.Invoke();
         yield return UnloadExtraScenes();
 
@@ -234,6 +239,10 @@ public class SceneLoader : Singleton<SceneLoader>
     }
     private LoadSceneMode DefineMode(SceneNames scene)
     {
+        if(scene == SceneNames.TitleScreen || scene == SceneNames.GameOverScreen)
+        {
+            CursorManager.EnableCursor();
+        }
         if(scene == SceneNames.Core || scene == SceneNames.TitleScreen || scene == SceneNames.GameOverScreen)
         {
             return LoadSceneMode.Single;

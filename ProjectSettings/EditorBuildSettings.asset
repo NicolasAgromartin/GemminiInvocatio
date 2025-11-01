@@ -20,9 +20,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Nico/Scenes/Exterior/Nico_MainlandExterior.unity
     guid: 32eaaf8d783d6584bbfadb9c1b7fda79
-  - enabled: 1
+  - enabled: 0
     path: Assets/Nico/Scenes/Tests/Nico_Test.unity
     guid: 1d7c9620127a94748b767d362b751d0c
+  - enabled: 1
+    path: Assets/Nico/Scenes/Tests/Nico_FInalDungeon.unity
+    guid: 2c8defc6c55069f4ea549b6ca35272a4
+  - enabled: 1
+    path: Assets/Nico/Scenes/Interior/Nico_Hall.unity
+    guid: d111b6e91f03caf479b034229ddb4158
+  - enabled: 1
+    path: Assets/Nico/Scenes/Interior/Nico_Hallway.unity
+    guid: f034183bf1e15e44094434e1c8856861
+  - enabled: 1
+    path: Assets/Nico/Scenes/Canvas/Nico_GameOverScreen.unity
+    guid: 0de9221d1d90fd541be769a6ec770119
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

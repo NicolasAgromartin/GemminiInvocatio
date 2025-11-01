@@ -7,6 +7,7 @@ public class Target : MonoBehaviour
     private TMP_Text targetName;
     private Image targetIcon;
     private HealthBar health;
+    private Image box;
 
     private Fiend target;
 
@@ -16,6 +17,7 @@ public class Target : MonoBehaviour
     {
         targetName = transform.Find("TargetName").GetComponent<TMP_Text>();
         targetIcon = transform.Find("TargetIcon").GetComponent<Image>();
+        box = GetComponent<Image>();
         health = GetComponentInChildren<HealthBar>(true);
     }
     private void OnEnable()
@@ -42,12 +44,14 @@ public class Target : MonoBehaviour
             health.gameObject.SetActive(false);
             targetName.gameObject.SetActive(false);
             targetIcon.gameObject.SetActive(false);
+            box.enabled = false;
         }
         else
         {
             health.gameObject.SetActive(true);
             targetName.gameObject.SetActive(true);
             targetIcon.gameObject.SetActive(true);
+            box.enabled = true;
 
             target = newTarget.GetComponent<Fiend>();
 
