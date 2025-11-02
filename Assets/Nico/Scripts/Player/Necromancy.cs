@@ -33,6 +33,10 @@ public class Necromancy : MonoBehaviour
     [SerializeField] private RitualMaterial_SO skin;
     [SerializeField] private RitualMaterial_SO ashes;
 
+    [SerializeField] private Potion_SO potion;
+    [SerializeField] private KeyItem_SO key;
+
+
     [Header("Components")]
     [SerializeField] private Inventory inventory;
 
@@ -195,30 +199,33 @@ public class Necromancy : MonoBehaviour
 
     private void LoadInventory()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            inventory.AddItem(new(heart));
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            inventory.AddItem(new(blood));
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            inventory.AddItem(new(bone));
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            inventory.AddItem(new(skull));
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            inventory.AddItem(new(skin));
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            inventory.AddItem(new(ashes));
-        }
+        inventory.AddItem(new(potion));
+        inventory.AddItem(new(key));
+
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    inventory.AddItem(new(heart));
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    inventory.AddItem(new(blood));
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    inventory.AddItem(new(bone));
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    inventory.AddItem(new(skull));
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    inventory.AddItem(new(skin));
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    inventory.AddItem(new(ashes));
+        //}
 
     }
 

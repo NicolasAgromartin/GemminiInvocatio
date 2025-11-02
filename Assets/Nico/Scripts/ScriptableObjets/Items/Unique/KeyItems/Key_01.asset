@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Ancient Key
   description: A key that a opens a door
   model: {fileID: 4028159876185892718, guid: a37692be0ebb37b40a0b83ce99a2659e, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0ed15f506e6aee74bac3c8c14ab737e9, type: 3}
   type: 8
   Id: key_01
   id: 1

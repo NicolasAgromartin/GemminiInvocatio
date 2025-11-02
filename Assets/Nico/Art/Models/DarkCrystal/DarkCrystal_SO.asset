@@ -23,4 +23,4 @@ MonoBehaviour:
   stoppingDistance: 0
   patrolSpeed: 0
   chaseSpeed: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 1a1178b354d075a4bb0e71632152d19a, type: 3}

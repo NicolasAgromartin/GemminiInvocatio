@@ -62,6 +62,8 @@ public class AudioManager : Singleton<AudioManager>
     {
         volumeSettings = FindAnyObjectByType<VolumeSettings>(FindObjectsInactive.Include);
 
+        if (volumeSettings == null) return;
+
         float master = PlayerPrefs.GetFloat(Dictionaries.SoundOptions[SoundSettings.Master_Volume], 1f);
         float volume = PlayerPrefs.GetFloat(Dictionaries.SoundOptions[SoundSettings.Music_Volume], .5f);
         float sfx = PlayerPrefs.GetFloat(Dictionaries.SoundOptions[SoundSettings.SFX_Volume], .8f);
